@@ -1,0 +1,1 @@
+{"name":"Local: F","url":"/home/hkshenoy/Desktop/CP/Contests/Codeforces/Div4_928/F.cpp","tests":[{"id":1709209651950,"input":"3\n3\n1 1\nCSP\n4\n1 2 2\nPCSS\n4\n1 2 2\nPPSS\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hkshenoy/Desktop/CP/Contests/Codeforces/Div4_928/F.cpp","group":"local","local":true}

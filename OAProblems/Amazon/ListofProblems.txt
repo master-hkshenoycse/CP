@@ -1,0 +1,31 @@
+ome of those questions especially which are marked hard are the OA tagged questions. A friend of mine recently had Amazon onsite, they were asked the following
+
+Unix File Search API for object oriented design.
+
+A question similar to knight dialer on LC.
+
+Another one was not on LC and something related to choosing a lottery winner.
+
+https://leetcode.com/problems/sum-of-total-strength-of-wizards/
+
+
+
+ound 1:
+2 LP (around inventing or simplifying something, time when things werent clear)
+Leetcode Hard - Word Ladder (Shortest Path) + followups
+Solve optimally. didn't solve followup
+
+Round 2:
+2 LP (around customer obssession)
+Leetcode Hard - Number of faucet needed to water a garden + followups
+struggled at first but managed to solved optimally without any help
+
+Round 3:
+(2 LP learned something new and biggest project worked on)
+Design a shopping cart (LLD)
+don't know how I did here
+
+Round 4:
+2 LP (critical feedback and conflict with peer)
+Design a web crawler (HLD)
+missed few deep dives

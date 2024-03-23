@@ -1,0 +1,38 @@
+Q)https://leetcode.com/problems/find-polygon-with-the-largest-perimeter/description
+check for condition of polygon as given in question
+long long largestPerimeter(vector<int>& nums) {
+    ll n=nums.size();
+    ll cs=0;
+    sort(nums.begin(),nums.end());
+    
+    ll ans=-1;
+    for(ll i=0;i<n;i++){
+        
+        if(i>=2 and cs>nums[i]){
+            ans=max(ans,cs+nums[i]);
+        }
+        
+        cs=cs+nums[i];
+    }
+    
+    return ans;
+}
+
+Q)https://www.geeksforgeeks.org/problems/castle-run3644/1
+check for euler circuit
+int isPossible(vector<vector<int>>paths){
+    // Code here
+    int n=paths.size();
+    for(int i=0;i<n;i++){
+        int deg=0;
+        for(int j=0;j<paths[i].size();j++){
+            deg+=paths[i][j];
+        }
+        if(deg%2){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+https://askubuntu.com/questions/849470/how-do-i-activate-a-conda-environment-in-my-bashrc

@@ -1,0 +1,1 @@
+https://leetcode.com/contest/weekly-contest-389/problems/minimum-moves-to-pick-k-ones/

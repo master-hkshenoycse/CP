@@ -1,0 +1,35 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 1px;
+}
+
+
+
+.cell {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.row {
+    display: flex;
+}
+
+
+.cell.hunter {
+    background-color: red;
+}
+
+.cell.obstacle {
+    background-color: gray;
+}
+
+.cell.treasure {
+    background-color: gold;
+}

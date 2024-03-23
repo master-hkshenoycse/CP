@@ -1,0 +1,50 @@
+Round 1: Data Structures & Algorithms
+Format: HackerRank test in the presence of the interviewer.
+Questions: Medium to hard level DSA questions.
+Experience: The interviewer was helpful, providing directions and hints. I recall one of the questions from LeetCode: "Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area." I was able to solve both questions.
+
+Round 2: System Design Round 1 (1 Hour)
+Task: Convert a monolithic architecture into a microservices architecture.
+Method: Complete design creation on HackerRank with explanations to the interviewer.
+Additional Questions: Basic Java questions focusing on streams and functional interfaces, alongside system design queries.
+
+Round 3: Technical Project Discussion (30 Minutes)
+Task: Analyze and find mistakes in a Java code provided on HackerRank, suggest improvements, and answer simple Spring Boot questions.
+Approach: Identifying errors and proposing solutions.
+
+Round 4: Hiring Manager Round.
+Focus: Discussion about previous work experience and presence of mind.
+Questions: "Why JPMC?", leadership skill-related scenarios, and resolving conflicts with a manager.
+
+
+
+Round 1: Taken by a developer from JP Morgan [DSA round]
+
+ LC Easy -->https://leetcode.com/problems/minimum-absolute-difference/description/
+Round 2: Taken by Senior Developer from JP Morgan [Design round]
+
+Question was like there was a exsiting system so we have to improve the exsiting monolith architecture so that it can handle
+50x traffic and second was we have a prediction model and a prediction service we have to integrate these two feature in our
+exsiting system.
+PS: So the question actually was very generic , you just need to explain the different approaches here
+
+https://leetcode.com/discuss/interview-experience/3635063/JP-Morgan-or-SWE-or-Mumbai-or-19th-May-2023-Passed
+
+
+
+Position: Software Engineer - Java position
+Time: 120 Mins
+PART 1 (30 MINS):
+Technical question: similar to LC 1353, Maximum Number of Events That Can Be Attended (https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/), but worded differently. I took a modified approach that did not have a heap, kinda of like this one LC 435. Non-overlapping Intervals (https://leetcode.com/problems/non-overlapping-intervals/), and got 11/13 tests cases passing
+
+Neutral exp with interviewer, it seems that they choose the question from a list in HackerRank, so he was not so familar with it
+
+PART 2 (30 MINS):
+Design question
+design a simple marketplace, like this but more basic https://medium.com/double-pointer/system-design-interview-amazon-flipkart-ebay-or-similar-e-commerce-applications-35a0bc764421
+
+Part 3: (60 mins)
+behavioural, pretty easy, basic who are you, why do you want to work here, tell me a time you contributed business value, tell me a time you learn something, etc
+
+
+https://leetcode.com/discuss/interview-question/2085032/jpmorgan-chase-software-engineering-interview-day-maximum-number-of-events-that-can-be-attended
