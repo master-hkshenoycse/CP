@@ -28,93 +28,68 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll rem;
+void dfs(ll v,vector<ll> &vis,vector<ll> &used,vector<ll> &sol,vector<vector<pair<ll,ll > > > &adj,ll k){
 
-void solve(ll tc){ 
+    vis[v]=1;
 
-    ll n,k;
-    cin>>n>>k;
-
-    vector<ll> c(n+1),v(n+1);
-
-    for(ll i=1;i<=n;i++){
-        cin>>c[i]>>v[i];
-    }
-
-
-
-    vector< vector< pair<ll,ll> > > dp(k+1); 
-    vector< vector<pair<ll,ll> >  >tmp(k+1);
-
-    dp[0].push_back({0,0});
-    dp[0].push_back({-1e18,-1});
-
-
-
-    for(ll i=1;i<=n;i++){
-
-        //ith ball and j balls have been removed;
-        
-
-        for(ll j=0;j<=k;j++){
-
-            tmp[j].clear();
-           //ith ball is not removed,then the last color will be c(i)
-           
-            for(auto p:dp[j]){
-               if(p.second != c[i] and p.first>=0){
-                tmp[j].push_back({p.first+v[i],c[i]});
-               }
-            }
-
-
-            //ith ball is removed
-            if(j>0){
-                for(auto p:dp[j-1]){
-                    if(p.first>=0){
-                        tmp[j].push_back(p);
-                    }
-                }
-            }
-
-            tmp[j].push_back({-1e18,-1});
-
-            sort(all(tmp[j]));
-
-            reverse(all(tmp[j]));
-
-            vector<pair<ll,ll> > tmp_p;
-            tmp_p.pb(tmp[j][0]);
-
-            for(ll o=1;o<tmp[j].size();o++){
-                if(tmp[j][o].second != tmp[j][0].second){
-                    tmp_p.pb(tmp[j][o]);
-                    break;
-                }
-            }
-
-            tmp[j]=tmp_p;
+    for(auto to:adj[v]){
+        ll ed_no=to.ss;
+        ll nx=to.ff;
+        if(vis[nx]){
+            continue;
         }
 
-        /*for(ll j=0;j<=k;j++){
-            for(auto p:dp[i][j]){
-                //cout<<i<<" "<<j<<" "<<p.first<<" "<<p.second<<endl;
-            }
-        }*/
-        //cout<<endl;
-        dp=tmp;
+        dfs(nx,vis,used,sol,adj,k);
+
+        if(used[nx]==0 and rem<k){
+            rem-=(used[nx] + used[v]);
+            used[nx]=1-used[nx];
+            used[v]=1-used[v];
+            rem+=(used[nx]+used[v]);
+            sol.pb(ed_no);
+        }
     }
 
-    ll ans=dp[k][0].first;
+}
+void solve(ll tc){ 
+
+    ll n,m,k;
+    cin>>n>>m>>k;
+
+    vector<vector<pair<ll,ll > > > adj(n+1);
+    vector<ll> vis(n+1,0),used(n+1,0),sol;
     
-    if(dp[k].size()>1){
-        ans=max(ans,dp[k][1].first);
+    ll x,y;
+    for(ll i=1;i<=m;i++){
+        cin>>x>>y;
+        adj[x].pb({y,i});
+        adj[y].pb({x,i});
     }
 
-    if(ans<0){
-        ans=-1;
+    // using one edge does not change parity of the number of lights bulbs
+    // if k is even it is always possible as there will be one istance where total on bulbs will be equal to 0
+    rem=0;
+    for(ll i=1;i<=n;i++){
+        if(vis[i]==0){
+            dfs(i,vis,used,sol,adj,k);
+        }
     }
 
-    cout<<ans<<endl;
+    if(rem!=k){
+        cout<<"No"<<endl;
+        return;
+    }
+
+    cout<<"Yes"<<endl;
+    cout<<sol.size()<<endl;
+    for(auto e:sol){
+        cout<<e<<" ";
+    }
+
+
+
+ 
 
 
 

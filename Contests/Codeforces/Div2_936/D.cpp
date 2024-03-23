@@ -39,19 +39,26 @@ void solve(ll tc){
     }
 
 
+
     for(ll i=30;i>=0;i--){
+
+        ll cnt=0;
+        for(ll j=0;j<n;j++){
+            if(a[j] & (1ll<<i)){
+                cnt++;
+            }
+        }
+
+        
+
         if(x & (1ll<<i)){
             
 
 
+
         }else{
 
-            ll cnt=0;
-            for(ll j=0;j<n;j++){
-                if(a[j] & (1ll<<i)){
-                    cnt++;
-                }
-            }
+            
 
             if(cnt%2){
                 cout<<-1<<endl;
