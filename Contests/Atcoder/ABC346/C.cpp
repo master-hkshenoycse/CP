@@ -29,47 +29,26 @@
 #define arr array 
 using namespace std;
 
+
 void solve(ll tc){ 
+    ll n,k;
+    cin>>n>>k;
 
-    ll n,x;
-    cin>>n>>x;
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-
-
-    for(ll i=30;i>=0;i--){
-
-        ll cnt=0;
-        for(ll j=0;j<n;j++){
-            if(a[j] & (1ll<<i)){
-                cnt++;
+    ll ans=(k*k+k)/2ll;
+    set<ll> s;
+    ll e;
+    
+    for(ll i=1;i<=n;i++){
+        cin>>e;
+        if(e>=1 and e<=k){
+            if(s.find(e)==s.end()){
+                ans-=e;
+                s.insert(e);
             }
-        }
-
-        
-
-        if(x & (1ll<<i)){
-            
-            if(cnt%2==0){
-                
-            }
-
-
-        }else{
-
-            
-
-            if(cnt%2){
-                cout<<-1<<endl;
-                return;
-            }
-
         }
     }
 
+    cout<<ans<<endl;
 
 }
 int main(){
@@ -82,7 +61,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

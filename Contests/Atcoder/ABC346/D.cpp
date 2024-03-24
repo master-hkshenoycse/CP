@@ -29,47 +29,55 @@
 #define arr array 
 using namespace std;
 
+
 void solve(ll tc){ 
+    string s;
+    ll n;
+    cin>>n;
+    cin>>s;
 
-    ll n,x;
-    cin>>n>>x;
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
+    vector<ll> cost(n+1);
+    for(ll i=1;i<=n;i++){
+        cin>>cost[i];   
     }
 
+    vector<vector<ll> >prefix_dp(n+1,vector<ll> (2,1e18));
+    vector<vector<ll> >suffix_dp(n+2,vector<ll> (2,1e18));
 
+    prefix_dp[0][0]=0;
+    prefix_dp[0][1]=0;
 
-    for(ll i=30;i>=0;i--){
-
-        ll cnt=0;
-        for(ll j=0;j<n;j++){
-            if(a[j] & (1ll<<i)){
-                cnt++;
-            }
-        }
-
-        
-
-        if(x & (1ll<<i)){
-            
-            if(cnt%2==0){
-                
-            }
-
-
+    for(ll i=1;i<=n;i++){
+        ll ch=s[i-1]-'0';
+        if(ch==0){
+            prefix_dp[i][0]=prefix_dp[i-1][1]+0;
+            prefix_dp[i][1]=prefix_dp[i-1][0]+cost[i];
         }else{
-
-            
-
-            if(cnt%2){
-                cout<<-1<<endl;
-                return;
-            }
-
+            prefix_dp[i][1]=prefix_dp[i-1][0]+0;
+            prefix_dp[i][0]=prefix_dp[i-1][1]+cost[i];
         }
     }
 
+    suffix_dp[n+1][0]=0;
+    suffix_dp[n+1][1]=0;
+
+    for(ll i=n;i>=1;i--){
+        ll ch=s[i-1]-'0';
+        if(ch==0){
+            suffix_dp[i][0]=suffix_dp[i+1][1]+0;
+            suffix_dp[i][1]=suffix_dp[i+1][0]+cost[i];
+        }else{
+            suffix_dp[i][1]=suffix_dp[i+1][0]+0;
+            suffix_dp[i][0]=suffix_dp[i+1][1]+cost[i];
+        }   
+    }
+    ll ans=1e18;
+    for(ll i=1;i+1<=n;i++){
+        ans=min(ans,prefix_dp[i][0]+suffix_dp[i+1][0]);
+        ans=min(ans,prefix_dp[i][1]+suffix_dp[i+1][1]);
+    }
+
+    cout<<ans<<endl;
 
 }
 int main(){
@@ -82,7 +90,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

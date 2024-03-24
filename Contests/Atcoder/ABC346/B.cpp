@@ -29,47 +29,30 @@
 #define arr array 
 using namespace std;
 
+
 void solve(ll tc){ 
 
-    ll n,x;
-    cin>>n>>x;
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-    }
+    ll w,b;
+    cin>>w>>b;
 
+    string s="wbwbwwbwbwbw";
+    ll n=s.size();
 
-
-    for(ll i=30;i>=0;i--){
-
-        ll cnt=0;
-        for(ll j=0;j<n;j++){
-            if(a[j] & (1ll<<i)){
-                cnt++;
-            }
+    ll len=w+b;
+    for(ll i=0;i<=1000;i++){
+        ll cnt_w=0,cnt_b=0;
+        for(ll j=0;j<len;j++){
+            cnt_w+=(s[(i+j)%n]=='w');
+            cnt_b+=(s[(i+j)%n]=='b');
         }
 
-        
-
-        if(x & (1ll<<i)){
-            
-            if(cnt%2==0){
-                
-            }
-
-
-        }else{
-
-            
-
-            if(cnt%2){
-                cout<<-1<<endl;
-                return;
-            }
-
+        if(cnt_w==w and cnt_b==b){
+            cout<<"Yes"<<endl;
+            return;
         }
     }
 
+    cout<<"No"<<endl;
 
 }
 int main(){
@@ -82,7 +65,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

@@ -29,3 +29,19 @@ Round 4:
 2 LP (critical feedback and conflict with peer)
 Design a web crawler (HLD)
 missed few deep dives
+
+
+
+Interview Question — Longest regex match with single wildcard
+https://codeforces.com/blog/entry/127169
+
+By perlentaucher, history, 8 days ago, In English
+Hi there, I was given the following interview question and was wondering, if there's a more simple way to solve it:
+
+Question: Given a text and a regular expression that only contains one wildcard character '*' (which matches any string), return the length of the longest matched substring in the text. Return -1 if no answer can be found. 1 <= |Text|, |Regex| <= 10^6.
+
+Example: text = "programming", regex = "r*in". The matches are "rammin", "rogrammin", thus the answer is 9.
+
+My solution: I make a case distinction based on whether the regex is of the form (BEFORE*AFTER, AFTER, BEFORE, *). I then use the Z-Function on the string to get matches of BEFORE and AFTER and then select the first/last matches to calculate the length.
+
+Time/space complexity is obviously O(n) but I think that my solution is a bit overcomplicated.
