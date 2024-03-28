@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"/home/hkshenoy/Desktop/CP/Contests/Codeforces/Div2_666/A.cpp","tests":[{"id":1711541566381,"input":"4\n2\ncaa\ncbb\n3\ncba\ncba\ncbb\n4\nccab\ncbac\nbca\nacbcc\n4\nacb\ncaf\nc\ncbafc","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hkshenoy/Desktop/CP/Contests/Codeforces/Div2_666/A.cpp","group":"local","local":true}
