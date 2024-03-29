@@ -46,23 +46,28 @@ void solve(ll tc){
         return;
     }
 
-    ll s=0,st=1,h=1;
-    ll last_level_a=a;
+    ll s=0,st=1,h=0;
+    
     while(s<a){
 
         s+=st;
-        a-=min(s,a);
-        last_level_a=a;
         st*=2;
+
+        
         h++;
     }
 
-    
-    
-    ll rem=st-last_level_a;
-    b-=min(b,rem);
+    ll ex=s-a;
+    //cout<<ex<<" "<<s<<" "<<h<<endl;
+    b-=min(b,ex);
 
-    h+=(b+st-1)/st;
+    
+    
+    //ll rem=st-last_level_a;
+    //b-=min(b,rem);
+
+
+    h+=(b+a)/(a+1);
 
     cout<<h<<endl;
 
