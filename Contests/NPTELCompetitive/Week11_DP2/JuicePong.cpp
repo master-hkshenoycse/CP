@@ -30,26 +30,32 @@
 using namespace std;
 
 void solve(ll tc){ 
-    
+    ll n;
+    cin>>n;
 
-    cout<<"? "<<1<<endl;
-    ll res;
-    cin>>res;
-
-    ll c1=2*res-1,c2=2*res;
-
-    cout<<"? "<<c1<<endl;
-    cin>>res;
-
-    if(res==c1){
-        cout<<"! "<<res<<endl;
-    }else{
-        cout<<"! "<<res<<endl;
+    vector<ll> a(n+2,1);
+    for(ll i=1;i<=n;i++){
+        cin>>a[i];
     }
 
+    vector<vector<ll> > dp(n+2,vector<ll> (n+2,0));
+
+    for(ll len=1;len<=n;len++){
+        for(ll st=1;st+len-1<=n;st++){
+            
+            ll en=st+len-1;
+
+            for(ll k=st;k<=en;k++){
+                dp[st][en]=max(dp[st][en],dp[st][k-1]+dp[k+1][en]+a[k]*a[st-1]*a[en+1]);
+            }
+
+        }
+    }
+
+    cout<<dp[1][n]<<endl;
 
 
-
+    
 
 }
 int main(){
