@@ -28,7 +28,7 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
+/*https://www.youtube.com/watch?v=Ok09ORgjjJU*/
 void solve(ll tc){ 
     ll n,k,y;
     cin>>n>>k>>y;
@@ -43,19 +43,50 @@ void solve(ll tc){
     ll ans=k-2;
     sort(all(a));
 
+    vector<ll> odd_values;
+    ll cnt_even=0;
+    ll intial_y=y;
+
+
     //now if adjacent points are at distance 2 add the extra trainagle with edges of the main polygon
+    //so trying to put points at distance of 2 in between so they will contribute to the triangle
     for(ll i=0;i<k;i++){
         ll d=0;
         if(i+1<k){
-            d=a[i+1]-a[i];
+            d=a[i+1]-a[i]-1;
         }else{
-            d=n-a[i]+a[0];
+            d=n-a[i]+a[0]-1;
         }
 
-        ll req=min(d)
-        ans+=min;
-        
+        if(d==1){
+            ans++;
+        }else if(d%2){
+            odd_values.pb(d/2);
+        }else{
+            cnt_even+=d/2;
+        }
     }
+
+    sort(all(odd_values));
+
+    for(auto g:odd_values){
+        if(y>=g){
+            ans=ans+g+1;
+            y-=g;
+        }else{
+            ans+=y;
+            y=0;
+        }
+    }
+
+    ll even_req=min(cnt_even,y);
+    ans+=even_req;
+    y-=even_req;
+
+
+    ll used=intial_y-y;
+
+    ans+=used;
 
     cout<<ans<<endl;
 
