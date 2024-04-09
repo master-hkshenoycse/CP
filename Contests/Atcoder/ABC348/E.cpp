@@ -52,8 +52,8 @@ void dfs2(ll v,ll p,vector<vector<ll> >&adj,vector<ll> &cost,vector<ll> &subtree
             continue;
         }
 
-        pref_cost.pb(subtree_cost[to]*2+cost[to]*2);
-        suff_cost.pb(subtree_cost[to]*2+cost[to]*2);
+        pref_cost.pb(subtree_cost[to]*3+cost[to]*2);
+        suff_cost.pb(subtree_cost[to]*3+cost[to]*2);
     }
     ll sz=pref_cost.size();
 
@@ -110,7 +110,7 @@ void solve(ll tc){
     dfs(1,-1,adj,cost,subtree_cost);
 
 
-    ll ans=1e18;
+    ll ans=9e18;
 
     //re-rooting the tree
     dfs2(1,-1,adj,cost,subtree_cost,0,ans);
