@@ -1,0 +1,1 @@
+{"name":"Local: G","url":"/home/hkshenoy/Desktop/CP/Contests/Codeforces/Div3_938/G.cpp","tests":[{"id":1712644933524,"input":"3\n2 3\n30 20 30\n15 25 40\n3 3\n12 4 9\n3 12 2\n8 3 12\n2 4\n2 4 6 8\n1 3 6 9\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hkshenoy/Desktop/CP/Contests/Codeforces/Div3_938/G.cpp","group":"local","local":true}
