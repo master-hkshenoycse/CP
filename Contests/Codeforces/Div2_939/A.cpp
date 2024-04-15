@@ -29,55 +29,28 @@
 #define arr array 
 using namespace std;
 
-void solve(ll tc){ 
-    ll n;
-    cin>>n;
+void solve(ll tc){
+    ll k,q;
+    cin>>k>>q;
 
-    vector<ll>a(n),b(n),c(n);
-
-    for(ll i=0;i<n;i++){
+    vector<ll> a(k);
+    for(ll i=0;i<k;i++){
         cin>>a[i];
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>b[i];
-    }
+    sort(all(a));
 
-    for(ll i=0;i<n;i++){
-        cin>>c[i];
-    }
+    ll v;
+    while(q--){
+        cin>>v;
 
-
-    vector<ll> sol;
-
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
+        if(a[0]>v){
+            cout<<v<<" ";
         }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
-            }else{
-                sol.push_back(b[i]);
-            }
+            cout<<a[0]-1<<" ";
         }
     }
-
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
-    }else{
-        sol.push_back(c[n-1]);
-    }
-
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
     cout<<endl;
-
-
-
 
 
 }
@@ -85,7 +58,7 @@ int main(){
     boost;
 
     //pre_cum();
-    //prec(20);
+    //prec(10);
 	//fre;
 
 

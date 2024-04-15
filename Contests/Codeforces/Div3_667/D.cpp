@@ -28,56 +28,39 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
-void solve(ll tc){ 
-    ll n;
-    cin>>n;
-
-    vector<ll>a(n),b(n),c(n);
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
+ll get_sod(ll n){
+    ll s=0;
+    while(n>0){
+        s=s+(n%10);
+        n/=10;
     }
+    return s;
+}
+void solve(ll tc){
+    ll ans=1e19;
+    ll p=1;
 
-    for(ll i=0;i<n;i++){
-        cin>>b[i];
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>c[i];
-    }
+    ll n,s;
+    cin>>n>>s;
+    
+    while(p<=1e19){
 
 
-    vector<ll> sol;
-
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
-        }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
-            }else{
-                sol.push_back(b[i]);
-            }
+        ll gt=(n+p-1)/p;
+        if(p==1e19){
+            break;
         }
+
+        gt=gt*p;
+
+        if(get_sod(gt)<=s){
+            ans=min(ans,gt-n);
+        }
+
+        p=p*10;
     }
 
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
-    }else{
-        sol.push_back(c[n-1]);
-    }
-
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
-
-
-
+    cout<<ans<<endl;
 
 
 }
@@ -85,7 +68,7 @@ int main(){
     boost;
 
     //pre_cum();
-    //prec(20);
+    //prec(10);
 	//fre;
 
 

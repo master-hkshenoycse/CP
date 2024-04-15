@@ -28,75 +28,16 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-void dfs(ll v,ll p,vector<vector<ll> > &adj,vector<ll> &cost,vector<ll> &subtree_cost){
-    
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-        dfs(to,v,adj,cost,subtree_cost);
-        subtree_cost[v]=subtree_cost[v]+2*subtree_cost[to]+cost[to];
-    }
-
-}
-
-void dfs2(ll v,ll p,vector<vector<ll> >&adj,vector<ll> &cost,vector<ll> &subtree_cost,ll prev,ll &ans){
-    ans=min(ans,prev+subtree_cost[v]);
-
-
-    vector<ll> pref_cost,suff_cost;
-
-    for(auto to:adj[v]){
-
-        if(to==p){
-            continue;
-        }
-
-        pref_cost.pb(subtree_cost[to]*3+cost[to]*2);
-        suff_cost.pb(subtree_cost[to]*3+cost[to]*2);
-    }
-    ll sz=pref_cost.size();
-
-    for(ll i=1;i<sz;i++){
-        pref_cost[i]+=pref_cost[i-1];
-    }
-
-    for(ll i=sz-2;i>=0;i--){
-        suff_cost[i]+=suff_cost[i+1];
-    }
-
-    ll c=0;
-    for(auto to:adj[v]){
-        
-        if(to==p){
-            continue;
-        }
-
-        ll new_value=prev*2+cost[v];
-        
-        if(c-1>=0){
-            new_value+=pref_cost[c-1];
-        }
-
-        if(c+1<sz){
-            new_value+=suff_cost[c+1];
-        }
-
-        dfs2(to,v,adj,cost,subtree_cost,new_value,ans);
-        c++;
-        
-    }
-
-
-
-}
+void dfs(ll v,ll p,)
 void solve(ll tc){ 
     ll n;
     cin>>n;
 
     vector<vector<ll>  > adj(n+1);
+    vector<ll> subtree_f(n+1,0);
     vector<ll> subtree_cost(n+1,0);
     vector<ll> cost(n+1,0);
+
     ll x,y;
     for(ll i=1;i<=n-1;i++){
         cin>>x>>y;
@@ -107,7 +48,8 @@ void solve(ll tc){
     for(ll i=1;i<=n;i++){
         cin>>cost[i];
     }
-    dfs(1,-1,adj,cost,subtree_cost);
+
+    dfs(1,-1,adj,cost,subtree_cost,subtree_f);
 
 
     ll ans=9e18;

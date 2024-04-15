@@ -29,63 +29,49 @@
 #define arr array 
 using namespace std;
 
-void solve(ll tc){ 
+void solve(ll tc){
     ll n;
     cin>>n;
 
-    vector<ll>a(n),b(n),c(n);
+    ll ans=0;
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
+    //optimal matrix will be of form 
+    //n=4
+    //1 2 3 4 
+    //2 2 3 4
+    //3 3 3 4
+    //4 4 4 4
+    
+    for(ll i=n;i>=1;i--){
+        ans=ans+(2*i-1)*i;
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>b[i];
-    }
+    vector<vector<ll> > ops;
+    cout<<ans<<" "<<2*n<<endl;
 
-    for(ll i=0;i<n;i++){
-        cin>>c[i];
-    }
+    for(ll i=n;i>=1;i--){
+        cout<<2<<" "<<i<<" ";
+        for(ll j=1;j<=n;j++){
+            cout<<j<<" ";
+        }         
+        cout<<endl;
 
-
-    vector<ll> sol;
-
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
-        }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
-            }else{
-                sol.push_back(b[i]);
-            }
+        cout<<1<<" "<<i<<" ";
+        for(ll j=1;j<=n;j++){
+            cout<<j<<" ";
         }
+        cout<<endl;
     }
+    
+    
 
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
-    }else{
-        sol.push_back(c[n-1]);
-    }
-
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
-
-
-
-
-
+    
 }
 int main(){
     boost;
 
     //pre_cum();
-    //prec(20);
+    //prec(10);
 	//fre;
 
 

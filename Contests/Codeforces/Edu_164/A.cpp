@@ -29,55 +29,39 @@
 #define arr array 
 using namespace std;
 
-void solve(ll tc){ 
-    ll n;
-    cin>>n;
+void solve(ll tc){
+    ll n,m,k;
+    cin>>n>>m>>k;
 
-    vector<ll>a(n),b(n),c(n);
+    
 
+    if(k>=n-1){
+        cout<<"NO"<<endl;
+        return;
+    }
+
+    if(m==1){
+        cout<<"NO"<<endl;
+        return;
+    }
+
+    m=min(m,n);
+    vector<ll> cnt(m,0);
     for(ll i=0;i<n;i++){
-        cin>>a[i];
+        cnt[i%m]++;
+    }
+    
+    sort(all(cnt));
+    ll c=0;
+    for(ll i=0;i<m-1;i++){
+        c+=cnt[i];
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>b[i];
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>c[i];
-    }
-
-
-    vector<ll> sol;
-
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
-        }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
-            }else{
-                sol.push_back(b[i]);
-            }
-        }
-    }
-
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
+    if(c<=k){
+        cout<<"NO"<<endl;
     }else{
-        sol.push_back(c[n-1]);
+        cout<<"YES"<<endl;
     }
-
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
-
-
-
 
 
 }
@@ -85,7 +69,7 @@ int main(){
     boost;
 
     //pre_cum();
-    //prec(20);
+    //prec(10);
 	//fre;
 
 

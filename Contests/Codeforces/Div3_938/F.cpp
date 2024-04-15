@@ -30,55 +30,26 @@
 using namespace std;
 
 void solve(ll tc){ 
-    ll n;
-    cin>>n;
+    vector<ll> a(4);
+    cin>>a[0]>>a[1]>>a[2]>>a[3];
 
-    vector<ll>a(n),b(n),c(n);
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>b[i];
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>c[i];
+    ll ans=0;
+    //only if parities of 1,2,3 are same the their xor will be 0, 4 only required count to be even
+    for(ll i=0;i<4;i++){
+        ans=ans+a[i]/2;
     }
 
 
-    vector<ll> sol;
+    a[0]%=2;
+    a[1]%=2;
+    a[2]%=2;
 
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
-        }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
-            }else{
-                sol.push_back(b[i]);
-            }
-        }
+    if(a[0]==a[1] and a[1]==a[2] and a[1]==1){
+        ans++;
     }
 
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
-    }else{
-        sol.push_back(c[n-1]);
-    }
-
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
-
-
-
-
+    
+    cout<<ans<<endl;
 
 }
 int main(){

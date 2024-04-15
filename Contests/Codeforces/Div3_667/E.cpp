@@ -29,55 +29,51 @@
 #define arr array 
 using namespace std;
 
-void solve(ll tc){ 
-    ll n;
-    cin>>n;
+void solve(ll tc){
+    
+    ll n,k;
+    cin>>n>>k;
 
-    vector<ll>a(n),b(n),c(n);
+    vector<ll> x(n),y(n);
 
     for(ll i=0;i<n;i++){
-        cin>>a[i];
+        cin>>x[i];
     }
 
     for(ll i=0;i<n;i++){
-        cin>>b[i];
+        cin>>y[i];
     }
+
+    sort(all(x));
+
+    vector<ll> value_upto(n+1,0);
 
     for(ll i=0;i<n;i++){
-        cin>>c[i];
-    }
-
-
-    vector<ll> sol;
-
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
-        }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
+        ll lo=i,hi=n-1,r=i;
+        while(hi>=lo){
+            ll mid=(hi+lo)/2ll;
+            if(x[mid]-x[i]<=k){
+                r=max(r,mid);
+                lo=mid+1;
             }else{
-                sol.push_back(b[i]);
+                hi=mid-1;
             }
         }
+
+        value_upto[i]=r-i+1;
     }
 
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
-    }else{
-        sol.push_back(c[n-1]);
+    ll ans=0;
+    for(ll i=n-1;i>=0;i--){
+        
+        ll lim=i+value_upto[i];
+        ans=max(ans,value_upto[i]+value_upto[lim]);
+
+        value_upto[i]=max(value_upto[i],value_upto[i+1]);
     }
 
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
 
-
-
+    cout<<ans<<endl;
 
 
 }
@@ -85,7 +81,7 @@ int main(){
     boost;
 
     //pre_cum();
-    //prec(20);
+    //prec(10);
 	//fre;
 
 

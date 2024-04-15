@@ -50,10 +50,11 @@ void solve(ll tc){
     ll x,y;
 
     map<pair<ll,ll>,ll> help;
+    ll p;
 
     cout<<"Please input the pipes"<<endl;
     for(ll i=1;i<=m;i++){
-        cin>>x>>y;
+        cin>>p>>x>>y;
         adj[x].pb(y);
         adj[y].pb(x);
         help[{x,y}]++;

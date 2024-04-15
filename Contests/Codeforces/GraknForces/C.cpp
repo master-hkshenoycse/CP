@@ -29,54 +29,71 @@
 #define arr array 
 using namespace std;
 
-void solve(ll tc){ 
-    ll n;
-    cin>>n;
+void solve(ll tc){
+    ll n,l;
+    cin>>n>>l;
 
-    vector<ll>a(n),b(n),c(n);
+    vector<dd> a(n+4);
+    a[0]=0;
+    a[n+1]=l*1.00;
 
-    for(ll i=0;i<n;i++){
+    for(ll i=1;i<=n;i++){
         cin>>a[i];
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>b[i];
-    }
+    dd lo=0,hi=1e9,ans=hi;
 
-    for(ll i=0;i<n;i++){
-        cin>>c[i];
-    }
+    for(ll iter=1;iter<=300;iter++){
+        dd dis=0;
+        dd mid=(hi+lo)/2.00;
 
+        dd speed=1.00;
+        dd rem=mid;
 
-    vector<ll> sol;
+        for(ll i=1;i<=n+1;i++){
 
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
-        }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
+            dd time_req=(a[i]-a[i-1])/speed;
+
+            if(time_req>=rem){
+                dis+=speed*rem;
+                break;
             }else{
-                sol.push_back(b[i]);
+                dis+=time_req*speed;
+                speed=speed+1.0;
+                rem-=time_req;
             }
+
+        }
+
+
+
+
+
+        rem=mid,speed=1.0;
+        for(ll i=n;i>=0;i--){
+            dd time_req=(a[i+1]-a[i])/speed;
+
+            if(time_req>=rem){
+                dis+=speed*rem;
+                break;
+            }else{
+                dis+=time_req*speed;
+                speed=speed+1.0;
+                rem-=time_req;
+            }
+        }
+
+        
+
+        if(dis>=l){
+            ans=min(ans,mid);
+            hi=mid;
+        }else{
+            lo=mid;
         }
     }
 
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
-    }else{
-        sol.push_back(c[n-1]);
-    }
-
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
-
-
+    cout<<ans<<endl;
 
 
 
@@ -85,7 +102,7 @@ int main(){
     boost;
 
     //pre_cum();
-    //prec(20);
+    prec(10);
 	//fre;
 
 

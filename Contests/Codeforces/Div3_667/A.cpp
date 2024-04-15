@@ -29,54 +29,11 @@
 #define arr array 
 using namespace std;
 
-void solve(ll tc){ 
-    ll n;
-    cin>>n;
-
-    vector<ll>a(n),b(n),c(n);
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>b[i];
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>c[i];
-    }
-
-
-    vector<ll> sol;
-
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
-        }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
-            }else{
-                sol.push_back(b[i]);
-            }
-        }
-    }
-
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
-    }else{
-        sol.push_back(c[n-1]);
-    }
-
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
-
-
+void solve(ll tc){
+    ll a,b;
+    cin>>a>>b;
+    ll v=abs(a-b);
+    cout<<(v+9)/10<<endl;
 
 
 
@@ -85,7 +42,7 @@ int main(){
     boost;
 
     //pre_cum();
-    //prec(20);
+    //prec(10);
 	//fre;
 
 

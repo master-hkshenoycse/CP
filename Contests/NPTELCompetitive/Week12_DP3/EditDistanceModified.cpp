@@ -29,63 +29,53 @@
 #define arr array 
 using namespace std;
 
-void solve(ll tc){ 
-    ll n;
-    cin>>n;
+void solve(ll tc){
+    ll n,m,a,x,y,z;
+    string p,q;
+    cin>>n>>m>>a>>x>>y>>z;
 
-    vector<ll>a(n),b(n),c(n);
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
+    //upto x changes dollar y then dollar z
+
+    cin>>p>>q;
+
+    vector<vector<ll> > dp(n+1,vector<ll> (m+1,3e18));
+    dp[0][0]=0;
+
+    for(ll i=0;i<=m;i++){
+        dp[i][0]=i;//i deleteions
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>b[i];
+    for(ll i=0;i<=n;i++){
+        dp[0][i]=i;//i insertions
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>c[i];
-    }
-
-
-    vector<ll> sol;
-
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
-        }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
-            }else{
-                sol.push_back(b[i]);
+    for(ll i=1;i<=n;i++){
+        for(ll j=1;j<=m;j++){
+            
+            dp[i][j]=min(dp[i][j],dp[i-1][j]+1);
+            dp[i][j]=min(dp[i][j],dp[i][j-1]+1);
+            dp[i][j]=min(dp[i][j],dp[i-1][j-1]+1);
+            if(p[i-1]==q[j-1]){
+                dp[i][j]=min(dp[i][j],dp[i-1][j-1]);
             }
+            
         }
+    }   
+
+    ll cost=min(x,dp[n][m])*y;
+    if(dp[n][m]>x){
+        cost=cost+(dp[n][m]-x)*z;
     }
 
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
-    }else{
-        sol.push_back(c[n-1]);
-    }
-
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
-
-
-
-
+    cout<<a-cost<<endl;
 
 }
 int main(){
     boost;
 
     //pre_cum();
-    //prec(20);
+    //prec(10);
 	//fre;
 
 

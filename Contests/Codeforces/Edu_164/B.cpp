@@ -29,53 +29,42 @@
 #define arr array 
 using namespace std;
 
-void solve(ll tc){ 
+void solve(ll tc){
     ll n;
     cin>>n;
 
-    vector<ll>a(n),b(n),c(n);
+    vector<ll> a(n+2);
 
-    for(ll i=0;i<n;i++){
+    ll ans=n;//smallest segment with all equal to a[1]
+    //as two consecative elements not equal to a[1] will make array ugly
+
+    for(ll i=1;i<=n;i++){
         cin>>a[i];
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>b[i];
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>c[i];
-    }
-
-
-    vector<ll> sol;
-
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
-        }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
-            }else{
-                sol.push_back(b[i]);
+    ll i=1;
+    while(i<=n){
+        if(a[i]==a[1]){
+            ll j=i;
+            ll c=0;
+            while(j<=n and a[j]==a[i]){
+                c++;
+                j++;
             }
+            ans=min(ans,c);
+            i=j;
+        }else{
+            i++;
         }
     }
 
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
-    }else{
-        sol.push_back(c[n-1]);
+
+    if(ans==n){
+        ans=-1;
     }
 
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
-
+    cout<<ans<<endl;
+    
 
 
 
@@ -85,7 +74,7 @@ int main(){
     boost;
 
     //pre_cum();
-    //prec(20);
+    //prec(10);
 	//fre;
 
 

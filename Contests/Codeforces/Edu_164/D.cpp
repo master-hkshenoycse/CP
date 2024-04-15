@@ -28,53 +28,51 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
-void solve(ll tc){ 
+ll mod=998244353;
+void solve(ll tc){
     ll n;
     cin>>n;
+    ll tot=0;
 
-    vector<ll>a(n),b(n),c(n);
+    vector<ll> a(n);
 
     for(ll i=0;i<n;i++){
         cin>>a[i];
+        tot+=a[i];
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>b[i];
-    }
+    sort(all(a));
 
-    for(ll i=0;i<n;i++){
-        cin>>c[i];
-    }
+    
+    ll ans=0;
+
+    vector<ll> dp(tot+1,0);
+    dp[0]=1;
 
 
-    vector<ll> sol;
+    for(auto e:a){
 
-    for(ll i=0;i<n-1;i++){
-        if(i==0){
-            sol.push_back(a[i]);
-        }else{
-            if(sol.back()!=a[i]){
-                sol.push_back(a[i]);
-            }else{
-                sol.push_back(b[i]);
+
+        for(ll j=0;j<=tot;j++){
+            ll val=(j+e+1)/2ll;//if e is included in set the value will be
+            if(e>j){
+                val=e;
+            }
+
+            ans=(ans+val*dp[j]);//number of subsets for value given e is added
+            ans%=mod;
+        }
+
+        for(ll j=tot;j>=0;j--){
+            if(j+e<=tot){
+                dp[j+e]=(dp[j+e]+dp[j])%mod;
             }
         }
+
     }
 
-    //c array will only will be used for last element
-    if(a[n-1] != sol.back() and a[n-1]!=sol[0]){
-        sol.push_back(a[n-1]);
-    }else if(b[n-1]!=sol.back() and b[n-1]!= sol[0]){
-        sol.push_back(b[n-1]);
-    }else{
-        sol.push_back(c[n-1]);
-    }
+    cout<<ans<<endl;
 
-    for(ll i=0;i<n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
 
 
 
@@ -85,13 +83,13 @@ int main(){
     boost;
 
     //pre_cum();
-    //prec(20);
+    //prec(10);
 	//fre;
 
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);
