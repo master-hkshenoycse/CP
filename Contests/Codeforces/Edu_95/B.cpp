@@ -33,46 +33,37 @@ void solve(ll tc){
     ll n;
     cin>>n;
 
-    ll s=0;
-    vector<ll> a(n+1);
-    for(ll i=1;i<=n;i++){
+    vector<ll> a(n),l(n);
+    for(ll i=0;i<n;i++){
         cin>>a[i];
-        s+=a[i];
     }
 
-    //operations dont change the sum of values hence sum should be divisible by n
-    if(s%n){
-        cout<<-1<<endl;
-        return;
+    for(ll i=0;i<n;i++){
+        cin>>l[i];
     }
 
-    ll req=s/n;//all values should be equal to sum/n
-
-    vector<vector<ll> > ops;
-    for(ll i=2;i<=n;i++){
-        if(a[i]%i){//to transfer all the values to 1 a[i]should be divisble by i
-            ll rem=i-(a[i]%i);
-            ops.pb({1,i,rem});
-            a[1]-=rem*1;
-            a[i]+=rem*1;   
+    vector<ll> free_vals;
+    for(ll i=0;i<n;i++){
+        if(l[i]==0){
+            free_vals.pb(a[i]);
         }
-
-        ops.pb({i,1,a[i]/i});
-        a[1]+=a[i];
-        a[i]=0;
     }
 
-
-    for(ll i=2;i<=n;i++){
-        ops.pb({1,i,req});
-        a[1]-=req;
-        a[i]+=req;
+    sort(all(free_vals));
+    //greater number should occur ahead
+    //prefix[n]=tot_sum, prefix[n-1]=prefix[n]-a[n], prefix[n-1] will ge greatest when a[n] is least
+    //so least numbers should be as far as possible
+    for(ll i=0;i<n;i++){
+        if(l[i]==0){
+            a[i]=free_vals.back();
+            free_vals.pop_back();
+        }
     }
 
-    cout<<ops.size()<<endl;
-    for(auto op:ops){
-        cout<<op[0]<<" "<<op[1]<<" "<<op[2]<<endl;
+    for(ll i=0;i<n;i++){
+        cout<<a[i]<<" ";
     }
+    cout<<endl;
 
 }
 int main(){

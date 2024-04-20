@@ -33,46 +33,24 @@ void solve(ll tc){
     ll n;
     cin>>n;
 
-    ll s=0;
-    vector<ll> a(n+1);
+    string s;
+    cin>>s;
+
+
+    ll raze_even_cnt=0,raze_odd_cnt=0,breach_even_cnt=0,breach_odd_cnt=0;
+
     for(ll i=1;i<=n;i++){
-        cin>>a[i];
-        s+=a[i];
-    }
-
-    //operations dont change the sum of values hence sum should be divisible by n
-    if(s%n){
-        cout<<-1<<endl;
-        return;
-    }
-
-    ll req=s/n;//all values should be equal to sum/n
-
-    vector<vector<ll> > ops;
-    for(ll i=2;i<=n;i++){
-        if(a[i]%i){//to transfer all the values to 1 a[i]should be divisble by i
-            ll rem=i-(a[i]%i);
-            ops.pb({1,i,rem});
-            a[1]-=rem*1;
-            a[i]+=rem*1;   
+        ll d=(s[i-1]-'0');
+        if(i%2){
+            if(d%2==0)raze_even_cnt++;
+            else raze_odd_cnt++;
+        }else{
+            if(d%2==0)breach_even_cnt++;
+            else breach_odd_cnt++;
         }
-
-        ops.pb({i,1,a[i]/i});
-        a[1]+=a[i];
-        a[i]=0;
     }
 
-
-    for(ll i=2;i<=n;i++){
-        ops.pb({1,i,req});
-        a[1]-=req;
-        a[i]+=req;
-    }
-
-    cout<<ops.size()<<endl;
-    for(auto op:ops){
-        cout<<op[0]<<" "<<op[1]<<" "<<op[2]<<endl;
-    }
+    
 
 }
 int main(){

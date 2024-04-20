@@ -29,50 +29,40 @@
 #define arr array 
 using namespace std;
 
+ll solve_dp(ll ind,ll ch,vector<ll> &a,vector<vector<ll> >&dp){
+    if(ind==a.size()){
+        return 0;
+    }
+
+    if(dp[ind][ch]!=-1){
+        return dp[ind][ch];
+    }
+
+    ll res=1e9;
+
+    res=min(res,a[ind]*ch+solve_dp(ind+1,1-ch,a,dp));
+
+    if(ind+1<a.size()){
+        res=min(res,(a[ind]+a[ind+1])*ch+solve_dp(ind+2,1-ch,a,dp));
+    }
+
+    return dp[ind][ch]=res;
+}
 void solve(ll tc){
     ll n;
     cin>>n;
 
-    ll s=0;
-    vector<ll> a(n+1);
-    for(ll i=1;i<=n;i++){
+    vector<ll> a(n);
+    vector<vector<ll> > dp(n,vector<ll> (2,-1));
+    for(ll i=0;i<n;i++){
         cin>>a[i];
-        s+=a[i];
     }
 
-    //operations dont change the sum of values hence sum should be divisible by n
-    if(s%n){
-        cout<<-1<<endl;
-        return;
-    }
-
-    ll req=s/n;//all values should be equal to sum/n
-
-    vector<vector<ll> > ops;
-    for(ll i=2;i<=n;i++){
-        if(a[i]%i){//to transfer all the values to 1 a[i]should be divisble by i
-            ll rem=i-(a[i]%i);
-            ops.pb({1,i,rem});
-            a[1]-=rem*1;
-            a[i]+=rem*1;   
-        }
-
-        ops.pb({i,1,a[i]/i});
-        a[1]+=a[i];
-        a[i]=0;
-    }
+    cout<<solve_dp(0,1,a,dp)<<endl;
 
 
-    for(ll i=2;i<=n;i++){
-        ops.pb({1,i,req});
-        a[1]-=req;
-        a[i]+=req;
-    }
 
-    cout<<ops.size()<<endl;
-    for(auto op:ops){
-        cout<<op[0]<<" "<<op[1]<<" "<<op[2]<<endl;
-    }
+
 
 }
 int main(){

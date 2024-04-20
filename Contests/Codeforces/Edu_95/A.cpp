@@ -30,49 +30,12 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
+    ll x,y,k;
+    cin>>x>>y>>k;
 
-    ll s=0;
-    vector<ll> a(n+1);
-    for(ll i=1;i<=n;i++){
-        cin>>a[i];
-        s+=a[i];
-    }
-
-    //operations dont change the sum of values hence sum should be divisible by n
-    if(s%n){
-        cout<<-1<<endl;
-        return;
-    }
-
-    ll req=s/n;//all values should be equal to sum/n
-
-    vector<vector<ll> > ops;
-    for(ll i=2;i<=n;i++){
-        if(a[i]%i){//to transfer all the values to 1 a[i]should be divisble by i
-            ll rem=i-(a[i]%i);
-            ops.pb({1,i,rem});
-            a[1]-=rem*1;
-            a[i]+=rem*1;   
-        }
-
-        ops.pb({i,1,a[i]/i});
-        a[1]+=a[i];
-        a[i]=0;
-    }
-
-
-    for(ll i=2;i<=n;i++){
-        ops.pb({1,i,req});
-        a[1]-=req;
-        a[i]+=req;
-    }
-
-    cout<<ops.size()<<endl;
-    for(auto op:ops){
-        cout<<op[0]<<" "<<op[1]<<" "<<op[2]<<endl;
-    }
+    ll sticks_req=max(0ll,k-1)+k*y;
+    ll ops=k+(sticks_req+x-2)/(x-1);
+    cout<<ops<<endl;
 
 }
 int main(){
