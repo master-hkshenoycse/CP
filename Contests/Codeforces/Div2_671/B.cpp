@@ -30,55 +30,27 @@
 using namespace std;
 
 void solve(ll tc){
+    
+
     ll n;
     cin>>n;
 
-    string s;
-    cin>>s;
+    ll rem=n;
+    ll ans=0,i=2;
+    //guessing by looking at samples that numbers of form 2^n-1 will only satisfy the conditions
 
-
-    ll raze_even_cnt=0,raze_odd_cnt=0,breach_even_cnt=0,breach_odd_cnt=0;
-
-    for(ll i=1;i<=n;i++){
-        ll d=(s[i-1]-'0');
-        if(i%2){
-            if(d%2==0)raze_even_cnt++;
-            else raze_odd_cnt++;
-        }else{
-            if(d%2==0)breach_even_cnt++;
-            else breach_odd_cnt++;
+    while(i-1<=n and rem>0){
+        ll curr=i-1;
+        ll req=(curr*curr+curr)/2ll;
+        if(req>rem){
+            break;
         }
+        ans++;
+        rem-=req;
+        i=i*2;
     }
 
-
-    ll moves=n-1;
-    ll curr=0;
-
-    while(moves>0){
-        if(curr==0){
-            if(raze_even_cnt>0){//greedy choice
-                raze_even_cnt--;
-            }else{
-                raze_odd_cnt--;
-            }
-        }else{
-            if(breach_odd_cnt>0){
-                breach_odd_cnt--;
-            }else{
-                breach_even_cnt--;
-            }
-        }
-
-        moves--;
-        curr=1-curr;
-    }
-
-    if(raze_odd_cnt+breach_odd_cnt>0){
-        cout<<1<<endl;
-    }else{
-        cout<<2<<endl;
-    }
-
+    cout<<ans<<endl;
 
 }
 int main(){

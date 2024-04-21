@@ -30,57 +30,77 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
+    
+
+    ll n,e;
     cin>>n;
 
-    string s;
-    cin>>s;
+    vector<ll> sol(n,-1);
+    multiset<ll> rem_vals;
+
+    for(ll i=0;i<n;i++){
+        cin>>e;
+        rem_vals.insert(e);
+    }
+
+    
+    for(ll i=1;i<n-1;i+=2){
+        sol[i]=*rem_vals.begin();
+        rem_vals.erase(rem_vals.begin());
+    }
 
 
-    ll raze_even_cnt=0,raze_odd_cnt=0,breach_even_cnt=0,breach_odd_cnt=0;
 
-    for(ll i=1;i<=n;i++){
-        ll d=(s[i-1]-'0');
-        if(i%2){
-            if(d%2==0)raze_even_cnt++;
-            else raze_odd_cnt++;
-        }else{
-            if(d%2==0)breach_even_cnt++;
-            else breach_odd_cnt++;
+    ll ans=0;
+
+    multiset<ll>::iterator it;
+    for(ll i=1;i<n-1;i+=2){
+        
+
+        if(sol[i-1]==-1){
+            it=rem_vals.upper_bound(sol[i]);
+            if(it==rem_vals.end()){
+                break;
+            }
+            sol[i-1]=*it;
+            rem_vals.erase(it);
+
+        }
+
+        if(sol[i+1]==-1){
+            it=rem_vals.upper_bound(sol[i]);
+            if(it==rem_vals.end()){
+                break;
+            }
+
+            sol[i+1]=*it;
+            rem_vals.erase(it);
+            ans++;
+        }
+        
+
+      
+
+      
+
+        
+        
+    }
+
+
+    for(ll i=0;i<n;i++){
+        if(sol[i]==-1){
+            sol[i]=*rem_vals.begin();
+            rem_vals.erase(rem_vals.begin());
         }
     }
 
-
-    ll moves=n-1;
-    ll curr=0;
-
-    while(moves>0){
-        if(curr==0){
-            if(raze_even_cnt>0){//greedy choice
-                raze_even_cnt--;
-            }else{
-                raze_odd_cnt--;
-            }
-        }else{
-            if(breach_odd_cnt>0){
-                breach_odd_cnt--;
-            }else{
-                breach_even_cnt--;
-            }
-        }
-
-        moves--;
-        curr=1-curr;
+    cout<<ans<<endl;
+    for(ll i=0;i<n;i++){
+        cout<<sol[i]<<" ";
     }
-
-    if(raze_odd_cnt+breach_odd_cnt>0){
-        cout<<1<<endl;
-    }else{
-        cout<<2<<endl;
-    }
-
-
-}
+    cout<<endl;
+}   
 int main(){
     boost;
 
@@ -91,7 +111,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

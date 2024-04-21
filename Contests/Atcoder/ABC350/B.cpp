@@ -30,54 +30,21 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
+    ll n,q;
+    cin>>n>>q;
 
-    string s;
-    cin>>s;
+    ll ind;
+    vector<ll> cnt(n+1,1);
+    for(ll i=1;i<=q;i++){
+        cin>>ind;
+        cnt[ind]=1-cnt[ind];
+    }
 
-
-    ll raze_even_cnt=0,raze_odd_cnt=0,breach_even_cnt=0,breach_odd_cnt=0;
-
+    ll ans=0;
     for(ll i=1;i<=n;i++){
-        ll d=(s[i-1]-'0');
-        if(i%2){
-            if(d%2==0)raze_even_cnt++;
-            else raze_odd_cnt++;
-        }else{
-            if(d%2==0)breach_even_cnt++;
-            else breach_odd_cnt++;
-        }
+        ans=ans+(cnt[i]==1);
     }
-
-
-    ll moves=n-1;
-    ll curr=0;
-
-    while(moves>0){
-        if(curr==0){
-            if(raze_even_cnt>0){//greedy choice
-                raze_even_cnt--;
-            }else{
-                raze_odd_cnt--;
-            }
-        }else{
-            if(breach_odd_cnt>0){
-                breach_odd_cnt--;
-            }else{
-                breach_even_cnt--;
-            }
-        }
-
-        moves--;
-        curr=1-curr;
-    }
-
-    if(raze_odd_cnt+breach_odd_cnt>0){
-        cout<<1<<endl;
-    }else{
-        cout<<2<<endl;
-    }
+    cout<<ans<<endl;
 
 
 }
@@ -91,7 +58,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

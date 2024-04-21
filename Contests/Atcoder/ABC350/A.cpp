@@ -30,53 +30,17 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
-
+    
     string s;
     cin>>s;
 
 
-    ll raze_even_cnt=0,raze_odd_cnt=0,breach_even_cnt=0,breach_odd_cnt=0;
+    ll value=(s[3]-'0')*100+(s[4]-'0')*10+(s[5]-'0');
 
-    for(ll i=1;i<=n;i++){
-        ll d=(s[i-1]-'0');
-        if(i%2){
-            if(d%2==0)raze_even_cnt++;
-            else raze_odd_cnt++;
-        }else{
-            if(d%2==0)breach_even_cnt++;
-            else breach_odd_cnt++;
-        }
-    }
-
-
-    ll moves=n-1;
-    ll curr=0;
-
-    while(moves>0){
-        if(curr==0){
-            if(raze_even_cnt>0){//greedy choice
-                raze_even_cnt--;
-            }else{
-                raze_odd_cnt--;
-            }
-        }else{
-            if(breach_odd_cnt>0){
-                breach_odd_cnt--;
-            }else{
-                breach_even_cnt--;
-            }
-        }
-
-        moves--;
-        curr=1-curr;
-    }
-
-    if(raze_odd_cnt+breach_odd_cnt>0){
-        cout<<1<<endl;
+    if(value<350 and value!=316 and value>0){
+        cout<<"Yes"<<endl;
     }else{
-        cout<<2<<endl;
+        cout<<"No"<<endl;
     }
 
 
@@ -91,7 +55,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

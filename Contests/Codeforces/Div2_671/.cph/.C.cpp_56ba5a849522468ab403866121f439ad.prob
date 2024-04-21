@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"/home/hkshenoy/Desktop/CP/Contests/Codeforces/Div2_671/C.cpp","tests":[{"id":1713609348672,"input":"3\n2 69\n68 70\n6 4\n4 4 4 4 4 4\n9 38\n-21 83 50 -59 -77 15 -71 -78 20","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hkshenoy/Desktop/CP/Contests/Codeforces/Div2_671/C.cpp","group":"local","local":true}

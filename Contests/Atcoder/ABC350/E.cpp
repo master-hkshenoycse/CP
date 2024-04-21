@@ -28,56 +28,37 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+map<ll,dd> help;
 
+dd solve_dp(ll n,ll a,ll x, ll y){
+    if(n==0){
+        return 0.0;
+    }
+
+    if(help.find(n) != help.end()){
+        return help[n];
+    }
+
+    dd op1=0.0,op2=0.0;
+    op1=x*1.00+solve_dp(n/a,a,x,y);
+
+    op2=0.0;
+    for(ll j=2;j<=6;j++){
+        op2=op2+solve_dp(n/j,a,x,y);
+    }
+
+    op2=(op2)/5;
+    op2=op2+(y*1.00*6.00)/(5.00);
+ 
+
+
+    return help[n]=min(op1,op2);
+}
 void solve(ll tc){
-    ll n;
-    cin>>n;
+    ll n,a,x,y;
+    cin>>n>>a>>x>>y;
+    cout<<solve_dp(n,a,x,y)<<endl;
 
-    string s;
-    cin>>s;
-
-
-    ll raze_even_cnt=0,raze_odd_cnt=0,breach_even_cnt=0,breach_odd_cnt=0;
-
-    for(ll i=1;i<=n;i++){
-        ll d=(s[i-1]-'0');
-        if(i%2){
-            if(d%2==0)raze_even_cnt++;
-            else raze_odd_cnt++;
-        }else{
-            if(d%2==0)breach_even_cnt++;
-            else breach_odd_cnt++;
-        }
-    }
-
-
-    ll moves=n-1;
-    ll curr=0;
-
-    while(moves>0){
-        if(curr==0){
-            if(raze_even_cnt>0){//greedy choice
-                raze_even_cnt--;
-            }else{
-                raze_odd_cnt--;
-            }
-        }else{
-            if(breach_odd_cnt>0){
-                breach_odd_cnt--;
-            }else{
-                breach_even_cnt--;
-            }
-        }
-
-        moves--;
-        curr=1-curr;
-    }
-
-    if(raze_odd_cnt+breach_odd_cnt>0){
-        cout<<1<<endl;
-    }else{
-        cout<<2<<endl;
-    }
 
 
 }
@@ -85,13 +66,13 @@ int main(){
     boost;
 
     //pre_cum();
-    //prec(10);
+    prec(10);
 	//fre;
 
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);
