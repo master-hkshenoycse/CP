@@ -28,33 +28,69 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
+ll get_msb(ll n){
+    for(ll i=35;i>=0;i--){
+        if(n & (1ll<<i)){
+            return i;
+        }
+    }
+    return -1;
+}
 void solve(ll tc){
-    
     ll n;
     cin>>n;
+    vector<ll> a(n+1);
+    vector<ll> pref(n+1,0);
 
-    vector<ll> dp(11,0);
-    dp[0]=0;
-    dp[1]=1;
-
-    for(ll i=2;i<=10;i++){
-        dp[i]=4*(dp[i-1]-dp[i-2]);
+    for(ll i=1;i<=n;i++){
+        cin>>a[i];
+        pref[i]=(pref[i-1] ^ a[i]);
     }
 
-    cout<<dp[10]<<endl;
+
+    vector<vector<ll> > pref_set(35,vector<ll> (n+1,0));
+    vector<vector<ll> > pref_unset(35,vector<ll> (n+1,0));
+
+    for(ll i=1;i<=n;i++){
+        for(ll j=0;j<=31;j++){
+            pref_set[j][i]=pref_set[j][i-1];
+            pref_unset[j][i]=pref_unset[j][i-1];
+
+            if(pref[i] & (1ll<<j)){
+                pref_set[j][i]++;
+            }else{
+                pref_unset[j][i]++;
+            }
+
+        }
+    }
+
+    for(ll i=1;i<=n;i++){
+        ll msb=get_msb(a[i]);
+
+        
+
+
+    }
+
+
+
+
+
+    
+
 }   
 int main(){
     boost;
 
-    //pre_cum();
+    pre_cum();
     //prec(10);
 	//fre;
 
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

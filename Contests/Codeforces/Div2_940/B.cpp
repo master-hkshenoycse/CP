@@ -31,18 +31,38 @@ using namespace std;
 
 void solve(ll tc){
     
-    ll n;
-    cin>>n;
+    ll n,k;
+    cin>>n>>k;
 
-    vector<ll> dp(11,0);
-    dp[0]=0;
-    dp[1]=1;
+    vector<ll> sol;
+    ll st=1;
+    while(st<=k){
+        sol.pb(st);
+        k-=st;
 
-    for(ll i=2;i<=10;i++){
-        dp[i]=4*(dp[i-1]-dp[i-2]);
+        st=st*2;
     }
 
-    cout<<dp[10]<<endl;
+    sol.pb(k);
+    while(sol.size()<n){
+        sol.pb(0);
+    }
+
+    reverse(all(sol));
+    while(sol.size()>n){
+        ll e1=sol.back();
+        sol.pop_back();
+
+        ll e2=sol.back();
+        sol.pop_back();
+
+        sol.push_back(e1+e2);
+    }
+
+    for(auto e:sol){
+        cout<<e<<" ";
+    }
+    cout<<endl;
 }   
 int main(){
     boost;
@@ -54,7 +74,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

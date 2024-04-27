@@ -34,15 +34,18 @@ void solve(ll tc){
     ll n;
     cin>>n;
 
-    vector<ll> dp(11,0);
-    dp[0]=0;
-    dp[1]=1;
-
-    for(ll i=2;i<=10;i++){
-        dp[i]=4*(dp[i-1]-dp[i-2]);
+    map<ll,ll> help;
+    ll e;
+    for(ll i=1;i<=n;i++){
+        cin>>e;
+        help[e]++;
     }
 
-    cout<<dp[10]<<endl;
+    ll ans=0;
+    for(auto it:help){
+        ans=ans+(it.ss)/3;
+    }
+    cout<<ans<<endl;
 }   
 int main(){
     boost;
@@ -54,7 +57,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);
