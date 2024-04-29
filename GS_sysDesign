@@ -1,0 +1,62 @@
+LLD of Snake and Ladder
+Different status codes in an API and their meanings
+How to optimize CRUD operations in an API
+When an API responds with a 500 status code
+LLD for a financial chatbot
+Choosing between singleton or multiple instances for a chatbot
+High-level design (HLD) for a chatbot - Queuing service selection
+LLD for browser forward/backward buttons using history stack
+Design of a logging library with multiple sinks and log levels
+Data structure for user browsing history to handle forward/backward
+Low-Level Design (LLD)
+
+LLD for Tic Tac Toe game
+LLD for Snake and Ladder game
+Finding minimum steps to reach a position on a game board
+LLD for Flipkart e-commerce platform
+LLD for a file system with functionalities like listing files and handling large file systems
+LLD for a vending machine with product selection, dispensing, and change return functionalities.
+Microservices and Scalability
+Two-phase commits and microservices interactions
+Choosing between HTTP, sockets, or HTTP polling based on scenarios
+HLD for a news feed application (Inshorts) with personalized content
+Decommissioning a microservice (B) and replacing it with a scalable microservice (D)
+Handling large responses (over 1 million records) from a system with 1000 requests
+Transaction management in microservices with data persistence across services and handling rollback scenarios
+Messaging and Data Storage
+In-depth discussion of Kafka and RabbitMQ
+Design of Twitter Trends
+HLD for Social Media Stories Feature with communication protocols and data storage considerations
+LLD for LinkedIn connection degree feature using Breadth-First Search (BFS)
+Data Streams and Databases
+
+Finding the median in a stream of 7 billion ages
+Optimizing query time for a SQL database
+Design of a parking lot
+Read/Write operations for a concurrency-safe object with mutex implementation
+Other System Design Topics
+
+Working of Messaging Queues
+Design of distributed database transactions in a Payment Service (2-phase commit protocol)
+Designing a web application supporting multiple languages
+Palindrome checker for a character stream using Rabin-Karp algorithm
+Sorting a large file with limited RAM (External Sorting)
+Garbage Collection, programming patterns for low-latency systems, and memory analysis
+In-memory Map design for embedded systems with primitive data types and structs
+Volatile keyword and its impact on code reordering
+Topological sorting approaches for finding a graph's order
+Optimal song list shuffling
+Design of a project management tool (Maven) with dependency resolution using Topological Sort
+Design of a card game with multiple decks and players
+Constructing a binary tree from inorder and preorder traversals
+Elevator control system design for a 10-floor building with two elevators
+Design considerations for a flight information board
+Design of a social media newsfeed
+MapReduce architecture for task distribution and merging
+Restaurant reservation system (LLD)
+Splitwise app - Object-Oriented Design (OOD)
+Troubleshooting an unresponsive application (deadlock, memory issues)
+E-commerce website design (HLD and LLD)
+LLD for phone directory/contacts with search functionality using Tries
+HLD for a transaction processing service with message queues for task processing
+Data structure for generating vehicle license plates with special number handling
