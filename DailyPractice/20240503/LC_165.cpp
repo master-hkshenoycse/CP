@@ -9,7 +9,7 @@ public:
             if(ch=='.'){
                 n1.push_back(s);
                 s=0;
-            }else{a
+            }else{
                 s=s*10+(ch-'0');
             }
         }
