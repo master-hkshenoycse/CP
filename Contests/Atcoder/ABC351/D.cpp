@@ -30,20 +30,18 @@
 using namespace std;
 ll dx[4]={-1,1,0,0};
 ll dy[4]={0,0,-1,1};
-void dfs(ll x,ll y,vector<vector<ll> >&is_free,vector<vector<ll> > &vis,vector<ll> &comp){
+void dfs(ll x,ll y,vector<vector<ll> >&is_free,vector<vector<ll> > &vis,vector<vector<arr<ll,2> > > &comp){
+    
+    comp.back().push_back({x,y});
     vis[x][y]=comp.size();
-    comp.back()++;
-
-    if(is_free[x][y]==0){
-        return;
-    }
+    
     for(ll i=0;i<4;i++){
 
         ll nx=x+dx[i];
         ll ny=y+dy[i];
 
-        if(nx>=0 and ny>=0 and nx<is_free.size() and ny<is_free[0].size() and vis[nx][ny]==0 and is_free[nx][ny]!=2){
-            dfs(nx,ny,is_free,vis,comp);
+        if(nx>=0 and ny>=0 and nx<is_free.size() and ny<is_free[0].size() and vis[nx][ny]==0 and is_free[nx][ny]==1){
+            dfs(nx,ny,is_free,vis,comp);//make components for only free cells
         }
     }
 
@@ -70,12 +68,14 @@ void solve(ll tc){
     for(ll i=0;i<h;i++){
         for(ll j=0;j<w;j++){
             
-            for(ll k=0;k<4;k++){
-                ll ni=i+dx[k];
-                ll nj=j+dy[k];
-                if(ni>=0 and nj>=0 and ni<h and nj<w and grid[ni][nj]=='#'){
-                    is_free[i][j]=0;
-                    break;
+            if(grid[i][j]=='.'){
+                for(ll k=0;k<4;k++){
+                    ll ni=i+dx[k];
+                    ll nj=j+dy[k];
+                    if(ni>=0 and nj>=0 and ni<h and nj<w and grid[ni][nj]=='#'){
+                        is_free[i][j]=0;//means they stop the movement to other cells, but can be entered
+                        break;
+                    }
                 }
             }
         }
@@ -83,17 +83,45 @@ void solve(ll tc){
 
     
 
-    vector<ll> comp;
+    vector<vector< arr<ll,2> > > comp;
     ll ans=1;
     for(ll i=0;i<h;i++){
         for(ll j=0;j<w;j++){
+
             if(is_free[i][j]==1 and vis[i][j]==0){
-                comp.push_back(0);
+                comp.push_back({});
                 dfs(i,j,is_free,vis,comp);
-                ans=max(ans,comp.back());
+            }
+            
+        }
+        
+    }
+    
+    
+    for(auto c:comp){
+
+        set<arr<ll,2> > extra_cells;
+        
+        for(auto p:c){
+            
+            for(ll k=0;k<4;k++){
+                ll nx=p[0]+dx[k];
+                ll ny=p[1]+dy[k];
+                if(nx>=0 and ny>=0 and nx<h and ny<w and is_free[nx][ny]==0){
+                    extra_cells.insert({nx,ny});
+                }
             }
         }
+
+        
+
+        ll total_size=c.size()+extra_cells.size();
+        ans=max(ans,total_size);
+
+
     }
+
+
 
     cout<<ans<<endl;
 
