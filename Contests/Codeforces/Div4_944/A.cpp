@@ -31,32 +31,9 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll n;
-    cin>>n;
-
     ll x,y;
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>x>>y;
-        a[i][0]=x;
-        a[i][1]=y;
-    }
-
-    ll ans=0;
-    for(ll i=0;i<n;i++){
-        for(ll j=i+1;j<n;j++){
-            ll dx=abs(a[i][0]-a[j][0]);
-            ll dy=abs(a[i][1]-a[j][1]);
-            cout<<i<<" "<<dx<<" "<<dy<<endl;
-            if((dx-dy)%2==0){
-                ans=ans+max(dx,dy);
-            }
-        }
-    }
-
-    cout<<ans<<endl;
-    
-
+    cin>>x>>y;
+    cout<<min(x,y)<<" "<<max(x,y)<<endl;
 
 
 

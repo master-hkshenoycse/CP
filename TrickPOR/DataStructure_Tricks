@@ -1,0 +1,29 @@
+Linked List Reversal recursively:
+struct ListNode{
+    int data;
+    Node *next;
+    
+}
+
+ListNode* reverseList(ListNode* head) {
+    if(head==NULL or head->next==NULL){
+        return head;
+    }
+
+    //reverse the part ahead of it;
+    ListNode *newHead=reverseList(head->next);
+
+
+    ListNode *nx=head->next;
+    
+    //reverse the immidiate link
+    nx->next=head;
+
+
+    
+    //ensures no circular link
+    head->next=NULL;
+
+
+    return newHead;
+}

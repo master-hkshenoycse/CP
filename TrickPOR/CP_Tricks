@@ -1,0 +1,19 @@
+cumilitive sum(csum) of matrix (1,1) to (i,j) csum[i][j]=csum[i-1][j]+csum[i][j-1]-csum[i-1][j-1]+matrix[i][j]
+query of any sum of rectangle(x1,y1,x2,y2)=csum[x2][y2]-csum[x2][y1-1]-csum[x1-1][y2]+csum[x1-1][y1-1];
+
+
+Rotate by 45 degree to linearize distance:
+Eg if distance between two points is given as max(abs(x1-x2),abs(y1-y2))
+it can be written in form summation form by changing cordinate x1=(x1+y1),y1=(x1-y1)
+distance will be (abs(x1-x2)+abs(y1-y2))/2;
+//https://atcoder.jp/contests/abc351/tasks/abc351_e
+
+
+Re-root the tree technique.
+first caluclate by subtree rooting in dfs , and then calcuate the re-rooted value by second dfs
+//https://cses.fi/problemset/result/7013514/
+
+
+
+when finding max/min after operation on strings 
+see what string will look like when no operations can be performed on it.Eg:https://www.codechef.com/START133A/problems/ABCC3

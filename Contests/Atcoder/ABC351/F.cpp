@@ -28,34 +28,61 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll bit[400005];
+void upd(ll ind,ll val,ll n){
+    while(ind<=n){
+        bit[ind]+=val;
+        ind+=(ind & (-ind));
+    }
+}
 
+ll query(ll ind){
+    ll s=0;
+    while(ind>0){
+        s=s+bit[ind];
+        ind-=(ind & (-ind));
+    }
+    return s;
+}
 void solve(ll tc){
-
     ll n;
     cin>>n;
 
-    ll x,y;
-    vector<arr<ll,2> > a(n);
+    map<ll,ll> value_hash;
+    vector<ll> a(n);
     for(ll i=0;i<n;i++){
-        cin>>x>>y;
-        a[i][0]=x;
-        a[i][1]=y;
+        cin>>a[i];
+        value_hash[a[i]]++;
+    }
+
+    ll c=0;
+    for(auto &it:value_hash){
+        c++;
+        it.ss=c;
     }
 
     ll ans=0;
+
     for(ll i=0;i<n;i++){
-        for(ll j=i+1;j<n;j++){
-            ll dx=abs(a[i][0]-a[j][0]);
-            ll dy=abs(a[i][1]-a[j][1]);
-            cout<<i<<" "<<dx<<" "<<dy<<endl;
-            if((dx-dy)%2==0){
-                ans=ans+max(dx,dy);
-            }
-        }
+        ll hsh=value_hash[a[i]];
+        ll value_ls=query(hsh-1);
+        ans=ans+value_ls*a[i];//count how many times this element will be in +ve contribution
+        upd(hsh,1,n);
+    }
+
+    for(ll i=0;i<n;i++){
+        ll hsh=value_hash[a[i]];
+        upd(hsh,-1,n);
+    }
+
+    for(ll i=n-1;i>=0;i--){
+        ll hsh=value_hash[a[i]];
+        ll value_gt=query(n)-query(hsh);
+        ans=ans-value_gt*a[i];//count how many times this element will be in -ve contribution
+        upd(hsh,1,n);
     }
 
     cout<<ans<<endl;
-    
 
 
 
