@@ -17,3 +17,14 @@ first caluclate by subtree rooting in dfs , and then calcuate the re-rooted valu
 
 when finding max/min after operation on strings 
 see what string will look like when no operations can be performed on it.Eg:https://www.codechef.com/START133A/problems/ABCC3
+
+
+when two parameters are there in greedy, may be sort by one and use heap/multiset on other parameter.
+Eg:https://leetcode.com/problems/minimum-cost-to-hire-k-workers/?envType=daily-question&envId=2024-05-11 
+
+
+when on ith move we can move by +i or -i, then minimum steps to reach a point p is,
+let d(x)=(x*x+x)/2  and d(x) >=p , if differnece between d(x)-p is even and less than x then in atmost 1 extra jump exactly p can be achieved. 
+
+
+
