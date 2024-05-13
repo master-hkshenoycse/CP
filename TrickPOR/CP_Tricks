@@ -24,7 +24,19 @@ Eg:https://leetcode.com/problems/minimum-cost-to-hire-k-workers/?envType=daily-q
 
 
 when on ith move we can move by +i or -i, then minimum steps to reach a point p is,
-let d(x)=(x*x+x)/2  and d(x) >=p , if differnece between d(x)-p is even and less than x then in atmost 1 extra jump exactly p can be achieved. 
+let d(x)=(x*x+x)/2  and d(x) >=p , if differnece between d(x)-p is even and less than x then in atmost 1 extra jump exactly p can be achieved.
+
+permutation cycles, edge between i and p[i], graph is a componenet, where each component is a simple cycle.
+
+
+For these type of questions https://codeforces.com/blog/entry/129410 
+Every subarray the first and last element should be min or max
+Every subarray should be monotonically increasing or decreasing
+
+Lexicographically least topsort , instead of queue use priortiy queue in regular topsort algo
+
+In row and column operations, think if anyone can be done first
+https://leetcode.com/problems/score-after-flipping-matrix/description/?envType=daily-question&envId=2024-05-13
 
 
 
