@@ -31,9 +31,31 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll x,y;
-    cin>>x>>y;
-    cout<<min(x,y)<<" "<<max(x,y)<<endl;
+    ll a,b,c,d;
+    cin>>a>>b>>c>>d;
+
+    if(a>b){
+        swap(a,b);
+    }
+
+    if(c>d){
+        swap(c,d);
+    }
+
+    if(c>a and c<b){
+
+        if(d>a and d<b){
+            cout<<"NO"<<endl;
+        }else{
+            cout<<"YES"<<endl;
+        }
+
+
+    }else{
+
+
+
+    }
 
 
 

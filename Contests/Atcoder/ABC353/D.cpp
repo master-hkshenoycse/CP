@@ -28,13 +28,47 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll mod=998244353;
+ll modpow(ll a,ll n){
+    ll res=1;
+    while(n>0){
+        if(n%2){
+            res=(res*a)%mod;
+        }
+        n/=2;
+        a=(a*a)%mod;
+    }
 
+    return res;
+}
+ll get_lod(ll n){
+    ll c=0;
+    while(n>0){
+        c++;
+        n/=10;
+    }
+    return c;
+}
 void solve(ll tc){
+    ll n;
+    cin>>n;
 
-    ll x,y;
-    cin>>x>>y;
-    cout<<min(x,y)<<" "<<max(x,y)<<endl;
+    vector<ll> a(n);
+   
 
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+    }
+    
+    ll ans=0,sop=0;
+    //add all powers of 10 of length of digit, the value contributed by element at i will be 
+    for(ll i=n-1;i>=0;i--){
+        ans=(ans+sop*a[i])%mod;
+        ans=(ans+i*a[i])%mod;
+        sop=(sop+modpow(10,get_lod(a[i])))%mod;
+    }
+
+    cout<<ans<<endl;
 
 
 }   
@@ -48,7 +82,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

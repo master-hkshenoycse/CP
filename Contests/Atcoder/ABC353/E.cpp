@@ -28,13 +28,22 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+struct trie_node{
+    trie_node *child[26];
+    ll cnt=0;
+
+    trie_node(){
+        for(ll i=0;i<26;i++){
+            child[i]=NULL;
+        }
+        cnt=0;
+    }
+};
 
 void solve(ll tc){
-
-    ll x,y;
-    cin>>x>>y;
-    cout<<min(x,y)<<" "<<max(x,y)<<endl;
-
+    ll n;
+    cin>>n;
+    
 
 
 }   
@@ -48,7 +57,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

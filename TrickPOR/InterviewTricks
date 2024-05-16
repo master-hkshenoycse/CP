@@ -1,0 +1,5 @@
+Question: suppose there's an Array A that contains numbers 1-N in random order. now the given array B is created by counting how many smaller number exist in front of that number for the index.
+Create array A from given array B.
+
+Ex : A : [ 3, 5, 1, 2,4] ( answer )
+B : [ 2, 3, 0, 0, 0] (given in question)

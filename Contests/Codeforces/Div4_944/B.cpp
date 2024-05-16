@@ -31,11 +31,21 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll x,y;
-    cin>>x>>y;
-    cout<<min(x,y)<<" "<<max(x,y)<<endl;
+    string s;
+    cin>>s;
+    
+    ll n=s.size();
 
+    for(ll i=1;i<n;i++){    
+        if(s[i] != s[0]){
+            swap(s[i],s[0]);
+            cout<<"YES"<<endl;
+            cout<<s<<endl;
+            return;
+        }
+    }
 
+    cout<<"NO"<<endl;
 
 }   
 int main(){

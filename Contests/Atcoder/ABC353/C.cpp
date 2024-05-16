@@ -28,24 +28,34 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
+ll lim=1e8;
 void solve(ll tc){
     ll n;
     cin>>n;
 
-    vector<ll> a(n+1);
-    vector<ll> csum(n+1,0);
+    vector<ll> a(n);
+    ll ans=0;
 
-    for(ll i=1;i<=n;i++){
+    for(ll i=0;i<n;i++){
         cin>>a[i];
+        ans=ans+(n-1)*a[i];
+    }
+    //subtracting 1e8 from those pairs whose sum is >=1e8;
+    //cnt pairse whose sum >=1e8;
+    sort(a.begin(),a.end());
+
+    ll j=0,cnt=0;
+    for(ll i=n-1;i>=0;i--){
+        while(j<i and a[i]+a[j]<lim){
+            j++;
+        }
+        //cout<<i<<" "<<j<<endl;
+        cnt=cnt+max(0ll,(i-j));
     }
 
-    sort(a.begin()+1,a.end());
-    for(ll i=1;i<=n;i++){
-        csum[i]=csum[i-1]+a[i];
-    }
+    //cout<<cnt<<endl;
 
-
+    cout<<ans-cnt*lim<<endl;
 
 }   
 int main(){
