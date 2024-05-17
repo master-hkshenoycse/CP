@@ -39,11 +39,49 @@ struct trie_node{
         cnt=0;
     }
 };
+void insert(trie_node *root,string &s){
+    ll n=s.size();
 
+    for(ll i=0;i<n;i++){
+        if(root->child[s[i]-'a']==NULL){
+            root->child[s[i]-'a']=new trie_node();
+        }
+        root=root->child[s[i]-'a'];
+        root->cnt++;//keeps track of howmany prefix are there 
+    }
+}
+
+void upd_ans(trie_node *root,string &s,ll &ans){
+    ll n=s.size();
+
+    for(ll i=0;i<n;i++){
+        if(root->child[s[i]-'a']==NULL){
+            return;
+        }
+
+        root=root->child[s[i]-'a'];
+        ans=ans+root->cnt;//contibution of ith index to ans;
+    }
+}
 void solve(ll tc){
     ll n;
     cin>>n;
-    
+
+
+    vector<string> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+    }
+
+    trie_node *root=new trie_node();
+    ll ans=0;
+
+    for(ll i=n-1;i>=0;i--){
+        upd_ans(root,a[i],ans);
+        insert(root,a[i]);
+    }
+
+    cout<<ans<<endl;
 
 
 }   
