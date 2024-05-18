@@ -31,38 +31,34 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll a,b,c,d;
-    cin>>a>>b>>c>>d;
+    ll ans=1;
 
-    if(a>b){
-        swap(a,b);
+
+    ll n;
+    cin>>n;
+
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
     }
 
-    if(c>d){
-        swap(c,d);
-    }
+    for(ll i=0;i<=20;i++){
+        ll prev=-1;
 
-    if(c>a and c<b){
-
-        if(d>a and d<b){
-            cout<<"NO"<<endl;
-        }else{
-            cout<<"YES"<<endl;
+        for(ll j=0;j<n;j++){
+            if(a[j] & (1<<i)){
+                ans=max(ans,j-prev);
+                prev=j;
+            }
         }
 
-
-    }else{
-
-        if(d>a and d<b){
-            cout<<"YES"<<endl;
-        }else{
-            cout<<"NO"<<endl;
+        if(prev!=-1){
+            ans=max(ans,n-prev);
         }
-
-
     }
 
 
+    cout<<ans<<endl;
 
 }   
 int main(){

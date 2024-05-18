@@ -30,38 +30,45 @@
 using namespace std;
 
 void solve(ll tc){
+    ll n;
+    cin>>n;
 
-    ll a,b,c,d;
-    cin>>a>>b>>c>>d;
+    ll ans=0;
+    for(ll i=0;i<=n+1;i++){
 
-    if(a>b){
-        swap(a,b);
-    }
+        ll lo=0,hi=n+1,lowest_gt_r=n+1,highest_ls_r_1=0;
 
-    if(c>d){
-        swap(c,d);
-    }
+        while(hi>=lo){
+            ll mid=(hi+lo)/2ll;
 
-    if(c>a and c<b){
-
-        if(d>a and d<b){
-            cout<<"NO"<<endl;
-        }else{
-            cout<<"YES"<<endl;
+            if(i*i + mid*mid >= n*n){
+                lowest_gt_r=min(lowest_gt_r,mid);
+                hi=mid-1;
+            }else{
+                lo=mid+1;
+            }
         }
 
 
-    }else{
+        ans=ans+4*max(0ll,highest_ls_r_1-lowest_gt_r+1);
 
-        if(d>a and d<b){
-            cout<<"YES"<<endl;
-        }else{
-            cout<<"NO"<<endl;
+        lo=0,hi=n+1;
+
+        while(hi>=lo){
+            ll mid=(hi+lo)/2ll;
+
+            if(i*i + mid*mid < (n+1)*(n+1)){
+                highest_ls_r_1=max(highest_ls_r_1,mid);
+                lo=mid+1;
+            }else{
+                hi=mid-1;
+            }
         }
 
 
     }
-
+    
+    cout<<ans<<endl;
 
 
 }   

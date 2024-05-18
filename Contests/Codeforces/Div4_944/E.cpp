@@ -31,37 +31,39 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll a,b,c,d;
-    cin>>a>>b>>c>>d;
+    ll n,k,q;
+    cin>>n>>k>>q;
 
-    if(a>b){
-        swap(a,b);
+    vector<ll> a(k+1,0);
+    vector<ll> b(k+1,0);
+
+    for(ll i=1;i<=k;i++){
+        cin>>b[i];
     }
 
-    if(c>d){
-        swap(c,d);
+    for(ll i=1;i<=k;i++){
+        cin>>a[i];
     }
 
-    if(c>a and c<b){
 
-        if(d>a and d<b){
-            cout<<"NO"<<endl;
+    ll d;
+    while(q--){
+        cin>>d;
+        ll ind=lower_bound(all(b),d)-b.begin();
+
+        if(ind==0){
+            cout<<0<<" ";
         }else{
-            cout<<"YES"<<endl;
+            ll num=(d-b[ind-1])*(a[ind]-a[ind-1]);
+            ll den=(b[ind]-b[ind-1]);
+            ll time_taken=num/den;
+            cout<<a[ind-1]+time_taken<<" ";
         }
-
-
-    }else{
-
-        if(d>a and d<b){
-            cout<<"YES"<<endl;
-        }else{
-            cout<<"NO"<<endl;
-        }
-
-
     }
 
+    cout<<endl;
+
+    
 
 
 }   

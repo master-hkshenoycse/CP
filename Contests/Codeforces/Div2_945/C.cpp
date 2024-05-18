@@ -31,36 +31,58 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll a,b,c,d;
-    cin>>a>>b>>c>>d;
+    ll n;
+    cin>>n;
 
-    if(a>b){
-        swap(a,b);
-    }
-
-    if(c>d){
-        swap(c,d);
-    }
-
-    if(c>a and c<b){
-
-        if(d>a and d<b){
-            cout<<"NO"<<endl;
+    vector<ll> a(n);
+    vector<arr<ll,2> > odd_pos,eve_pos;
+    
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        if(i%2==0){
+            eve_pos.pb({a[i],i});
         }else{
-            cout<<"YES"<<endl;
+            odd_pos.pb({a[i],i});
         }
-
-
-    }else{
-
-        if(d>a and d<b){
-            cout<<"YES"<<endl;
-        }else{
-            cout<<"NO"<<endl;
-        }
-
-
     }
+
+    vector<ll> sol(n);
+    //check whether to maximize even posiiton or odd postiton
+    //by checking n belongs to which group
+
+    sort(all(eve_pos));
+    sort(all(odd_pos));
+    if(odd_pos.back()[0] > eve_pos.back()[0]){
+        swap(odd_pos,eve_pos);
+    }
+
+    //the group not having n will be odd, and other will be eve
+    reverse(all(odd_pos));
+    for(ll i=0;i<n/2;i++){
+        sol[odd_pos[i][1]]=i+1;//ensures all odd index will be atmost n;
+    }
+
+
+
+
+    //ensures all even index will be atleast n+1;
+    reverse(all(eve_pos));
+    for(ll i=0;i<n/2;i++){
+        sol[eve_pos[i][1]]=n/2+i+1;
+    }
+
+    for(ll i=0;i<n;i++){
+        cout<<sol[i]<<" ";
+    }
+    cout<<endl;
+
+
+
+
+
+    
+
+
 
 
 

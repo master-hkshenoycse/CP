@@ -30,40 +30,7 @@
 using namespace std;
 
 void solve(ll tc){
-
-    ll a,b,c,d;
-    cin>>a>>b>>c>>d;
-
-    if(a>b){
-        swap(a,b);
-    }
-
-    if(c>d){
-        swap(c,d);
-    }
-
-    if(c>a and c<b){
-
-        if(d>a and d<b){
-            cout<<"NO"<<endl;
-        }else{
-            cout<<"YES"<<endl;
-        }
-
-
-    }else{
-
-        if(d>a and d<b){
-            cout<<"YES"<<endl;
-        }else{
-            cout<<"NO"<<endl;
-        }
-
-
-    }
-
-
-
+    
 }   
 int main(){
     boost;
@@ -75,7 +42,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

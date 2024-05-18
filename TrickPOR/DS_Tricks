@@ -1,0 +1,59 @@
+https://developers.google.com/codelabs/tensorflow-3-convolutions#1 -Convolution breif definition
+A convolution is a filter that passes over an image, processes it, and extracts the important features.
+
+Let's say you have an image of a person wearing a sneaker. How would you detect that a sneaker is present in the image? In order for your program to "see" the image as a sneaker, you'll have to extract the important features, and blur the inessential features. This is called feature mapping.
+The feature mapping process is theoretically simple. You'll scan every pixel in the image and then look at its neighboring pixels. You multiply the values of those pixels by the equivalent weights in a filter.
+
+
+neural network to recognize items of clothing from a common dataset called Fashion MNIST. 
+pixel values are integers between 0 and 255. When training a neural network, it's easier to treat all values as between 0 and 1, a process called normalization. 
+https://developers.google.com/codelabs/tensorflow-2-computervision#1
+
+
+Sequential defines a sequence of layers in the neural network.
+Flatten takes a square and turns it into a one-dimensional vector.
+Dense adds a layer of neurons.
+Activation functions tell each layer of neurons what to do. There are lots of options, but use these for now:
+Relu effectively means that if X is greater than 0 return X, else return 0. It only passes values of 0 or greater to the next layer in the network.
+Softmax takes a set of values, and effectively picks the biggest one. For example, if the output of the last layer looks like [0.1, 0.1, 0.05, 0.1, 9.5, 0.1, 0.05, 0.05, 0.05], then it saves you from having to sort for the largest value—it returns [0,0,0,0,1,0,0,0,0]
+
+
+import tensorflow as tf
+print(tf.__version__)
+mnist = tf.keras.datasets.fashion_mnist
+(training_images, training_labels), (test_images, test_labels) = mnist.load_data()
+training_images=training_images/255.0
+test_images=test_images/255.0
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Flatten(),
+  tf.keras.layers.Dense(512, activation=tf.nn.relu),
+  tf.keras.layers.Dense(10, activation=tf.nn.softmax)
+])
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
+model.fit(training_images, training_labels, epochs=5)
+model.evaluate(test_images, test_labels)
+classifications = model.predict(test_images)
+print(classifications[0])
+print(test_labels[0])
+
+Call backs: have thought that it'd be nice if you could stop the training when you reach a desired value, such as 95% accuracy. If you reach that after 3 epochs, why sit around waiting for it to finish a lot more epochs?
+import tensorflow as tf
+
+class myCallback(tf.keras.callbacks.Callback):
+  def on_epoch_end(self, epoch, logs={}):
+    if(logs.get('accuracy')>0.95):
+      print("\nReached 95% accuracy so cancelling training!")
+      self.model.stop_training = True
+
+callbacks = myCallback()
+mnist = tf.keras.datasets.fashion_mnist
+(training_images, training_labels), (test_images, test_labels) = mnist.load_data()
+training_images=training_images/255.0
+test_images=test_images/255.0
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Flatten(),
+  tf.keras.layers.Dense(512, activation=tf.nn.relu),
+  tf.keras.layers.Dense(10, activation=tf.nn.softmax)
+])
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.fit(training_images, training_labels, epochs=5, callbacks=[callbacks])
