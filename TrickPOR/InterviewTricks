@@ -3,3 +3,27 @@ Create array A from given array B.
 
 Ex : A : [ 3, 5, 1, 2,4] ( answer )
 B : [ 2, 3, 0, 0, 0] (given in question)
+
+https://www.reddit.com/r/leetcode/comments/1cvqixl/google_l4_india_hard_problem/ 
+Question
+Given an array A of length n. you perform some operations on array A. Each operations involves from the end of an array pick last two elemmets l and r and remove both of them and add single value with l - r. you do this operation until you have one element remains in array.
+you have given the the length n and the range l in which the the element of array lies 1 <= a[i] <= l and the value of d > 0 the last element remains in array.
+Regenerate the array each element lying in the range (if multiple answers possible print any of them) if not possible print -1.
+Note value obtained from inermediate operations can be negative. But original elements of arr should belong to the range.
+
+
+3 4 4 (n,d,l) 1 1 4 (1 1 4 -> 1 -3 -> 4)
+
+3 4 2 (n,d,l) -1
+
+Solution
+Keep the first element of the array as d. Now you have to ensure that the rest of the elements are such that they cancel out each other as the array keeps on shrinking.
+
+Writing a few cases by hand lets you observe that if n is odd, after fixing the first element you can have all other elements as 1 (d 1 1 1...). If n is even, the array is of the pattern (d 1 2 1 1 1...)
+
+https://codeforces.com/blog/entry/129626 
+Given A, B, C, D. Find ∑i=AB∑j=CDi⊕j
+Constraints:
+
+1 <= A <= B <= 109
+1 <= C <= D <= 109

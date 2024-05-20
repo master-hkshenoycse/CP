@@ -28,9 +28,8 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll tree_prefix[800005],tree_suffix[800005];
-ll dp[200005];
-void upd(ll index,ll l,ll r,ll p,ll val,ll *tree){
+ll tree[900005];
+void upd(ll index,ll l,ll r,ll node,ll val){
     if(l>r){
         return;
     }
@@ -41,18 +40,18 @@ void upd(ll index,ll l,ll r,ll p,ll val,ll *tree){
     }
 
     ll mid=(l+r)/2ll;
-    
-    if(p<=mid){
-        upd(index*2,l,mid,p,val,tree);
+    if(node<=mid){
+        upd(index*2,l,mid,node,val);
     }else{
-        upd(index*2+1,mid+1,r,p,val,tree);
+        upd(index*2+1,mid+1,r,node,val);
     }
+
     tree[index]=max(tree[index*2],tree[index*2+1]);
 }
 
-ll query(ll index,ll l,ll r,ll st,ll en,ll *tree){
-    if(l>r or l>en or r<st){
-        return -3e18;
+ll query(ll index,ll l,ll r,ll st,ll en){
+    if(l>r or r<st or l>en){
+        return 0;
     }
 
     if(l>=st and r<=en){
@@ -61,47 +60,80 @@ ll query(ll index,ll l,ll r,ll st,ll en,ll *tree){
 
     ll mid=(l+r)/2ll;
 
-    return max(query(index*2,l,mid,st,en,tree),query(index*2+1,mid+1,r,st,en,tree));
+    return max(query(index*2,l,mid,st,en),query(index*2+1,mid+1,r,st,en));
 }
 
 void solve(ll tc){
-    ll n,c;
-    cin>>n>>c;
+
+    ll n;
+    cin>>n;
+
+    vector<ll> a(n+1);
+    map<ll,ll> help;
+    for(ll i=1;i<=n;i++){
+        cin>>a[i];
+        help[a[i]]++;
+    }
+
+    ll c=0;
+    for(auto &it:help){
+        c++;
+        it.ss=c;
+    }
+
 
     for(ll i=1;i<=n;i++){
-        dp[i]=-3e18;
-        if(i==1){
-            dp[i]=0;
-            upd(i,1,n,i,dp[i]+c,tree_prefix);
-            upd(i,1,n,i,dp[i]-c,tree_suffix);
-        }else{
-            upd(i,1,n,i,dp[i],tree_prefix);
-            upd(i,1,n,i,dp[i],tree_suffix);
+        a[i]=help[a[i]];
+    }
+
+    ll lis=0;
+    vector<ll> dp_prefix(n+1,1),dp_suffix(n+1,1);
+
+    for(ll i=1;i<=n;i++){
+        ll value=query(1,1,c,1,a[i]-1);
+        lis=max(lis,value+1);
+        dp_prefix[i]=value+1;
+        upd(1,1,c,a[i],dp_prefix[i]);
+    }
+
+    for(ll i=1;i<=c+2;i++){
+        upd(1,1,c,i,0);
+    }
+
+    vector<ll> sol;
+    for(ll i=n;i>=1;i--){
+        ll value=query(1,1,c,a[i]+1,c);
+        dp_suffix[i]=value+1;
+
+        if(lis==dp_prefix[i]+dp_suffix[i]-1){
+            sol.pb(i);
         }
+
+        upd(1,1,c,a[i],dp_suffix[i]);
     }
 
-    ll m;
-    cin>>m;
-    ll t,p;
+    reverse(all(sol));
+    cout<<sol.size()<<endl;
+    for(auto s:sol){
+        cout<<s<<" ";
+    }
+    cout<<endl;
 
-    ll ans=0;
-    while(m--){
-        cin>>t>>p;
-
-        ll max_prefix=query(1,1,n,1,t,tree_prefix);
-        ll max_suffix=query(1,1,n,t,n,tree_suffix);
-
-        dp[t]=max(dp[t],max_prefix-c*t+p);
-        dp[t]=max(dp[t],max_suffix+c*t+p);
-
-        ans=max(ans,dp[t]);
-
-        cout<<dp[t]<<endl;
-        upd(1,1,n,t,dp[t]+c*t,tree_prefix);
-        upd(1,1,n,t,dp[t]-c*t,tree_suffix);
+    for(ll i=1;i<=c+2;i++){
+        upd(1,1,c,i,0);
     }
 
-    cout<<ans<<endl;
+    
+
+    
+
+
+
+    
+
+
+
+
 
 }   
 int main(){
@@ -114,7 +146,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);
