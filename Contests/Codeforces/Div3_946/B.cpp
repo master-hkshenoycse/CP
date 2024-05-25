@@ -31,19 +31,38 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll x,y;
-    cin>>x>>y;
+    ll n;
+    cin>>n;
 
-    ll for_y=(y+1)/2ll;
-    ll ans=for_y;
-    ll remaining=for_y*15-y*4;
-    if(x>remaining){
-        ans=ans+(x-remaining+14)/15;
-    }    
+    string s;
+    cin>>s;
 
-    cout<<ans<<endl;
+    string r;
+    vector<ll> cnt(26,0);
 
+    for(ll i=0;i<n;i++){
+        cnt[s[i]-'a']++;
+        if(cnt[s[i]-'a']==1){
+            r+=s[i];
+        }
+    }
 
+    sort(r.begin(),r.end());
+    //cout<<r<<endl;
+    ll sz=r.size();
+    vector<ll> index_v(26);
+    for(ll i=0;i<sz;i++){
+        index_v[r[i]-'a']=i;
+    }
+
+    for(ll i=0;i<n;i++){
+        ll ind_req=sz-index_v[s[i]-'a']-1;
+
+        s[i]=r[ind_req];
+    }
+
+    cout<<s<<endl;
+    
 
 }   
 int main(){

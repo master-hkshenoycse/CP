@@ -44,3 +44,19 @@ https://leetcode.com/problems/distribute-coins-in-binary-tree/submissions/126096
 
 
 
+
+top set bottom set trick for median running or top k type of queries with updates.
+maintain multisets of elements.
+
+
+Multisource bfs-https://www.codechef.com/problems/PRISON
+
+
+//identity
+x+y = (x^y) + 2(x&y)
+floor((x^y)/2)=floor((x/2) ^ (y/2))=floor(x/2) ^ floor(y/2)
+x < y < z  we always have min(x^y, y^z) < x^z. 
+any set of integers, 
+the minimum bitwise XOR between some pair of them will always be obtained by some adjacent pair in sorted order.
+
+piegonhole principle

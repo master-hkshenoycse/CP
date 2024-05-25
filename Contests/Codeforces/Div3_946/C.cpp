@@ -29,21 +29,63 @@
 #define arr array 
 using namespace std;
 
+ll get_same_cnt(map<arr<ll,2> , vector<ll> > &help){
+
+    ll ans=0;
+
+    for(auto it:help){
+        vector<ll> tmp=it.ss;
+        sort(all(tmp));
+        ll sz=tmp.size();
+        ll cnt=0;
+        ll i=0;  
+        while(i<sz){
+            ll c=0,j=i;
+            while(j<sz and tmp[i]==tmp[j]){
+                c++;
+                j++;
+            }
+             cnt=cnt+c*(sz-c);
+            i=j;
+        }   
+        
+
+        ans=ans+cnt/2;
+    }
+
+    return ans;
+}
 void solve(ll tc){
 
-    ll x,y;
-    cin>>x>>y;
+    map<arr<ll,3>,ll> all_three_same;
+    ll n;
+    cin>>n;
 
-    ll for_y=(y+1)/2ll;
-    ll ans=for_y;
-    ll remaining=for_y*15-y*4;
-    if(x>remaining){
-        ans=ans+(x-remaining+14)/15;
-    }    
+    vector<ll> a(n+1);
+    for(ll i=1;i<=n;i++){
+        cin>>a[i];
+    }
 
-    cout<<ans<<endl;
+ 
 
 
+    map<arr<ll,2>,vector<ll> > first_two_same;
+    map<arr<ll,2>,vector<ll> > last_two_same;
+    map<arr<ll,2>,vector<ll> > first_last_same;
+    ll cnt_two_same=0;
+    for(ll i=1;i<=n-2;i++){
+        first_two_same[{a[i],a[i+1]}].push_back(a[i+2]);
+        last_two_same[{a[i+1],a[i+2]}].push_back(a[i]);
+        first_last_same[{a[i],a[i+2]}].push_back(a[i+1]);
+    }
+
+    
+
+    cnt_two_same=get_same_cnt(first_two_same)+get_same_cnt(last_two_same)+get_same_cnt(first_last_same);
+
+    
+
+    cout<<cnt_two_same<<endl;
 
 }   
 int main(){

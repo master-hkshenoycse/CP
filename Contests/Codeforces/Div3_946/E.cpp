@@ -29,22 +29,54 @@
 #define arr array 
 using namespace std;
 
+
 void solve(ll tc){
+    ll m,x;
+    cin>>m>>x;
 
-    ll x,y;
-    cin>>x>>y;
 
-    ll for_y=(y+1)/2ll;
-    ll ans=for_y;
-    ll remaining=for_y*15-y*4;
-    if(x>remaining){
-        ans=ans+(x-remaining+14)/15;
-    }    
+    ll c,h;
+
+    ll lim=m*1000;
+
+    map<ll,ll> dp;
+    dp[0]=0;
+
+
+
+    
+
+    ll dont_mve=0;
+    for(ll i=1;i<=m;i++){
+        cin>>c>>h;
+
+        map<ll,ll> tmp;
+
+        for(auto &it:dp){
+            ll nx_hap=it.ff+h;
+            if(it.ss >= c){
+                tmp[nx_hap]=max(tmp[nx_hap],it.ss-c+x);
+            }
+            it.ss+=x;
+
+        }
+
+        for(auto it:tmp){
+            dp[it.ff]=max(dp[it.ff],it.ss);
+        }
+
+ 
+
+    }
+
+    ll ans=0;
+    for(auto it:dp){
+        ans=max(ans,it.ff);
+    }
 
     cout<<ans<<endl;
-
-
-
+    
+    
 }   
 int main(){
     boost;

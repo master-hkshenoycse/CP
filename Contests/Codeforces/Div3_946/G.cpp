@@ -29,22 +29,40 @@
 #define arr array 
 using namespace std;
 
+
 void solve(ll tc){
+    ll m,x;
+    cin>>m>>x;
 
-    ll x,y;
-    cin>>x>>y;
+    ll curr_balance=0;
+   
+    ll ans=0;
+    //greedy with priority queue to reverse decision.
 
-    ll for_y=(y+1)/2ll;
-    ll ans=for_y;
-    ll remaining=for_y*15-y*4;
-    if(x>remaining){
-        ans=ans+(x-remaining+14)/15;
-    }    
+    priority_queue<ll> pq;
+
+
+    ll c;
+    for(ll i=0;i<m;i++){
+        cin>>c;
+
+        curr_balance-=c;
+        pq.push(c);
+        ans++;
+
+
+        while(pq.size()>0 and curr_balance<0){
+            curr_balance+=pq.top();
+            pq.pop();
+            ans--;
+        }
+
+        curr_balance+=x;
+
+    }
 
     cout<<ans<<endl;
-
-
-
+    
 }   
 int main(){
     boost;
