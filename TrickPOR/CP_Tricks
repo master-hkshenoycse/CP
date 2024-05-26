@@ -60,3 +60,7 @@ any set of integers,
 the minimum bitwise XOR between some pair of them will always be obtained by some adjacent pair in sorted order.
 
 piegonhole principle
+
+
+Segtree to find largets sum sequence with non adjcent element
+https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/submissions/1268288437/
