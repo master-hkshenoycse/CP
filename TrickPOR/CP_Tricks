@@ -63,4 +63,54 @@ piegonhole principle
 
 
 Segtree to find largets sum sequence with non adjcent element
-https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/submissions/1268288437/
+https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/submissions/1268288437/ 
+
+
+LIS in o(nlogn) without merge sort
+int LIS(int arr[], int N) 
+	{ 
+	    // Your code goes here
+	    vector<int> v;//stores the LIS
+	    v.push_back(arr[0]);
+	    
+	    for(int i=1;i<N;i++){
+	        auto it=upper_bound(v.begin(),v.end(),arr[i]);
+	        if(it==v.end()){
+	            v.push_back(arr[i]);
+	        }else{
+	            *it=arr[i];//replace the bigger number with smaller one, makes space for longer sequence
+	        }
+	    }
+	    
+	    return v.size();
+	} 
+
+
+
+Number of occurences of t as subsequence in s
+int countWays(string s1, string s2) {
+// code here
+int n=s1.size(),m=s2.size();
+
+vector<vector<int> > dp(n+1,vector<int> (m+1,0));
+
+
+int ans=0,mod=1e9+7;
+for(int i=0;i<=n;i++){
+	dp[i][0]=1;
+}
+
+
+for(int i=1;i<=n;i++){
+	for(int j=1;j<=m;j++){
+		dp[i][j]=dp[i-1][j];
+		if(s1[i-1]==s2[j-1]){
+			dp[i][j]=(dp[i][j]+dp[i-1][j-1])%mod;
+		}
+		
+	}
+	
+}
+
+return dp[n][m];
+}

@@ -27,3 +27,6 @@ ListNode* reverseList(ListNode* head) {
 
     return newHead;
 }
+
+
+min/max stack,
