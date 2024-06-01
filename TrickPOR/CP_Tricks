@@ -87,7 +87,7 @@ int LIS(int arr[], int N)
 
 
 
-Number of occurences of t as subsequence in s
+Number of occurences of s2 as subsequence in s1
 int countWays(string s1, string s2) {
 // code here
 int n=s1.size(),m=s2.size();
@@ -114,3 +114,10 @@ for(int i=1;i<=n;i++){
 
 return dp[n][m];
 }
+
+Think binary operations (/2,*2,*2+1) etc with help of binary tree, visulaize, check for parity of operations etc.
+https://codeforces.com/contest/1981/problem/C 
+
+Find total number of segment[l,r] intersects- make a array of (l,-i),(r,i) and sort it and count the actives points at end of each segment
+and count the sum.
+https://atcoder.jp/contests/abc355/tasks/abc355_d  

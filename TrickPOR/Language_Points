@@ -1,0 +1,50 @@
+Non-static method cannot be referenced from a static context.
+Static members are shared among all instances of a class and can be accessed without creating an object of the class.
+Non-static methods are associated with instances of a class and cannot be invoked without creating an object. 
+They can rely on the specific state of an object, and their behavior may vary depending on the values of instance variables.
+
+Errors are generally caused by problems that cannot be recovered from,
+Best course of action is usually to log the error and exit the program.
+
+Exceptions  handle errors that can be recovered from within the program.
+Exceptions are represented by the Exception class and its subclasses. Some common examples of exceptions in Java include:
+
+Both Errors and Exceptions are the subclasses of java.lang.Throwable class. 
+Error refers to an illegal operation performed by the user which results in the abnormal working of the program. 
+
+Exceptions are divided into two categories:
+
+Checked exceptions
+
+Checked exceptions: like IOException known to the compiler at compile time.
+Unchecked exceptions:unchecked exceptions like ArrayIndexOutOfBoundException known to the compiler at runtime,
+mostly caused by programmer.
+fully checked exception is a checked exception where all its child classes are also checked,
+like IOException, and InterruptedException.
+A partially checked exception is a checked exception where some of its child classes are unchecked, like an Exception.
+FileReader() throws a checked exception FileNotFoundException. 
+It also uses readLine() and close() methods, and these methods also throw checked exception IOException
+
+
+NoClassDefFoundError is an Error that is unchecked in nature, ClassNotFoundException is a checked Exception.
+java.lang.ClassNotFoundException is thrown as result Class.forName(), ClassLoader.findSystemClass() and ClassLoader.loadClass() calls.
+
+NoClassDefFoundError is a LinkageError and can come during linking, while java.lang.ClassNotFoundException is an Exception and occurs during runtime.
+
+PATH environment variable is used by the operating system to find any binary 
+CLASSPATH is only used by Java ClassLoaders to load class files.
+to set CLASSPATH in Java you need to include all those directories where you have put either your .class file or JAR file which is required by your Java application.
+
+CLASSPATH can be overridden by providing command-line option -classpath or -cp to both "java" and "javac" commands or by using Class-Path attribute in Manifest file inside JAR archive.
+
+String class immutable in java.
+it is final, which means it is not extendable
+storing String literals in the String pool. 
+
+
+The goal was to reduce count of temporary Strit objects they are shared in string pool, for sharing immutablity is required.
+Thread-safety of String objects
+String pool is located in PermGen Space of Java Heap, which is very limited as compared to Java Heap. 
+
+from Java 7 onwards, they have moved String pool to normal heap space, which is much much larger than PermGen space. 
+
