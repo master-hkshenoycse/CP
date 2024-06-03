@@ -1,0 +1,14 @@
+7 ways to scale database
+
+Indexing-Analyze query patterns and create the required indexes.
+Materizlized views-pre compute complex query results and store them.
+Vertical scaling-Boost DB server by adding more RAM,CPU, storage.
+Sharding-partition the data by partition key to distribute the loads on server.
+Replication-create replicas of primary database to scale the reads.
+Database caching-store freqeuntyly accessed data in faster access layer.
+Denormalization-Reduce complex joins to improve query performance.
+
+In distributed systems and networked applications, retry strategies are crucial for handling transient errors 
+and network instability effectively.
+
+Hash password on client side

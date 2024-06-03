@@ -28,24 +28,35 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
+ll mod=998244353;
+ll cnt_set(ll lim,ll p){
+    ll period=(1ll<<(p+1));
+    ll in_each=(1ll<<p);
+    ll tot_periods=lim/period;
+    ll cnt=((tot_periods%mod)*(in_each%mod))%mod;
+    ll rem=lim%period;
+    cnt+=max(0ll,rem-in_each+1);
+    return cnt%mod;
+}
 void solve(ll tc){
+    ll ans=0;
+    ll n,m;
+    cin>>n>>m;
 
-    ll n,l,r;
-    cin>>n>>l>>r;
 
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        a[i]=i+1;
+    //counting set bits contribution at each index
+    for(ll i=0;i<=60;i++){
+        if(m & (1ll<<i)){
+            ans=ans+cnt_set(n,i);
+            ans%=mod;
+        }
     }
 
-    reverse(a.begin()+l-1,a.begin()+r);
+    cout<<ans<<endl;
 
-    for(ll i=0;i<n;i++){
-        cout<<a[i]<<" ";
-    }
 
-    cout<<endl;
+
+    
     
 }   
 int main(){

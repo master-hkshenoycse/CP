@@ -30,22 +30,59 @@
 using namespace std;
 
 void solve(ll tc){
+    ll n,m,k;
+    cin>>n>>m>>k;
 
-    ll n,l,r;
-    cin>>n>>l>>r;
+    vector<ll> no_keys(m);
+    vector<vector<ll> > key_in_test(m);
+    vector<char> results(m);
 
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        a[i]=i+1;
+    ll e;
+    for(ll i=0;i<m;i++){
+        cin>>no_keys[i];
+        key_in_test[i].resize(no_keys[i]);
+        for(ll j=0;j<no_keys[i];j++){
+            cin>>key_in_test[i][j];
+            key_in_test[i][j]--;
+        }
+        cin>>results[i];
     }
 
-    reverse(a.begin()+l-1,a.begin()+r);
+    ll ans=0;
+    ll lim=(1<<n);
 
-    for(ll i=0;i<n;i++){
-        cout<<a[i]<<" ";
+    for(ll mask=0;mask<lim;mask++){
+
+        
+        ll f=1;
+        for(ll i=0;i<m;i++){
+            ll cnt=0;
+            
+            for(auto k:key_in_test[i]){
+                if(mask & (1<<k)){
+                    cnt++;
+                }
+            }
+
+            if(results[i]=='o'){
+                if(cnt<k){
+                    f=0;
+                    break;
+                }
+            }else{
+                if(cnt>=k){
+                    f=0;
+                    break;
+                }
+            }
+        }
+
+        ans+=f;
     }
 
-    cout<<endl;
+    cout<<ans<<endl;
+
+    
     
 }   
 int main(){

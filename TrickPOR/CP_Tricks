@@ -89,30 +89,30 @@ int LIS(int arr[], int N)
 
 Number of occurences of s2 as subsequence in s1
 int countWays(string s1, string s2) {
-// code here
-int n=s1.size(),m=s2.size();
+	// code here
+	int n=s1.size(),m=s2.size();
 
-vector<vector<int> > dp(n+1,vector<int> (m+1,0));
-
-
-int ans=0,mod=1e9+7;
-for(int i=0;i<=n;i++){
-	dp[i][0]=1;
-}
+	vector<vector<int> > dp(n+1,vector<int> (m+1,0));
 
 
-for(int i=1;i<=n;i++){
-	for(int j=1;j<=m;j++){
-		dp[i][j]=dp[i-1][j];
-		if(s1[i-1]==s2[j-1]){
-			dp[i][j]=(dp[i][j]+dp[i-1][j-1])%mod;
+	int ans=0,mod=1e9+7;
+	for(int i=0;i<=n;i++){
+		dp[i][0]=1;
+	}
+
+
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			dp[i][j]=dp[i-1][j];
+			if(s1[i-1]==s2[j-1]){
+				dp[i][j]=(dp[i][j]+dp[i-1][j-1])%mod;
+			}
+			
 		}
 		
 	}
-	
-}
 
-return dp[n][m];
+	return dp[n][m];
 }
 
 Think binary operations (/2,*2,*2+1) etc with help of binary tree, visulaize, check for parity of operations etc.
@@ -121,3 +121,10 @@ https://codeforces.com/contest/1981/problem/C
 Find total number of segment[l,r] intersects- make a array of (l,-i),(r,i) and sort it and count the actives points at end of each segment
 and count the sum.
 https://atcoder.jp/contests/abc355/tasks/abc355_d  
+
+
+sum over all pairs (i,j) with  i<j iin A is symmetric for i and j,  rearrange the sequence  without changing the answer. 
+assume A is sorted in ascending order.
+
+LExicogrpahic maximum / least when deleting charachter look at the next character which replaces the current character,
+ i.e look at index i+1 if index is being deleted.

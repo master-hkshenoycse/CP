@@ -31,21 +31,63 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll n,l,r;
-    cin>>n>>l>>r;
+    ll n;
+    cin>>n;
 
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        a[i]=i+1;
+    ll lim=1e6;
+    vector<ll> cnt(lim+5,0);
+
+    
+    ll e;
+    for(ll i=1;i<=n;i++){
+        cin>>e;
+        cnt[e]++;
     }
 
-    reverse(a.begin()+l-1,a.begin()+r);
-
-    for(ll i=0;i<n;i++){
-        cout<<a[i]<<" ";
+    for(ll i=1;i<=lim;i++){
+        cnt[i]+=cnt[i-1];
     }
 
-    cout<<endl;
+    ll ans=0;
+
+    map<ll,ll> help;
+    for(ll i=1;i<=lim;i++){
+        ll cnt_i=cnt[i]-cnt[i-1];
+
+        if(cnt_i==0){
+            continue;
+        }
+        
+        for(ll j=i;j<=lim;j+=i){
+            ll val=j/i;
+            ll mi=j;
+            ll ma=min(j+i-1,lim);
+            
+
+            ll cnt_value=cnt[ma]-cnt[mi-1];
+
+            if(val>1){
+                ans=ans+cnt_value*val*cnt_i;
+            }else{
+                ans=ans+(cnt_value-cnt_i)*cnt_i;
+                ans=ans+(cnt_i*cnt_i-cnt_i)/2ll;
+            }
+
+        }
+    }
+
+
+
+    cout<<ans<<endl;
+
+
+    
+    
+
+    
+
+
+    
     
 }   
 int main(){

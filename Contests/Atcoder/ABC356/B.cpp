@@ -31,21 +31,31 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll n,l,r;
-    cin>>n>>l>>r;
+   ll n,m;
+   cin>>n>>m;
 
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        a[i]=i+1;
+   vector<ll> req(m),rec(m,0);
+
+   for(ll i=0;i<m;i++){
+        cin>>req[i];
+   }
+
+    ll e;
+   for(ll i=0;i<n;i++){
+        for(ll j=0;j<m;j++){
+            cin>>e;
+            rec[j]+=e;
+        }
+   }
+
+   for(ll i=0;i<m;i++){
+    if(rec[i] < req[i]){
+        cout<<"No"<<endl;
+        return;
     }
+   }
 
-    reverse(a.begin()+l-1,a.begin()+r);
-
-    for(ll i=0;i<n;i++){
-        cout<<a[i]<<" ";
-    }
-
-    cout<<endl;
+   cout<<"Yes"<<endl;
     
 }   
 int main(){

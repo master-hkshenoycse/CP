@@ -1,0 +1,1 @@
+{"name":"Local: B","url":"/home/hkshenoy/Desktop/CP/Contests/Atcoder/ABC356/B.cpp","tests":[{"id":1717243499105,"input":"2 3\n10 20 30\n20 0 10\n0 100 100\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hkshenoy/Desktop/CP/Contests/Atcoder/ABC356/B.cpp","group":"local","local":true}
