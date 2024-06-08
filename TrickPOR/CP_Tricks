@@ -128,3 +128,7 @@ assume A is sorted in ascending order.
 
 LExicogrpahic maximum / least when deleting charachter look at the next character which replaces the current character,
  i.e look at index i+1 if index is being deleted.
+
+ https://codeforces.com/problemset/problem/983/B think of [l,r] computationi n matrix as a 2-d matrix, may help .
+
+look for invariants in swapping 2-d matrix problems,https://codeforces.com/contest/1980/problem/E 

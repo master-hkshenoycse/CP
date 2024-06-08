@@ -1,0 +1,20 @@
+@Controller-soring MVC, marks class as controller
+@GetMapping-Getrequest - function to handle 
+@AuthenticationPrincipal-stores the user information on login.
+Model-To pass data to thymeleaf, model attribute.
+
+@RequestMapping-more flexible than getapping,postmapping.
+@CrossOrigin-to allow/block IP addrees form which requests are allowed.
+@Autowired-for dependency injection.
+@Value-Value from propertiy file in code.
+
+@OneToMany defines a one-to-many relationship between 2 entities.
+@JoinColumn indicates the entity is the owner of the relationship: the corresponding table has a column with a foreign key to the referenced table.
+
+@OneToMany(cascade = CascadeType.ALL)
+@JoinColumn(name = "pc_fid", referencedColumnName = "id")
+List < Comment > comments = new ArrayList < > ();
+
+
+
+    
