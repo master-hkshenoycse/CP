@@ -132,3 +132,5 @@ LExicogrpahic maximum / least when deleting charachter look at the next characte
  https://codeforces.com/problemset/problem/983/B think of [l,r] computationi n matrix as a 2-d matrix, may help .
 
 look for invariants in swapping 2-d matrix problems,https://codeforces.com/contest/1980/problem/E 
+
+functional graphs-each node outdegree is 1
