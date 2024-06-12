@@ -46,5 +46,57 @@ The goal was to reduce count of temporary Strit objects they are shared in strin
 Thread-safety of String objects
 String pool is located in PermGen Space of Java Heap, which is very limited as compared to Java Heap. 
 
-from Java 7 onwards, they have moved String pool to normal heap space, which is much much larger than PermGen space. 
+from Java 7 onwards, they have moved String pool to normal heap space, which is much much larger than PermGen space.
 
+Collections.sort(Object);
+Object should extend comparable class.
+
+public class A implements Comparable<A>{
+
+    @Override
+    public int compareTo(A other){
+
+    }
+}
+
+comprable only one logic implementable without changing source code.
+
+For multiple sorting logic comparator is used.
+No changes in class requried.
+
+public class ComparatorA implements comparator<A>{
+
+    @Override 
+    public int compare(A o1,A o2){
+
+    }
+}
+
+Collections.sort(A,new ComparatorA());
+
+
+
+DELIMITER //
+
+CREATE TRIGGER check_user_activity
+AFTER INSERT ON users_request_details
+FOR EACH ROW
+BEGIN
+
+    DECLARE request_count INT;
+
+    -- Count requests in the last 24 hours
+    SELECT COUNT(*) INTO request_count
+    FROM users_request_details
+    WHERE user_id = NEW.user_id AND request_date_time >= NOW() - INTERVAL 1 DAY;
+
+    -- If the user has more than 6 logins or 15 requests in the last 24 hours, disable the user
+    IF request_count > 15 THEN
+        UPDATE users
+        SET enabled = 0
+        WHERE id = NEW.user_id;
+    END IF;
+END;
+//
+
+DELIMITER ;

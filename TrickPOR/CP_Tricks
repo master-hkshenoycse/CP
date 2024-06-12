@@ -134,3 +134,7 @@ LExicogrpahic maximum / least when deleting charachter look at the next characte
 look for invariants in swapping 2-d matrix problems,https://codeforces.com/contest/1980/problem/E 
 
 functional graphs-each node outdegree is 1
+
+
+when abs and addition are involved, keep track of maximum and minimum possible
+https://codeforces.com/contest/1984/problem/C1 
