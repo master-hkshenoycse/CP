@@ -76,27 +76,216 @@ Collections.sort(A,new ComparatorA());
 
 
 
-DELIMITER //
+== compares references.
+object class .equals compares reference by default
+override it to compare content.
 
-CREATE TRIGGER check_user_activity
-AFTER INSERT ON users_request_details
-FOR EACH ROW
-BEGIN
 
-    DECLARE request_count INT;
+Python points:
 
-    -- Count requests in the last 24 hours
-    SELECT COUNT(*) INTO request_count
-    FROM users_request_details
-    WHERE user_id = NEW.user_id AND request_date_time >= NOW() - INTERVAL 1 DAY;
+List mutable, tuple immutable
 
-    -- If the user has more than 6 logins or 15 requests in the last 24 hours, disable the user
-    IF request_count > 15 THEN
-        UPDATE users
-        SET enabled = 0
-        WHERE id = NEW.user_id;
-    END IF;
-END;
-//
+Decorator is just a function that takes another fucntion as argument
+add some functionality and returns another function without altering original function.
+They are represented the @decorator_name in Python and are called in a bottom-up fashion
 
-DELIMITER ;
+def decorator_func(func):
+    def wrapper_func():
+        print("Warpper func 2nd")
+        return func()
+    print("decortaor func 1st")
+    return wrapper_func
+
+def show():
+    print("Show worked 3rd")
+decorator_show=decorator_fuc(show)
+decorator_show()
+
+Output-? decortator,wrapper,show
+
+
+Alternative syntax
+@decorator_func
+def display():
+    print('dispaly worked 3rd')
+display()
+
+
+D={n:n*n for n in range(1,10)}
+L=[i for i in range(1,10)]
+
+dict->dict.items()
+key,value pair iteration
+
+Python memory manager sees heap memoey, garbage collector,private space.
+Private heap-all python objects , interpretor takes care.
+Grabage collection recycles the unused memory , no longer being used objects etc
+gc.enable() garbage collection enabled
+
+
+Generator
+Generator are iterator which can execute only once.
+uses yield keyword
+Generators used in loops to generate an iterator
+def sqr(n):
+    for i in range(1,n+1):
+        yield i*i
+a=sqr(3)
+print(next(a))
+print(next(a))
+
+Iterator
+Iterate over iterable objects
+iter() next() keywords used.
+iter_list=iter(['A','B','C'])
+print(next(iter_list))
+
+
+
+Init keyword
+__init__.py file:neccesary to indicate folder is python package  
+__init__() -constructor for class , uses self keyword = refernce to current instance of class 
+class A:
+    def __init__(self,name):
+        self.name=name
+
+Module-file contains function and global variables 
+
+package is a directory which is collection of modules, package is namespace
+
+Differnce between range and xrange
+xrange returns generator object, not exists in python3 ,doesnt support aruthmetic operation.
+
+Inbuilt datatypes in python:
+list,set,dict mutable
+
+Inheritance 
+A inherits B class 
+class A(B):
+
+
+Local and global variable
+scope in function 
+global scope is across file 0 by default , stored in fixed location
+global keyword is a keyword that allows a user to modify a variable outside the current scope.
+It is used to create global variables in Python from a non-global scope,
+i.e. inside a function. 
+Global keyword is used inside a function only when we want to do assignments or when we want to change a variable.
+
+
+Pickling and unpickling
+pickling- transforms python object to string and dumps it into file pickle.dump()
+similar to serialization
+
+ord()-return rhe integer of unicode point of character in unicode case 
+eval-parses expression and evaluate
+repr()-
+
+below are used for passign varibale number of arguments to function
+*args -list format paramter passing.
+**kwargs- dictionary type format parameter passing/
+
+def show(**kwargs):
+    print(kwargs)
+show(A=1,B=2,C=3)
+
+
+Open and with statements are used for file handling
+open needs to be manually closed,
+with automcatically closes.
+with open("f.txt") as f:
+    content=f.read()
+varioud modes to open file, read ,write, read and write, append, append and read etc
+
+PYTHONPATH-add directories to look for modules and package
+
+Exception handled in python
+
+try :
+    some code
+except:
+    Handling of exception
+else :
+    Some codeexecutes if no exception
+
+finally:
+    Always executed
+
+
+f string and format replacement
+name='x'
+print(f"Hello {name}")
+print(('Hello {}'.format(name)))
+
+
+Get all keys in dictionalry
+dict={'A':1,'B':2}
+all_key=list(dict)
+all_key=[*dict]
+all_key=list(dict.keys())
+*all_keys=dict
+
+
+Differnce between abstarction and encapuslation
+
+Abstraction:
+works on design level  
+in java with interface 
+hiding implementation 
+
+Encapsulation:
+hides data., with suuport of access modifiers.
+
+Diamond problem-mutiple inheritance, uses comm
+python resolves this sequentially, so no 
+
+differnce between .py and .pyc file
+.pyc-compiled bytecode version
+
+
+s[start:end:step]
+end is not included
+
+concate two tuples possible
+
+list is shallow copy by default 
+tuple is deep copy
+id(x)-> gives memory location/id of python object
+
+array only single type 
+
+_a = private variable 
+
+__a = avoid conflicxt insubclass by renaming
+
+__a__= operator overloading (Dunder method)
+
+split()- x=list(map(int,input().split()))
+
+dictionary 
+.copy() = deep copy 
+= is shallow copy
+
+lambdsa [argumnet]:expression 
+single line function
+
+Differnce between multiprocessing and multitreading:
+Mutlithredaing- process spans mutiple threads, 
+GIL dont allow therads from runnign simultaneously.
+
+Multiprocessing- each process has own instance of python interpreter ,
+runs across mutiple CPU cores
+
+function name not conflict with variables.
+ predeifned functions namespace takes care
+ local,global-modules, builtin-includes interpreter dir(__builins__)
+
+functools
+ map(), reduce(),filter(functon,iterable(s))
+
+ mokey_patching:runtime behaivior of class changed
+ list cant be a dictionary key
+
+
+def fun(x) -> str: 
+    ensures str is returned

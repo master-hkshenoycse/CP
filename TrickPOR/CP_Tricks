@@ -138,3 +138,5 @@ functional graphs-each node outdegree is 1
 
 when abs and addition are involved, keep track of maximum and minimum possible
 https://codeforces.com/contest/1984/problem/C1 
+
+https://codeforces.com/contest/1985/problem/G all digit can be 9/k at most because carry on mutiplication will 
