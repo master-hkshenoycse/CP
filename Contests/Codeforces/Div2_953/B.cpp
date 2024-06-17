@@ -29,24 +29,25 @@
 #define arr array 
 using namespace std;
 
+ll get_cost(ll n,ll a,ll b,ll k){
+    ll ret=(b+1)*k-(k*k+k)/2ll;
+    ret+=a*(n-k);
 
+    return ret;
+}
 void solve(ll tc){
-    ll n;
-    cin>>n;
-    vector<ll> a(n);
+    ll n,a,b;
+    cin>>n>>a>>b;
 
-    ll ans=0;
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-        if(i<n-1){
-            ans=max(ans,a[i]);
-        }
-    }
-
-    ans+=a[n-1];
+    ll ans=get_cost(n,a,b,0);
+    ll opt=min(max(0ll,(2*b-2*a+1)/2ll),n);
+    ans=max(ans,get_cost(n,a,b,opt));
+    opt++;
+    opt=min(opt,n);
+    ans=max(ans,get_cost(n,a,b,opt));
 
     cout<<ans<<endl;
-
+    
     
 }   
 int main(){

@@ -29,25 +29,15 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
-    ll n;
-    cin>>n;
-    vector<ll> a(n);
 
-    ll ans=0;
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-        if(i<n-1){
-            ans=max(ans,a[i]);
-        }
-    }
 
-    ans+=a[n-1];
 
-    cout<<ans<<endl;
+       
 
-    
+   
+
+
 }   
 int main(){
     boost;

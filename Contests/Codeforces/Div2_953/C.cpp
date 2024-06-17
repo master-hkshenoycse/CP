@@ -29,25 +29,66 @@
 #define arr array 
 using namespace std;
 
+ll get_value(vector<ll> &a){
+    ll n=a.size();
+    ll ret=0;
+    for(ll i=0;i<n;i++){
+        ret=ret+abs(a[i]-i);
+    }
+    return ret;
+}
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
-    vector<ll> a(n);
+    ll n,k;
+    cin>>n>>k;
 
-    ll ans=0;
+
+    if(k%2){
+        cout<<"No"<<endl;
+        return;
+    }
+    
+    vector<ll> v;
     for(ll i=0;i<n;i++){
-        cin>>a[i];
-        if(i<n-1){
-            ans=max(ans,a[i]);
+        v.pb(i);
+    }
+
+
+    reverse(all(v));
+    ll mi=0,ma=get_value(v);
+    reverse(all(v));
+    if(k>ma){
+        cout<<"No"<<endl;
+        return;
+    }
+
+    ll lo=0,hi=n-1,rem=k;
+    while(rem>0 and  hi>lo){
+        if(rem>=2*abs(hi-lo)){
+            swap(v[hi],v[lo]);
+            rem-=2*abs(hi-lo);
+            hi--;
+            lo++;
+        }else{
+            hi--;
         }
     }
 
-    ans+=a[n-1];
-
-    cout<<ans<<endl;
-
+    cout<<"Yes"<<endl;
     
+    for(auto e:v){
+        cout<<e+1<<" ";
+    }
+    cout<<endl;
+
+
+
+
+       
+
+   
+
+
 }   
 int main(){
     boost;
