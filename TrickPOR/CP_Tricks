@@ -39,7 +39,7 @@ In row and column operations, think if anyone can be done first
 https://leetcode.com/problems/score-after-flipping-matrix/description/?envType=daily-question&envId=2024-05-13
 
 
-counts how mant times a edge will be used, to count the number of operations.
+counts how many times a edge will be used, to count the number of operations.
 https://leetcode.com/problems/distribute-coins-in-binary-tree/submissions/1260964237/?envType=daily-question&envId=2024-05-18
 
 
@@ -140,3 +140,24 @@ when abs and addition are involved, keep track of maximum and minimum possible
 https://codeforces.com/contest/1984/problem/C1 
 
 https://codeforces.com/contest/1985/problem/G all digit can be 9/k at most because carry on mutiplication will 
+
+Think of regular bracket sequence as tree,
+On open bracket create a new child node and move to it and on closed bracket move to parent.
+
+hash of each subtree will be based on hash of each children,all leaf node will have hash of 1.
+
+No of permutations in which i th smallest elemetn is smaleest in the cycle it is part of is N!/i
+
+
+(x, y) to calculate the Manhattan distances between them, instead of using |x1-x2|+|y1-y2| 
+convert all points (x, y) into (x+y, x-y) and the distances will become max(|x1-x2|, |y1-y2|) (also known as Chebyshev distance). 
+https://codeforces.com/blog/entry/57534
+
+
+https://www.codechef.com/problems/GRAPHCOST  
+select prefix minimum as much as possible,once prefix does not decrese select prefix minmum by reversig the array.
+
+dsu by sorting edges of tree according to edge length, then computing stats.
+https://practice.geeksforgeeks.org/contest/job-a-thon-34-hiring-challenge/problems 
+
+Operations related to MEX, distinct element count, max element, number of elements

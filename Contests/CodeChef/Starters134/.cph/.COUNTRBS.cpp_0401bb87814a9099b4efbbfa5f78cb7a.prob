@@ -1,0 +1,1 @@
+{"name":"Local: COUNTRBS","url":"/home/hkshenoy/Desktop/CP/Contests/CodeChef/Starters134/COUNTRBS.cpp","tests":[{"id":1718711439817,"input":"4\n4\n(())\n6\n(()())\n8\n(()()())\n10\n((())(()))","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/hkshenoy/Desktop/CP/Contests/CodeChef/Starters134/COUNTRBS.cpp","group":"local","local":true}
