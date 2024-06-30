@@ -161,3 +161,10 @@ dsu by sorting edges of tree according to edge length, then computing stats.
 https://practice.geeksforgeeks.org/contest/job-a-thon-34-hiring-challenge/problems 
 
 Operations related to MEX, distinct element count, max element, number of elements
+
+Upto 10^12 there can be atmost 300 non-prime numbers between any two consecutive prime numbers.
+When A≤B then floor(B−1/A)≤N≤ceil(B−1/A) where N is the number of multiples of A between any two multiples of B
+
+gcd(F[n],F[m])=F[gcd(n,m)], where F[x] is the xth fibonacci numbers and first two terms are 0,1
+
+IF two properties are there and oredering based on them, remove useless elements, see the limits on elements.
