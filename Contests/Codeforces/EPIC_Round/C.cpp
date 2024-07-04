@@ -30,26 +30,30 @@
 using namespace std;
 
 void solve(ll tc){
-    string s;
-    cin>>s;
+    ll n;
+    cin>>n;
 
-    ll ind_m,ind_r;
-    for(ll i=0;i<3;i++){
-        if(s[i]=='M'){
-            ind_m=i;
-        }
-
-        if(s[i]=='R'){
-            ind_r=i;
-        }
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
     }
 
-    if(ind_r <ind_m){
-        cout<<"Yes"<<endl;
-    }else{
-        cout<<"No"<<endl;
+    vector<ll> sol(n),first_dec(n,0);
+    ll ans=0;
+
+    for(ll i=n-1;i>=0;i--){
+        if(i==n-1){
+            sol[i]=a[i];
+           
+        }else{
+
+            sol[i]=max(sol[i+1]+1,a[i]);
+        }
+
+        ans=max(ans,sol[i]);
     }
 
+    cout<<ans<<endl;
 }   
 int main(){
     boost;
@@ -61,7 +65,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

@@ -30,26 +30,10 @@
 using namespace std;
 
 void solve(ll tc){
-    string s;
-    cin>>s;
+    ll n,k;
+    cin>>n>>k;
 
-    ll ind_m,ind_r;
-    for(ll i=0;i<3;i++){
-        if(s[i]=='M'){
-            ind_m=i;
-        }
-
-        if(s[i]=='R'){
-            ind_r=i;
-        }
-    }
-
-    if(ind_r <ind_m){
-        cout<<"Yes"<<endl;
-    }else{
-        cout<<"No"<<endl;
-    }
-
+    cout<<(n-1)*k+1<<endl;
 }   
 int main(){
     boost;
@@ -61,7 +45,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

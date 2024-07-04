@@ -28,27 +28,46 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll solve_dp(ll ind,ll extra_moves,vector<ll> &a,vector<vector<ll> >&dp){
+    if(ind==a.size()){
+        return 0;
+    }
 
+    if(dp[ind][extra_moves] != -1){
+        return dp[ind][extra_moves];
+    }
+
+    ll res=solve_dp(ind+1,extra_moves+1,a,dp);
+
+    if(extra_moves-a[ind]>=0){
+        res=max(res,1+solve_dp(ind+1,extra_moves-a[ind],a,dp));
+    }
+
+    return dp[ind][extra_moves]=res;
+}
 void solve(ll tc){
-    string s;
-    cin>>s;
+    ll n,e;
+    cin>>n;
 
-    ll ind_m,ind_r;
-    for(ll i=0;i<3;i++){
-        if(s[i]=='M'){
-            ind_m=i;
-        }
+    map<ll,ll> freq;
+    vector<ll> a;
 
-        if(s[i]=='R'){
-            ind_r=i;
-        }
+    for(ll i=0;i<n;i++){
+        cin>>e;
+        freq[e]++;
     }
 
-    if(ind_r <ind_m){
-        cout<<"Yes"<<endl;
-    }else{
-        cout<<"No"<<endl;
+    for(auto it:freq){
+        a.push_back(it.ss);
     }
+
+    n=a.size();
+    vector<vector<ll>  > dp(n+2,vector<ll> (n+2,-1));
+    //cuurently on index i,and j extra moves available,maximum possible elements that can be removed by B
+
+    cout<<n-solve_dp(0,0,a,dp)<<endl;
+
+
 
 }   
 int main(){
@@ -61,7 +80,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

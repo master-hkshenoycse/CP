@@ -30,25 +30,45 @@
 using namespace std;
 
 void solve(ll tc){
-    string s;
-    cin>>s;
+    string s,t;
+    cin>>s>>t;
+    ll n=s.size(),m=t.size();
 
-    ll ind_m,ind_r;
-    for(ll i=0;i<3;i++){
-        if(s[i]=='M'){
-            ind_m=i;
-        }
+    for(ll i=1;i<n;i++){
+        for(ll j=1;j<=i;j++){
 
-        if(s[i]=='R'){
-            ind_r=i;
+            string tmp;
+            ll k=0;
+
+            while(k<n){
+                ll cnt=i;
+                ll req=j;
+
+                while(k<n and cnt>0){
+                    cnt--;
+                    req--;
+                    if(req==0){
+                        tmp+=s[k];
+                    }
+                    k++;
+                }
+
+            }
+
+
+
+            if(tmp==t){
+                cout<<"Yes"<<endl;
+                return;
+            }
+
+
+
         }
     }
 
-    if(ind_r <ind_m){
-        cout<<"Yes"<<endl;
-    }else{
-        cout<<"No"<<endl;
-    }
+    cout<<"No"<<endl;
+
 
 }   
 int main(){

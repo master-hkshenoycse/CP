@@ -168,3 +168,8 @@ When A≤B then floor(B−1/A)≤N≤ceil(B−1/A) where N is the number of mult
 gcd(F[n],F[m])=F[gcd(n,m)], where F[x] is the xth fibonacci numbers and first two terms are 0,1
 
 IF two properties are there and oredering based on them, remove useless elements, see the limits on elements.
+
+
+https://codeforces.com/contest/1987/problem/D
+think about only frequency, moves for B os tp remove elemtns such that number of distinct elements are reduced.
+currently on index i,and j extra moves available,maximum possible elements that can be removed by B

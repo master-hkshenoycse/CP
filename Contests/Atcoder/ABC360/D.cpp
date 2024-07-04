@@ -30,26 +30,18 @@
 using namespace std;
 
 void solve(ll tc){
+    ll n,t;
+    cin>>n>>t;
+
     string s;
     cin>>s;
 
-    ll ind_m,ind_r;
-    for(ll i=0;i<3;i++){
-        if(s[i]=='M'){
-            ind_m=i;
-        }
-
-        if(s[i]=='R'){
-            ind_r=i;
-        }
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        a[i]*=2;
     }
-
-    if(ind_r <ind_m){
-        cout<<"Yes"<<endl;
-    }else{
-        cout<<"No"<<endl;
-    }
-
+    
 }   
 int main(){
     boost;

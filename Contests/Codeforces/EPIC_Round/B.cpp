@@ -30,26 +30,33 @@
 using namespace std;
 
 void solve(ll tc){
-    string s;
-    cin>>s;
+    ll n;
+    cin>>n;
 
-    ll ind_m,ind_r;
-    for(ll i=0;i<3;i++){
-        if(s[i]=='M'){
-            ind_m=i;
-        }
+    vector<ll> a(n);
+    vector<ll> req;
+    ll ma=0;
 
-        if(s[i]=='R'){
-            ind_r=i;
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        ma=max(ma,a[i]);
+        if(a[i]<ma){
+            req.push_back(ma-a[i]);
         }
     }
 
-    if(ind_r <ind_m){
-        cout<<"Yes"<<endl;
-    }else{
-        cout<<"No"<<endl;
+    sort(all(req));
+    ll sz=req.size();
+    ll csum=0,ans=0;
+    for(ll i=0;i<sz;i++){
+        req[i]-=csum;
+        //cout<<req[i]<<" "<<" ";
+        ans=ans+req[i]*(sz-i+1);
+        csum+=req[i];
     }
+   // cout<<endl;
 
+    cout<<ans<<endl;
 }   
 int main(){
     boost;
@@ -61,7 +68,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

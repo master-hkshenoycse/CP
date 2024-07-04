@@ -30,25 +30,28 @@
 using namespace std;
 
 void solve(ll tc){
-    string s;
-    cin>>s;
+    ll n;
+    cin>>n;
 
-    ll ind_m,ind_r;
-    for(ll i=0;i<3;i++){
-        if(s[i]=='M'){
-            ind_m=i;
-        }
+    vector<ll> a(n),w(n),sum_of_weight(n+1,0),max_weight(n+1,0);
 
-        if(s[i]=='R'){
-            ind_r=i;
-        }
+    ll ans=0;
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
     }
 
-    if(ind_r <ind_m){
-        cout<<"Yes"<<endl;
-    }else{
-        cout<<"No"<<endl;
+    for(ll i=0;i<n;i++){
+        cin>>w[i];
+        sum_of_weight[a[i]]+=w[i];
+        max_weight[a[i]]=max(max_weight[a[i]],w[i]);
     }
+
+    for(ll i=1;i<=n;i++){
+        ans=ans+sum_of_weight[i]-max_weight[i];
+    }
+    
+    cout<<ans<<endl;
+
 
 }   
 int main(){
