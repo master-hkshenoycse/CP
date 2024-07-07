@@ -37,6 +37,7 @@ void upd(ll ind,ll v,ll n,vector<ll> &bit){
 
 ll query(ll ind,vector<ll> &bit){
     ll s=0;
+    
     while(ind>0){
         s=s+bit[ind];
         ind-=(ind & (-ind));
@@ -65,7 +66,7 @@ void solve(ll tc){
     }
 
     if(f==0){
-        cout<<"NO"<<endl;
+        cout<<"No"<<endl;
         return;
     }
 
