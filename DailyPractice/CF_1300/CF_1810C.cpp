@@ -28,59 +28,42 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
+//https://codeforces.com/problemset/problem/1810/C
 void solve(ll tc){
-    ll n,t;
-    cin>>n>>t;
+    map<ll,ll> help;
+    ll useful=0;
+    ll e,n,c,d;
+    cin>>n>>c>>d;
+    
+    for(ll i=1;i<=n;i++){
+        cin>>e;
+        help[e]++;
+    }    
 
-    string s;
-    cin>>s;
+    ll ans=1e18;
+    for(ll i=1;i<=n;i++){
+        if(help.find(i) != help.end()){
+            useful++;
+        }
 
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
+        ll useless=n-useful;
+        ll req=i-useful;
+        ans=min(ans,d*req+c*useless);
     }
 
-    vector<vector<ll> > coll(n);
-    for(ll i=0;i<n;i++){
-        coll[i]={a[i],s[i]-'0'-1};
-    }
+    useful=0;
+    for(auto it:help){
+        useful++;
+        ll useless=n-useful;
+        ll req=it.ff-useful;
 
-    sort(all(coll));
-    vector<ll> prefix_sum(n,0);
-    for(ll i=0;i<n;i++){
-        prefix_sum[i]=coll[i][1]*-1;
-        if(i-1>=0){
-            prefix_sum[i]+=prefix_sum[i-1];
-        }
-    }
+        ans=min(ans,d*req+c*useless);
 
-    ll ans=0;
-    for(ll i=n-1;i>=0;i--){
-
-        if(coll[i][1]==-1){
-            continue;
-        }
-        
-        ll lo=i+1,hi=n-1,r=i;
-
-        while(hi>=lo){
-            ll mid=(hi+lo)/2ll;
-            if(coll[mid][0]-coll[i][0]<=2*t){
-                r=max(r,mid);
-                lo=mid+1;
-            }else{
-                hi=mid-1;
-            }
-        }
-        ans=ans+(prefix_sum[r]-prefix_sum[i]);
-        
     }
 
     cout<<ans<<endl;
 
-    
-    
+
 }   
 int main(){
     boost;
@@ -92,7 +75,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

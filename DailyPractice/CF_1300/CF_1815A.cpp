@@ -28,59 +28,49 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
+//https://codeforces.com/problemset/problem/1815/A
 void solve(ll tc){
-    ll n,t;
-    cin>>n>>t;
 
-    string s;
-    cin>>s;
+    ll n;
+    cin>>n;
 
     vector<ll> a(n);
     for(ll i=0;i<n;i++){
         cin>>a[i];
     }
+    
 
-    vector<vector<ll> > coll(n);
-    for(ll i=0;i<n;i++){
-        coll[i]={a[i],s[i]-'0'-1};
-    }
-
-    sort(all(coll));
-    vector<ll> prefix_sum(n,0);
-    for(ll i=0;i<n;i++){
-        prefix_sum[i]=coll[i][1]*-1;
-        if(i-1>=0){
-            prefix_sum[i]+=prefix_sum[i-1];
+    for(ll i=0;i+1<n;i++){
+        if(a[i]<a[i-1]){
+            ll diff=a[i-1]-a[i];
+            a[i]+=diff;
+            a[i+1]+=diff;
         }
     }
 
-    ll ans=0;
-    for(ll i=n-1;i>=0;i--){
 
-        if(coll[i][1]==-1){
-            continue;
+    for(ll i=n-2;i>=1;i--){
+        if(a[i]>a[i+1]){
+            ll diff=a[i]-a[i+1];
+            a[i]-=diff;
+            a[i-1]-=diff;
         }
-        
-        ll lo=i+1,hi=n-1,r=i;
-
-        while(hi>=lo){
-            ll mid=(hi+lo)/2ll;
-            if(coll[mid][0]-coll[i][0]<=2*t){
-                r=max(r,mid);
-                lo=mid+1;
-            }else{
-                hi=mid-1;
-            }
-        }
-        ans=ans+(prefix_sum[r]-prefix_sum[i]);
-        
     }
 
-    cout<<ans<<endl;
+    for(ll i=1;i<n;i++){
+        if(a[i] < a[i-1]){
+            cout<<"NO"<<endl;
+            return;
+        }
+    }
+
+    cout<<"YES"<<endl;
 
     
-    
+
+
+
+
 }   
 int main(){
     boost;
@@ -92,7 +82,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

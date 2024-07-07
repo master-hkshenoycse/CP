@@ -173,3 +173,11 @@ IF two properties are there and oredering based on them, remove useless elements
 https://codeforces.com/contest/1987/problem/D
 think about only frequency, moves for B os tp remove elemtns such that number of distinct elements are reduced.
 currently on index i,and j extra moves available,maximum possible elements that can be removed by B
+
+
+https://atcoder.jp/contests/abc360/tasks/abc360_e 
+probablity of only 1 is different rest all are same, use this to compute final probablity in a loop, think like state diagram
+
+
+when operation on adjacent elements,
+think differnce array, think about even and odd number of elemnts
