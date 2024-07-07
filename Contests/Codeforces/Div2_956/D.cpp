@@ -47,7 +47,7 @@ void solve(ll tc){
     ll n;
     cin>>n;
 
-    vector<ll> a(n+1),b(n+1);
+    vector<ll> a(n+1,0),b(n+1,0);
     map<ll,ll> help;
 
     for(ll i=1;i<=n;i++){
