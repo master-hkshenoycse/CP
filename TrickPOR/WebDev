@@ -1,0 +1,57 @@
+React builds single page application, complete html is not reloaded when user makes changes
+component based frameworks
+declarative views.
+coponent logic is written with JS.
+suuport responsive web design and odern framework
+
+
+Component has parts: Viw for user interface
+JS that contains application logic/event handling for view.
+
+Props:Pass data from parent to child component.
+State:conatains data about component. when state changes component will re-render.
+
+Hooks-a way to use local state and other react featire without writing a new class.
+Module- a collection of related components , that creates a specific view.
+
+React provides cmd tool to generate a project
+npx create-react-app my-app 
+cd my-app
+npm start - builds the app(compile/transpile), starts server, watcher the source file, rebuilds app when source is updated(hot reload) 
+node_modules- stores the installed packages.
+manifest.json- provides info about the project name, author,icon etc
+App.js- global JS component for React application.
+index.html- The main root component.Hooks onto the index.html file to be able to start rendering components.
+package-lock.json lock depnedenices to a specific verison number and records verisoning for installation.
+npm run build-bundles the app into static files for production.
+npm test- starts the test runner.
+
+
+index.js - finds the dic with id=root and replaces it with App component
+index.html is the global DOM.
+
+JSX returns the html DOM from a JS function.
+
+Adding bootstrap:
+Get links for remote bootstrap files.
+add links to index.html file.
+apply bootstrap css styles in component html templates.
+apply bootstrap css styles in component html table
+
+jsx looks at className property not class like HTML.
+
+export default TodoRowItem.
+
+JSX returns only one element/div
+{} resolves the variable inside the JSX.
+onClick={addTodo}-> no parenthesis , because it is pointing to function which will be triggered only if function if event listener is called
+eachcomponent handles its own state
+Destructing a array in JS
+setTodos(todos => [...todos,newTodo])
+
+onChange listener
+we can pass function as prop
+
+React key, for each row of table unique
+conditional rendering
+e.g {showAddTodoForm && <NewTodoForm addTodo={addTodo}/>}
