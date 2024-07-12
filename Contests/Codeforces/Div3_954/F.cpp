@@ -28,39 +28,76 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+void dfs(ll v,ll p,vector<vector<ll> >&adj,vector<ll> &in_time,vector<ll> &low_time,vector<vector<arr<ll,2 > > >&dfs_tree,ll &timer){
+    timer++;
+    in_time[v]=timer;
+    low_time[v]=timer;
 
-void dfs()
-void process_node(ll v,vector<vector<ll> >&adj,vector<ll> &vis,ll &ans,ll &gain){
-    ll sz=0;
-    dfs(v,adj,vis,sz);
-    
+    for(auto to:adj[v]){
+        if(to==p){
+            continue;
+        }
+        if(in_time[to]==0){
+            dfs(to,v,adj,in_time,low_time,dfs_tree,timer);
+            low_time[v]=min(low_time[v],low_time[to]);
+            ll is_bridge=0;
 
-}
-void solve(ll tc){
+            if(low_time[to]>in_time[v]){
+                is_bridge=1;
+            }
 
-    ll n,m;
-    cin>>n>>m;
+            dfs_tree[v].push_back({to,is_bridge});
 
-    vector<vector<ll> > adj(n+1);
-    vector<ll> vis(n+1,0);
-    vector<ll> disc_time(n+1,0),low_time(n+1,0);
-    
-    ll x,y;
-    for(ll i=1;i<=m;i++){
-        cin>>x>>y;
-        adj[x].push_back(y);
-        adj[y].push_back(x);
+        }else{
+            low_time[v]=min(low_time[v],low_time[to]);
+        }
     }
+}
 
-    ll ans=0;
-    ll gain=0;
-    for(ll i=1;i<=n;i++){
-        if(vis[i]==0){
-            process_node(i,adj,vis,ans,gain);
+ll dfs_sol(ll v,ll p,vector<vector<arr<ll,2> > >&dfs_tree,ll n,ll &ans){
+
+    ll subtree_size=1;
+
+    for(auto to:dfs_tree[v]){
+        ll nx=to[0];
+        ll bridge=to[1];
+        if(nx==p){
+            continue;
+        }else{
+            ll sz=dfs_sol(nx,v,dfs_tree,n,ans);
+            if(bridge)ans=max(ans,sz*(n-sz));
+            subtree_size+=sz;
         }
     }
 
-    cout<<ans-gain<<endl;
+    return subtree_size;
+
+}
+void solve(ll tc){
+    //finding bridge edges 
+    ll n,m;
+    cin>>n>>m;
+    vector<vector<ll> > adj(n+1);
+    vector<vector<arr<ll,2> > > dfs_tree(n+1);
+    vector<ll> in_time(n+1,0),low_time(n+1,0);
+
+    ll x,y;
+    for(ll i=1;i<=m;i++){
+        cin>>x>>y;
+        adj[x].pb(y);
+        adj[y].pb(x);
+    }
+
+    ll timer=0;
+    dfs(1,-1,adj,in_time,low_time,dfs_tree,timer);
+
+    ll ans=0;
+    dfs_sol(1,-1,dfs_tree,n,ans);
+
+    cout<<(n*n-n)/2ll-ans<<endl;
+
+
+
 } 
 int main(){
     boost;
