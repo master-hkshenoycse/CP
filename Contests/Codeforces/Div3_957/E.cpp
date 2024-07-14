@@ -30,34 +30,29 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,m,k;
-    cin>>n>>m>>k;
+    ll n;
+    cin>>n;
 
-    vector<char> river(n+1);
-    vector<ll> dp(n+2,1e18);
-    dp[n+1]=0;
+    string string_n=to_string(n);
+    ll sz=string_n.size();
 
-    for(ll i=1;i<=n;i++){
-        cin>>river[i];
-    }
-
-    
-    river[0]='B';
-
-    for(ll i=n;i>=0;i--){
-        if(river[i]=='W'){
-            dp[i]=min(dp[i],dp[i+1]+1);
-        }else if(river[i]=='B' or river[i]=='L'){
-            for(ll j=i+1;j<=min(n+1,i+m);j++){
-                dp[i]=min(dp[i],dp[j]);
+    vector<arr<ll,2> > sol;
+    for(ll a=1;a<=10000;a++){
+        ll len=sz*a;
+        ll val=0;
+        for(ll j=0;j<9;j++){
+            
+            val=val*10+(string_n[j%sz]-'0');
+            ll b_val=len-j-1;
+            if(b_val>0 and b_val<=10000 and n*a-b_val==val){
+                sol.push_back({a,b_val});
             }
         }
     }
 
-    if(dp[0]<=k){
-        cout<<"YES"<<endl;
-    }else{
-        cout<<"NO"<<endl;
+    cout<<sol.size()<<endl;
+    for(auto s:sol){
+        cout<<s[0]<<" "<<s[1]<<endl;
     }
 
 

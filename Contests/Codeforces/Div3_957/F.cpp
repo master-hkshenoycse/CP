@@ -30,35 +30,54 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,m,k;
-    cin>>n>>m>>k;
+    
+    set<ll> help;
+    ll x,e,n;
+    cin>>n>>x;
 
-    vector<char> river(n+1);
-    vector<ll> dp(n+2,1e18);
-    dp[n+1]=0;
+    ll ans=0;
 
-    for(ll i=1;i<=n;i++){
-        cin>>river[i];
-    }
+    for(ll i=0;i<n;i++){
+        
+        cin>>e;
+
+        
 
     
-    river[0]='B';
-
-    for(ll i=n;i>=0;i--){
-        if(river[i]=='W'){
-            dp[i]=min(dp[i],dp[i+1]+1);
-        }else if(river[i]=='B' or river[i]=='L'){
-            for(ll j=i+1;j<=min(n+1,i+m);j++){
-                dp[i]=min(dp[i],dp[j]);
+        if(x%e or e==1){
+            continue;
+        }else{
+            
+            set<ll> extra_factors;
+            
+            for(auto it:help){
+                if(x%(it * e)){
+                    continue;
+                }else{
+                    extra_factors.insert(it*e);
+                }
             }
+            
+            extra_factors.insert(e);
+            for(auto ex:extra_factors){
+                help.insert(ex);
+            }
+
+            if(help.find(x)!=help.end()){
+                help.clear();
+                if(i<n)ans++;
+                help.insert(e);
+            }
+
         }
+
+        
     }
 
-    if(dp[0]<=k){
-        cout<<"YES"<<endl;
-    }else{
-        cout<<"NO"<<endl;
-    }
+
+    ans++;
+
+    cout<<ans<<endl;
 
 
 }   
