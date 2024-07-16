@@ -30,21 +30,30 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    ll ans=0;
-    while(n>1 and n>(k-1)){
-        ans++;
-        n-=(k-1);
+
+    vector<ll> is_active;
+    for(ll i=60;i>=0;i--){
+        if(n & (1ll<<i)){
+            is_active.pb(i);
+        }
     }
 
-    if(n>1){
-        ans++;
+    if(is_active.size()==1){
+        cout<<1<<endl;
+        cout<<n<<endl;
+        return;
     }
-    
 
-    cout<<ans<<endl;
+    cout<<is_active.size()+1<<endl;
+    for(auto a:is_active){
+        cout<<n-(1ll<<a)<<" ";
+    }
+
+    cout<<n<<endl;
+
 
 
 }   

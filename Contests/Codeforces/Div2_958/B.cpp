@@ -30,21 +30,39 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    ll ans=0;
-    while(n>1 and n>(k-1)){
-        ans++;
-        n-=(k-1);
+    string s;
+    cin>>s;
+
+
+
+    ll i=0;
+    ll c1=0,c0=0;
+
+    while(i<n){
+        if(s[i]=='1'){
+            i++;
+            c1++;
+        }else{
+            ll j=i;
+            while(j<n and s[i]==s[j]){
+                j++;
+            }
+            c0++;
+
+            i=j;
+        }
     }
 
-    if(n>1){
-        ans++;
+    if(c1>c0){
+        cout<<"Yes"<<endl;
+    }else{
+        cout<<"No"<<endl;
     }
-    
 
-    cout<<ans<<endl;
+
 
 
 }   

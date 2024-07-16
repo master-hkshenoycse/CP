@@ -188,3 +188,10 @@ possible when same number of inversions
 
 
 https://math.stackexchange.com/questions/203835/enumerating-number-of-solutions-to-an-equation
+
+
+https://codeforces.com/contest/1988/problem/D
+//dp[v][i]= the value if the vertex v is removed in ith round
+//total loss is a[i]*b[i],where b[i]= round in which it is removed.
+//as adjacent items can;t be picked in same round, round number will differ.
+//due to max set The "independent set" constraint ,the upper bound will be around 19 
