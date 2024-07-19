@@ -1,0 +1,509 @@
+Java Streams are a new abstraction introduced in Java 8, allowing functional-style operations on sequences of elements. 
+They enable parallel processing and make it easy to write clean and concise code for bulk operations, like filtering, mapping, and reducing collections of data.
+
+What is the difference between intermediate and terminal operations in streams?
+
+Answer:
+Intermediate operations: Return a new stream and are lazily executed (e.g., filter, map, sorted).
+Terminal operations: Trigger the processing of the stream and return a result or side-effect (e.g., collect, forEach, reduce).
+List<String> list = Arrays.asList("a", "b", "c");
+Stream<String> stream = list.stream();
+
+List<String> list = Arrays.asList("apple", "banana", "apricot");
+List<String> result = list.stream()
+                          .filter(s -> s.startsWith("a"))
+                          .collect(Collectors.toList());
+
+
+List<String> list = Arrays.asList("a", "b", "c");
+List<String> upperCaseList = list.stream()
+                                 .map(String::toUpperCase)
+                                 .collect(Collectors.toList());
+
+
+Functional Interface:
+
+Answer: A functional interface is an interface with a single abstract method, and it can be implemented using a lambda expression or method reference. 
+Examples include Runnable, Callable, Comparator, and custom interfaces annotated with @FunctionalInterface.
+Function<String, Integer> lengthFunction = String::length;
+int length = lengthFunction.apply("Hello");
+Function<String, Integer> lengthFunction = String::length;
+
+The Predicate interface represents a predicate (boolean-valued function) of one argument. It has a method test.
+Predicate<String> isEmpty = String::isEmpty;
+boolean result = isEmpty.test("");
+
+Supplier: Represents a supplier of results, takes no arguments, and returns a result.
+Supplier<String> supplier = () -> "Hello, World!";
+String result = supplier.get();
+
+Consumer: Represents an operation that accepts a single input argument and returns no result.
+Consumer<String> consumer = System.out::println;
+consumer.accept("Hello, World!");
+
+class Interval implements Comparable<Interval>{
+    int start,end;
+    Interval(int start,int end){
+        this.start=start;
+        this.end=end;
+    }
+
+    @Override
+    public int compareTo(Interval other) {
+        return this.end-other.end;
+    }
+}
+
+public int eraseOverlapIntervals(int[][] intervals) {
+        List<Interval> events= new ArrayList<>();
+        int n=intervals.length;
+        for(int i=0;i<n;i++){
+            events.add(new Interval(intervals[i][0],intervals[i][1]));
+        }
+
+        Collections.sort(events);
+
+        int ending_curr=Integer.MIN_VALUE,ans=0;
+
+        for(Interval i:events){
+            if(i.start >= ending_curr){
+                ans++;
+                ending_curr=i.end;
+            }
+        }
+        
+
+        return n-ans;
+    }
+
+
+string uilder create smutable string.
+StringBuilder sb = new StringBuilder("Hello");
+sb.append(" World");
+sb.insert(5, " World");
+sb.delete(5, 11);// sb now contains "Hello"
+sb.deleteCharAt(5);
+sb.replace(6, 11, "Java");// sb now contains "Hello Java"
+sb.reverse();
+String str = sb.toString();
+char ch = sb.charAt(1);
+sb.setCharAt(1, 'a');
+String sub = sb.substring(6, 11);
+int len = sb.length();
+sb.indexOf(b)=checks if b is substring of a
+
+//Iterator examples
+List<String> list = new ArrayList<>();
+list.add("Apple");
+list.add("Banana");
+list.add("Cherry");
+
+Iterator<String> iterator = list.iterator();
+
+while (iterator.hasNext()) {
+    String fruit = iterator.next();
+    System.out.println(fruit);
+}
+
+
+//Queue
+ueue<String> queue = new LinkedList<>();
+
+queue.add("Apple");
+queue.add("Banana");
+queue.add("Cherry");
+
+System.out.println("Queue: " + queue);
+System.out.println("Poll: " + queue.poll()); // Retrieves and removes the head (Apple)
+System.out.println("Queue after poll: " + queue);
+System.out.println("Peek: " + queue.peek()); // Retrieves the head without removing (Banana)
+System.out.println("Queue after peek: " + queue);
+
+//Deque
+Deque<String> deque = new ArrayDeque<>();
+
+deque.addFirst("Apple");
+deque.addLast("Banana");
+deque.addFirst("Cherry");
+
+System.out.println("Deque: " + deque);
+System.out.println("Remove First: " + deque.removeFirst()); // Cherry
+System.out.println("Deque after removeFirst: " + deque);
+System.out.println("Remove Last: " + deque.removeLast()); // Banana
+System.out.println("Deque after removeLast: " + deque);
+System.out.println("Peek First: " + deque.peekFirst()); // Apple
+System.out.println("Peek Last: " + deque.peekLast()); // Apple
+
+
+//Priority Queue
+Queue<Integer> priorityQueue = new PriorityQueue<>();
+Queue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());//Creating a max-heap using a custom comparator
+
+priorityQueue.add(10);
+priorityQueue.add(20);
+priorityQueue.add(15);
+
+System.out.println("PriorityQueue: " + priorityQueue);
+System.out.println("Poll: " + priorityQueue.poll()); // Retrieves and removes the head (10)
+System.out.println("PriorityQueue after poll: " + priorityQueue);
+System.out.println("Peek: " + priorityQueue.peek()); // Retrieves the head without removing (15)
+System.out.println("PriorityQueue after peek: " + priorityQueue);
+
+//Peak and poll return null when queue is empty
+with custom comparator
+import java.util.Comparator;
+
+class AgeComparator implements Comparator<Person> {
+    @Override
+    public int compare(Person p1, Person p2) {
+        return Integer.compare(p1.getAge(), p2.getAge());
+    }
+}
+PriorityQueue<Person> priorityQueue = new PriorityQueue<>(new AgeComparator());
+
+
+
+//stack
+Stack<Integer> stack = new Stack<>();
+
+// Push elements onto the stack
+stack.push(10);
+stack.push(20);
+stack.push(30);
+
+// Display the stack
+System.out.println("Stack: " + stack); // Output: [10, 20, 30]
+
+// Peek at the top element
+System.out.println("Peek: " + stack.peek()); // Output: 30
+
+// Pop the top element
+System.out.println("Pop: " + stack.pop()); // Output: 30
+System.out.println("Stack after pop: " + stack); // Output: [10, 20]
+
+
+//Java linked list
+LinkedList class is part of the Java Collections Framework and implements both the List and Deque interfaces,
+providing a doubly-linked list implementation. This allows it to be used as a list, stack, queue, or deque.
+
+LinkedList<String> linkedList = new LinkedList<>();
+// Adding elements to the LinkedList
+linkedList.add("A");
+linkedList.add("B");
+linkedList.add("C");
+linkedList.add("D");
+System.out.println("Initial LinkedList: " + linkedList); // Output: [A, B, C, D]
+
+// Adding an element at a specific position
+linkedList.add(2, "E");
+System.out.println("After adding 'E' at index 2: " + linkedList); // Output: [A, B, E, C, D]
+
+// Removing an element
+linkedList.remove("B");
+System.out.println("After removing 'B': " + linkedList); // Output: [A, E, C, D]
+
+// Getting an element
+String element = linkedList.get(1);
+System.out.println("Element at index 1: " + element); // Output: E
+
+
+//Set in Jvaa
+
+
+Set<String> hashSet = new HashSet<>();
+// Adding elements to the HashSet
+hashSet.add("Apple");
+hashSet.add("Banana");
+hashSet.add("Cherry");
+hashSet.add("Date");
+hashSet.add("Apple"); // Duplicate element
+
+// Displaying the HashSet
+System.out.println("HashSet: " + hashSet); // Output order is not guaranteed
+// Output: HashSet: [Banana, Date, Apple, Cherry] (order may vary)
+
+// Checking if an element exists
+System.out.println("Contains 'Banana': " + hashSet.contains("Banana")); // Output: true
+
+// Removing an element
+hashSet.remove("Banana");
+System.out.println("HashSet after removing 'Banana': " + hashSet);
+
+//TreeSet
+Set<String> treeSet = new TreeSet<>();
+
+// Adding elements to the TreeSet
+treeSet.add("Apple");
+treeSet.add("Banana");
+treeSet.add("Cherry");
+treeSet.add("Date");
+treeSet.add("Apple"); // Duplicate element
+
+// Displaying the TreeSet
+System.out.println("TreeSet: " + treeSet); // Elements are sorted
+// Output: TreeSet: [Apple, Banana, Cherry, Date]
+
+// Checking if an element exists
+System.out.println("Contains 'Banana': " + treeSet.contains("Banana")); // Output: true
+
+// Removing an element
+treeSet.remove("Banana");
+System.out.println("TreeSet after removing 'Banana': " + treeSet); // Output: [Apple, Cherry, Date]
+
+HashSet: Allows one null element.
+TreeSet: Does not allow null elements.
+
+// Iterate
+for (Person person : people) {
+    System.out.println(person);
+}
+
+Creating a HashSet of Custom Objects-Ensure that your class overrides the equals and hashCode methods.
+
+@Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Person person = (Person) o;
+    return age == person.age && Objects.equals(name, person.name);
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(name, age);
+}
+
+
+Creating a TreeSet of Custom Objects-Ensure that your class implements the Comparable interface or provide a Comparator.
+
+class Person implements Comparable<Person> {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getters and setters (optional)
+    
+    @Override
+    public int compareTo(Person other) {
+        return this.name.compareTo(other.name); // Sorting by name
+    }
+};
+
+
+public static Comparator<Person> ageComparator = new Comparator<Person>() {
+    @Override
+    public int compare(Person p1, Person p2) {
+        return Integer.compare(p1.age, p2.age);
+    }
+};
+
+Set<Person> people = new TreeSet<>(Person.ageComparator);
+
+//TreeMap
+Map<String, Person> map = new TreeMap<>();
+map.put("Alice", new Person("Alice", 30));
+map.put("Bob", new Person("Bob", 25));
+map.put("Charlie", new Person("Charlie", 35));
+
+// Iterate (sorted by key)
+for (String key : map.keySet()) {
+    System.out.println("Key: " + key + ", Value: " + map.get(key));
+}
+
+// Add
+map.put("David", new Person("David", 28));
+
+// Delete
+map.remove("Bob");
+
+// Find
+boolean containsAlice = map.containsKey("Alice"); // returns true
+System.out.println("Contains Alice: " + containsAlice);
+
+// Update (replace value for key "Charlie")
+map.put("Charlie", new Person("Charlie", 36));
+
+// Iterate again
+System.out.println("Updated TreeMap:");
+for (String key : map.keySet()) {
+    System.out.println("Key: " + key + ", Value: " + map.get(key));
+}
+
+for (Map.Entry<String, Integer> entry : map.entrySet()) {
+    String key = entry.getKey();
+    Integer value = entry.getValue();
+    System.out.println("Key: " + key + ", Value: " + value);
+}
+
+ConcurrentHashMap: Thread-safe with high concurrency. Allows concurrent modifications without explicit synchronization.
+
+Fail-Fast
+Definition: Fail-Fast is an approach where the collection detects if it has been modified concurrently while iterating, and immediately throws a ConcurrentModificationException to prevent potential inconsistencies.
+Usage: Primarily used in non-concurrent collections (e.g., ArrayList, HashMap) where modifications during iteration can lead to unpredictable behavior.
+Characteristics:
+Immediate Failure: Upon detecting concurrent modification, such as adding or removing elements while iterating, the iterator fails by throwing an exception.
+Early Detection: Ensures that any potential issues due to concurrent modifications are identified early during iteration.
+Single Thread Focus: Typically associated with single-threaded environments or collections not designed for concurrent modifications.
+Fail-Safe
+Definition: Fail-Safe is an approach where the collection allows iteration to continue even if the underlying collection is modified concurrently. It does not throw exceptions during iteration.
+Usage: Commonly used in concurrent collections (e.g., ConcurrentHashMap, CopyOnWriteArrayList) where multiple threads can modify the collection concurrently.
+Characteristics:
+Safe Iteration: Ensures that modifications to the collection by other threads do not cause the iterator to fail or throw exceptions.
+Snapshot Iteration: Iterators work on a snapshot of the collection taken at the time of creation, ensuring that modifications do not affect ongoing iterations.
+Thread Safety: Designed to handle concurrent modifications gracefully, without requiring external synchronization.
+
+Multithreading:
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread " + Thread.currentThread().getId() + " is running.");
+    }
+
+    public static void main(String[] args) {
+        int n = 5; // Number of threads
+        for (int i = 0; i < n; i++) {
+            MyThread thread = new MyThread();
+            thread.start();
+        }
+    }
+}
+
+
+class MyRunnable implements Runnable {
+    public void run() {
+        System.out.println("Thread " + Thread.currentThread().getId() + " is running.");
+    }
+
+    public static void main(String[] args) {
+        int n = 5; // Number of threads
+        for (int i = 0; i < n; i++) {
+            Thread thread = new Thread(new MyRunnable());
+            thread.start();
+        }
+    }
+}
+
+import java.util.concurrent.*;
+
+class MyCallable implements Callable<String> {
+    public String call() {
+        return "Thread " + Thread.currentThread().getId() + " is running.";
+    }
+
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+        int n = 5; // Number of threads
+        ExecutorService executor = Executors.newFixedThreadPool(n);
+
+        // Submit tasks
+        for (int i = 0; i < n; i++) {
+            Future<String> future = executor.submit(new MyCallable());
+            System.out.println(future.get()); // Get result from Callable
+        }
+
+        executor.shutdown();
+    }
+}
+
+import java.util.concurrent.*;
+
+class MyCallable implements Callable<String> {
+    public String call() {
+        return "Thread " + Thread.currentThread().getId() + " is running.";
+    }
+
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+        int n = 5; // Number of threads
+        ExecutorService executor = Executors.newFixedThreadPool(n);
+
+        // Submit tasks
+        for (int i = 0; i < n; i++) {
+            Future<String> future = executor.submit(new MyCallable());
+            System.out.println(future.get()); // Get result from Callable
+        }
+
+        executor.shutdown();
+    }
+}
+
+Certainly! You can use lambda expressions in Java to achieve multi-threading as well. Lambda expressions provide a concise way to define anonymous functions, which can be passed around as method arguments or assigned to variables. Here’s how you can use lambda expressions for multi-threading:
+
+Example: Using Lambda for Multi-Threading
+java
+Copy code
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class LambdaMultiThreading {
+    public static void main(String[] args) {
+        int n = 5; // Number of threads
+        ExecutorService executor = Executors.newFixedThreadPool(n);
+
+        // Submit tasks using lambda expression
+        for (int i = 0; i < n; i++) {
+            int finalI = i;
+            executor.submit(() -> {
+                System.out.println("Thread " + Thread.currentThread().getId() + " is running with lambda: " + finalI);
+            });
+        }
+
+        executor.shutdown();
+    }
+}
+Explanation
+Lambda Expression: In the example above, the lambda expression () -> { ... } is used inside the executor.submit() method call. This lambda expression represents the task that will be executed by each thread.
+
+ExecutorService: Executors.newFixedThreadPool(n) creates a fixed-size thread pool with n threads. Each thread in the pool executes tasks submitted via executor.submit().
+
+Thread Identifier: Thread.currentThread().getId() retrieves the ID of the current thread, which helps identify which thread is executing the lambda expression.
+
+Closure: The finalI variable is effectively final or "effectively final" within the lambda expression, allowing it to be used safely. Lambda expressions can capture local variables from the enclosing scope as long as those variables are effectively final.
+
+
+What are checked exceptions and unchecked exceptions in Java?
+
+Checked exceptions: Must be declared in a method's throws clause or handled using try-catch. Examples include IOException.
+Unchecked exceptions: Do not need to be declared or caught explicitly. Examples include NullPointerException, ArrayIndexOutOfBoundsException.
+What is the difference between throw and throws in Java?
+
+throw is used to explicitly throw an exception within a method:
+java
+Copy code
+throw new SomeException("Error message");
+throws is used in method signatures to declare that the method may throw certain exceptions:
+java
+Copy code
+public void method() throws SomeException {
+    // Method implementation
+}
+
+Synchronization and Multithreading Questions
+What is synchronization in Java multithreading?
+
+Synchronization in Java ensures that only one thread can access a block of code or an object’s method at a time to prevent data corruption.
+How can you achieve synchronization in Java?
+
+Synchronization can be achieved using the synchronized keyword:
+java
+Copy code
+public synchronized void synchronizedMethod() {
+    // Synchronized method implementation
+}
+What are the different ways to implement synchronization?
+
+Using synchronized methods, synchronized blocks with explicit locks (e.g., ReentrantLock), 
+and using atomic classes from the java.util.concurrent package (e.g., AtomicInteger).
+What are race conditions? How can they be prevented?
+
+Race conditions occur when multiple threads access shared data concurrently, potentially leading to inconsistent state.
+They can be prevented using synchronization mechanisms like locks or atomic operations.
+
+Explain the volatile keyword in Java.
+The volatile keyword ensures that a variable's value is always read from and written to main memory,
+ avoiding thread-specific caches. It's used for variables accessed by multiple threads without synchronization.
+
+ Integer.MAX_VALUE
+
+
