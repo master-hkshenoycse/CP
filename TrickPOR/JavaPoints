@@ -21,9 +21,7 @@ List<String> upperCaseList = list.stream()
                                  .collect(Collectors.toList());
 
 
-Functional Interface:
-
-Answer: A functional interface is an interface with a single abstract method, and it can be implemented using a lambda expression or method reference. 
+A functional interface is an interface with a single abstract method, and it can be implemented using a lambda expression or method reference. 
 Examples include Runnable, Callable, Comparator, and custom interfaces annotated with @FunctionalInterface.
 Function<String, Integer> lengthFunction = String::length;
 int length = lengthFunction.apply("Hello");
@@ -77,7 +75,7 @@ public int eraseOverlapIntervals(int[][] intervals) {
     }
 
 
-string uilder create smutable string.
+//stringbuilder create smutable string.
 StringBuilder sb = new StringBuilder("Hello");
 sb.append(" World");
 sb.insert(5, " World");
@@ -504,6 +502,402 @@ Explain the volatile keyword in Java.
 The volatile keyword ensures that a variable's value is always read from and written to main memory,
  avoiding thread-specific caches. It's used for variables accessed by multiple threads without synchronization.
 
- Integer.MAX_VALUE
+ Integer.MAX_VALUE=Default max value
 
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+// Define the custom annotation
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface MyCustomAnnotation {
+    String value() default "default value";
+    int number() default 0;
+}
+
+
+@Retention(RetentionPolicy.RUNTIME): This specifies that the annotation will be available at runtime.
+@Target(ElementType.METHOD): This indicates that the annotation can only be applied to methods.
+The annotation has two elements: value and number, both with default values.
+
+public class MyClass {
+
+    @MyCustomAnnotation(value = "Custom Value", number = 42)
+    public void myAnnotatedMethod() {
+        System.out.println("This method is annotated with MyCustomAnnotation");
+    }
+
+    @MyCustomAnnotation
+    public void anotherAnnotatedMethod() {
+        System.out.println("This method is also annotated with MyCustomAnnotation");
+    }
+}
+
+
+import java.lang.reflect.Method;
+
+public class AnnotationProcessor {
+
+    public static void main(String[] args) {
+        try {
+            Class<?> clazz = MyClass.class;
+            Method[] methods = clazz.getDeclaredMethods();
+
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(MyCustomAnnotation.class)) {
+                    MyCustomAnnotation annotation = method.getAnnotation(MyCustomAnnotation.class);
+                    System.out.println("Method: " + method.getName());
+                    System.out.println("Value: " + annotation.value());
+                    System.out.println("Number: " + annotation.number());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+Reflection: The AnnotationProcessor class uses Java reflection to inspect the methods of MyClass.
+Annotation Retrieval: It checks if each method is annotated with @MyCustomAnnotation using method.isAnnotationPresent(MyCustomAnnotation.class).
+Annotation Values: If the annotation is present, it retrieves the values of the annotation elements and prints them.
+
+
+Java Reflection is a powerful API that allows you to inspect and manipulate the runtime behavior of applications. 
+It provides the ability to examine or modify the runtime behavior of applications by allowing you to inspect classes, interfaces
+, fields, and methods at runtime, without knowing the names of the classes, methods, etc., at compile time.
+
+Key Uses of Reflection
+Inspect Classes, Methods, and Fields at Runtime:
+You can find out what methods, fields, and constructors a class has, their modifiers, parameter types, return types, and more.
+
+Invoke Methods Dynamically:
+Reflection allows you to call methods at runtime even if you don’t know their names at compile time.
+
+Create Instances of Classes Dynamically:
+You can create instances of classes at runtime, which can be particularly useful for frameworks and libraries.
+
+Access and Modify Private Members:
+Reflection allows you to bypass normal access control checks, enabling you to access private fields and methods.
+
+Example: Basic Reflection Operations
+Here is an example that demonstrates how to use Java Reflection to inspect and manipulate a class at runtime:
+
+
+public class Person {
+    private String name;
+    private int age;
+
+    //getters and setters
+}
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+public class ReflectionExample {
+    public static void main(String[] args) {
+        try {
+            // Get Class object
+            Class<?> personClass = Class.forName("Person");
+
+            // Create an instance using the default constructor
+            Constructor<?> constructor = personClass.getConstructor();
+            Object person = constructor.newInstance();
+
+            // Access and modify private field 'name'
+            Field nameField = personClass.getDeclaredField("name");
+            nameField.setAccessible(true); // Bypass access control checks
+            nameField.set(person, "John Doe");
+
+            // Access and modify private field 'age'
+            Field ageField = personClass.getDeclaredField("age");
+            ageField.setAccessible(true);
+            ageField.setInt(person, 30);
+
+            // Call public method 'getName'
+            Method getNameMethod = personClass.getMethod("getName");
+            String name = (String) getNameMethod.invoke(person);
+            System.out.println("Name: " + name);
+
+            // Call private method 'printDetails'
+            Method printDetailsMethod = personClass.getDeclaredMethod("printDetails");
+            printDetailsMethod.setAccessible(true);
+            printDetailsMethod.invoke(person);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+Explanation of Reflection Example
+Get Class Object:
+Class<?> personClass = Class.forName("Person");Loads the Person class and returns its Class object.
+
+Create an Instance Using the Default Constructor:
+Constructor<?> constructor = personClass.getConstructor();
+Object person = constructor.newInstance();
+Uses the default constructor to create an instance of Person.
+
+Access and Modify Private Fields:
+Field nameField = personClass.getDeclaredField("name");
+nameField.setAccessible(true);
+nameField.set(person, "John Doe");
+Accesses the private field name and modifies its value.
+
+Call Public Method:
+Method getNameMethod = personClass.getMethod("getName");
+String name = (String) getNameMethod.invoke(person);
+Calls the public method getName and retrieves its value.
+
+Call Private Method:
+Method printDetailsMethod = personClass.getDeclaredMethod("printDetails");
+printDetailsMethod.setAccessible(true);
+printDetailsMethod.invoke(person);
+Calls the private method printDetails to print the details of the Person object.
+
+When to Use Reflection
+
+Reflection is a powerful feature, but it should be used judiciously. It is typically used in scenarios such as:
+
+Frameworks and Libraries:
+Frameworks like Spring and Hibernate use reflection to inspect and manipulate application code dynamically.
+
+Testing and Mocking:
+Testing frameworks like JUnit and Mockito use reflection to create mock objects and inject dependencies.
+
+Serialization and Deserialization:
+Libraries like Jackson and Gson use reflection to serialize and deserialize objects to and from JSON.
+
+Downsides of Reflection
+Performance Overhead:
+Reflection operations are generally slower than their non-reflective counterparts due to additional processing.
+
+Security Restrictions:
+Reflection requires permissions that might be restricted in certain environments, like applets or security-sensitive applications.
+
+Complexity and Maintainability:
+Code that uses reflection is harder to understand and maintain, as it bypasses compile-time checks and relies on runtime checks.
+
+
+In Java, one can apply the final keyword to a variable, methods, and class. With the help of the final keyword,
+ the variable turns out to be a constant, 
+the method cannot be inherited and 
+the class cannot be overridden.
+
+
+Yes, there is a possibility that the ‘finally’ block cannot get executed. Here are some of the cases where the above situation occurs.
+
+During the time of fatal errors such as memory exhaustion, memory access error, etc.
+During the time of using System.exit()
+
+
+Worst-case time complexities of all Java built-in methods including String, StringBuilder, List classes, Set classes, Map classes, Queue classes, Stack, Arrays, and Collections classes:
+
+String
+
+new String("str") instantiation with value -> O(n)
+"str1" + "str2" concatenation -> O(n), better solution is String concat(String str) with O(n)
+int length() -> O(1)
+char charAt(int index) -> O(1)
+int indexOf(int ch), int indexOf(int ch, int fromIndex), int indexOf(String str), int indexOf(String str, int fromIndex), int lastIndexOf(int ch), int lastIndexOf(int ch, int fromIndex), int lastIndexOf(String str), int lastIndexOf(String str, int fromIndex) -> O(n)
+String substring(int beginIndex), String substring(int beginIndex, int endIndex) -> O(n)
+String toLowerCase(), String toUpperCase() -> O(n)
+boolean contains(CharSequence charSeq) -> O(n)
+boolean equals(Object obj), boolean equalsIgnoreCase(String str) -> O(n)
+boolean startsWith(String prefix), boolean endsWith(String suffix) -> O(n)
+String replace(char oldChar, char newChar), String replace(CharSequence target, CharSequence replacement), String replaceAll(String regex, String replacement) -> O(n)
+String[] split(String regex), String[] split(String regex, int limit) -> O(n)
+char[] toCharArray() -> O(n)
+boolean isEmpty() -> O(1)
+boolean isBlank() -> O(n)
+String strip(), String stripLeading(), String stripTrailing(), String trim(), String indent(int numberSpaces), String stripIndent(), String translateEscapes() -> O(n)
+String format(String format, Object args...), String formatted(Object args...) -> O(n)
+StringBuilder
+
+new StringBuilder("sb") instantiaton with value -> O(n)
+StringBuilder append(String str) -> O(n)
+StringBuilder append(int i), StringBuilder append(double d), etc. other append methods -> O(1)
+StringBuilder insert(int offset, String str) -> O(n)
+StringBuilder delete(int startIndex, int endIndex), StringBuilder deleteCharAt(int index) -> O(n)
+StringBuilder replace(int startIndex, int endIndex, String newString) -> O(n)
+StringBuilder reverse() -> O(n)
+void setCharAt(int index, char ch) -> O(1)
+String substring(int beginIndex), String substring(int beginIndex, int endIndex) -> O(n)
+int length() - O(1)
+char charAt(int index) -> O(1)
+String toString() -> O(n)
+ArrayList (implements List interface)
+
+E get(int index) -> O(1)
+E remove(int index) -> O(n) with n/2 steps on average
+boolean remove(E element) -> O(n)
+Iterator.remove() -> O(n) with n/2 steps on average
+void add(int index, E element) -> O(n) with n/2 steps on average
+boolean add(E element) appending -> O(1)
+ListIterator.add(E element) -> O(n) with n/2 steps on average
+boolean contains(Object o) -> O(n)
+E set(int index, E Element) -> O(1)
+int indexOf(Object o), int lastIndexOf(Object o) -> O(n)
+void clear() -> O(n)
+int size() -> O(1)
+boolean isEmpty() -> O(1)
+LinkedList (implements List and Deque interfaces)
+
+E get(int index) -> O(n) with n/4 steps on average, O(1) when index=0 or index=list.size()-1
+E remove(int index) -> O(n) with n/4 steps on average, O(1) when index=0 or index=list.size()-1
+boolean remove(E element) -> O(n)
+Iterator.remove() -> O(1)
+void add(int index, E element) -> O(n) with n/4 steps on average, O(1) when index=0 or index=list.size()-1
+boolean add(E element) appending -> O(1)
+ListIterator.add(E element) -> O(1)
+boolean contains(Object o) -> O(n)
+E set(int index, E Element) -> O(n)
+int indexOf(Object o), int lastIndexOf(Object o) -> O(n)
+void clear() -> O(n)
+int size() -> O(1)
+boolean isEmpty() -> O(1)
+In summary ArrayList vs LinkedList:
+
+access to front -> O(1) vs O(1)
+access to back -> O(1) vs O(1)
+access to middle -> O(1) vs O(n)
+insert at front -> O(n) vs O(1)
+insert at back (appending) -> O(1) vs O(1)
+insert at middle using add(int index, E element) method -> O(n) with n/2 steps on average vs O(n) with n/4 steps on average
+HashSet (implements Set interface)
+
+boolean add(E element) appending -> O(1)
+boolean contains(Object o) -> O(1)
+boolean remove(Object o) -> O(1)
+int size() -> O(1)
+boolean isEmpty() -> O(1)
+void clear() -> O(n)
+Object[] toArray() -> O(n)
+TreeSet (implements Set interface)
+
+boolean add(E element) appending -> O(logn)
+boolean contains(Object o) -> O(logn)
+boolean remove(Object o) -> O(logn)
+int size() -> O(1)
+boolean isEmpty() -> O(1)
+void clear() -> O(n)
+E first() -> O(logn)
+E last() -> O(logn)
+E lower(E element) -> O(logn)
+E higher(E element) -> O(logn)
+E floor(E element) -> O(logn)
+E ceiling(E element) -> O(logn)
+Object[] toArray() -> O(n)
+HashMap (implements Map interface)
+
+boolean containsKey(Object key) -> O(n), average-case complexity is Θ(1)
+boolean containsValue(Object value) -> O(n)
+V get(Object key), V getOrDefault(Object key, V defaultValue) -> O(n), average-case complexity is Θ(1)
+V put(K key, V value), V putIfAbsent(K key, V value) -> O(n), average-case complexity is Θ(1)
+V remove(Object key) -> O(n), average-case complexity is Θ(1)
+boolean remove(Object key, Object value) -> O(n), average-case complexity is Θ(1)
+V replace(K key, V value) -> O(n), average-case complexity is Θ(1)
+boolean replace(K key, V oldValue, V newValue) -> O(n), average-case complexity is Θ(1)
+int size() -> O(1)
+boolean isEmpty() -> O(1)
+void clear() -> O(n)
+Set keySet() -> O(1)
+Collection values() -> O(1)
+Set<Map.Entry<K, V>> entrySet() -> O(1)
+TreeMap (implements Map interface)
+
+boolean containsKey(Object key) -> O(logn)
+boolean containsValue(Object value) -> O(n)
+V get(Object key), V getOrDefault(Object key, V defaultValue) -> O(logn)
+V put(K key, V value), V putIfAbsent(K key, V value) -> O(logn)
+V remove(Object key) -> O(logn)
+int size() -> O(1)
+boolean isEmpty() -> O(1)
+void clear() -> O(n)
+Set keySet() -> O(1)
+Collection values() -> O(1)
+Set<Map.Entry<K, V>> entrySet() -> O(1)
+K firstKey() -> O(logn)
+K lastKey() -> O(logn)
+K lowerKey(K key) -> O(logn)
+K floorKey(K key) -> O(logn)
+K ceilingKey(K key) -> O(logn)
+K higherKey(K key) -> O(logn)
+PriorityQueue (implements Queue interface)
+
+boolean add(E element), boolean offer(E element) appending -> O(logn)
+E element(), E peek() read from front -> O(1)
+E remove(), E poll() get and remove from front -> O(logn)
+int size() -> O(1)
+ArrayDeque (implements Deque interface)
+
+void addFirst(E element), boolean offerFirst(E element), void push(E element) add to front -> O(1)
+boolean add(E element), boolean offer(E element), void addLast(E element), boolean offerLast(E element) add to back -> O(1)
+E element(), E peek(), E getFirst(), E peekFirst() read from front -> O(1)
+E getLast(), E peekLast() read from back -> O(1)
+E remove(), E poll(), E removeFirst(), E pollFirst(), E pop() get and remove from front -> O(n)
+E removeLast(), E pollLast() get and remove from back -> O(n)
+int size() -> O(1)
+Stack (extends Vector class and implements List interface)
+
+E push(E item) -> O(1)
+E pop() -> O(1)
+E peek() -> O(1)
+boolean empty() -> O(1)
+int search(Object o) -> O(n)
+Arrays
+
+void sort(int[] a) -> O(nlogn)
+void sort(int[] a, int fromIndex, int toIndex) -> O(nlogn)
+int binarySearch(int[] a, int key) -> O(logn)
+List asList(T... arr) -> O(1)
+void fill(int[] a, int val) -> O(n)
+int compare(int[] a, int[] b) -> O(n)
+String toString(int[] a) -> O(n)
+int[] copyOf(int[] original, int newLength) -> O(n)
+int[] copyOfRange(int[] original, int from, int to) -> O(n)
+Collections
+
+void sort(List list) -> O(nlogn)
+T max(Collection<? extends T> coll) -> O(n)
+T min(Collection<? extends T> coll) -> O(n)
+void shuffle(List<?> list) -> O(n)
+void fill(List<? super T> list, T obj) -> O(n)
+void rotate(List<?> list, int distance) -> O(n)
+
+
+Multiset Implmentation in Java.
+class Solution {
+    public static int[] removeOrder(int n, int[] arr, String str) {
+        // code here
+        int sol[]=new int[n];
+        TreeMap<Integer,Integer> treeMap=new TreeMap<Integer,Integer>();
+        for(int i=0;i<n;i++){
+            if(treeMap.containsKey(arr[i])==false){
+                treeMap.put(arr[i],0);
+            }
+            
+            treeMap.put(arr[i],treeMap.get(arr[i])+1);
+        }
+        
+        
+        
+        for(int i=0;i<n;i++){
+            if(str.charAt(i)=='1'){
+                sol[i]=treeMap.lastKey();
+            }else{
+                sol[i]=treeMap.firstKey();
+            }
+            
+            treeMap.put(sol[i],treeMap.get(sol[i])-1);
+            if(treeMap.get(sol[i])==0){
+                treeMap.remove(sol[i]);
+            }
+        }
+        return sol;
+    }
+}
