@@ -27,3 +27,32 @@ Constraints:
 
 1 <= A <= B <= 109
 1 <= C <= D <= 109
+
+Basic concepts:
+
+Definition and differences of process/thread and relations between user threads and OS threads.
+Causes of deadlock and avoidance of deadlocks
+Singleton design pattern [multi-level locking]
+Concurrent modification exception examples and other exceptions
+Blocking vs non-blocking io
+Async Api design
+Atomic integers and counters
+Intermediate concepts:
+
+thread-pools and executor-service framework [java]
+synchronized vs re-entrant locks vs readwrite locks vs futures
+fork, wait and notifyAll
+Concurrent DS: implement thread-safe cache and blocking queue [producer-consumer]
+Double checked locking
+Deadlock vs live-lock
+Mutex vs Semaphores
+Dinning philosophers problem
+Advance concepts:
+
+Concurrency design patterns [Good start point: Active object pattern]
+Map-reduce
+CPU scheduling algorithms
+Compare-and-Swap
+two-phase-locks
+Thread throttling
+Distributed Algo's and race-conditions [example rate limiter]

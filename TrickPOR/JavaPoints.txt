@@ -105,7 +105,7 @@ while (iterator.hasNext()) {
 
 
 //Queue
-ueue<String> queue = new LinkedList<>();
+Queue<String> queue = new LinkedList<>();
 
 queue.add("Apple");
 queue.add("Banana");
@@ -340,12 +340,18 @@ for (Map.Entry<String, Integer> entry : map.entrySet()) {
 ConcurrentHashMap: Thread-safe with high concurrency. Allows concurrent modifications without explicit synchronization.
 
 Fail-Fast
-Definition: Fail-Fast is an approach where the collection detects if it has been modified concurrently while iterating, and immediately throws a ConcurrentModificationException to prevent potential inconsistencies.
-Usage: Primarily used in non-concurrent collections (e.g., ArrayList, HashMap) where modifications during iteration can lead to unpredictable behavior.
+Definition: Fail-Fast is an approach where the collection detects if it has been modified concurrently while iterating, 
+and immediately throws a ConcurrentModificationException to prevent potential inconsistencies.
+
+Usage: Primarily used in non-concurrent collections (e.g., ArrayList, HashMap) where modifications during iteration 
+can lead to unpredictable behavior.
 Characteristics:
-Immediate Failure: Upon detecting concurrent modification, such as adding or removing elements while iterating, the iterator fails by throwing an exception.
+Immediate Failure: Upon detecting concurrent modification, such as adding or removing elements while iterating, 
+the iterator fails by throwing an exception.
 Early Detection: Ensures that any potential issues due to concurrent modifications are identified early during iteration.
 Single Thread Focus: Typically associated with single-threaded environments or collections not designed for concurrent modifications.
+
+
 Fail-Safe
 Definition: Fail-Safe is an approach where the collection allows iteration to continue even if the underlying collection is modified concurrently. It does not throw exceptions during iteration.
 Usage: Commonly used in concurrent collections (e.g., ConcurrentHashMap, CopyOnWriteArrayList) where multiple threads can modify the collection concurrently.
@@ -901,3 +907,11 @@ class Solution {
         return sol;
     }
 }
+
+
+static methods can be overloaded but not overriden.
+When overiding the access modifier should be not more restricive
+Covariant return types allow the overriding method to return a subtype of the return type declared in the overridden method.
+
+A class cannot be both abstract and final. An abstract class is meant to be subclassed, while a final class cannot be subclassed.
+Interface method cannot be final because final methods cannot be overridden, and interface methods must be implemented by classes that implement the interface.
