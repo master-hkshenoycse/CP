@@ -253,3 +253,448 @@ By using a private constructor, you ensure that instances of the class can only 
 
 
 
+is-a relation inheritance
+
+
+Factory Pattern:
+Used when objects are created based on conditional basis.
+when these conditions are repetative and used at lot of places in codebase
+Eg condition 1 create object 1,else object 2
+
+public interface Shape{
+    void draw();
+}
+
+public class Rectangle implements Shape{
+    @Override
+    public void draw(){
+        System.out.println("rectangle");
+    }
+}
+
+public class Circle implements Shape{
+    @Override
+    public void draw(){
+        System.out.println("circle");
+    }
+}
+
+
+public class ShapeFactory{
+
+    Shape getShape(String input){
+        switch(input){
+            case "CIRCLE":
+                return new Circle();
+            case "RECTANGLE":
+                return new Rectangle();
+            default:
+                null;
+        }
+    }
+}
+
+
+public class MainClass{
+
+    public static void main(String args[]){
+        ShapeFactory shapeFactoryObj=new ShapeFactory();
+        Shape shapeObj=shapeFactoryObj.getShape("CIRCLE");
+        shapeObj.draw();
+    }
+}
+
+
+Abstract Factory Pattern:
+Factory  of factory, when the concrete classes can be grouped.
+
+Builder Design Pattern:
+
+It is creational design pattern,  helps in creating of objects.
+
+Eg student class- roll number mandatory , rest all features optional, so lot of  types/size of constructors
+
+
+
+constructed using builder object.
+concrete
+
+
+
+
+Creational design pattern:
+Encaspulate knowledge about which concrete class should be used.
+Conceal how objects are crated. 
+
+The Builder pattern
+Avoids complex constructors as classes grow in size,Two constructor of a class cant have same signature.
+Mandatory and optinoal parameneter/class variables.
+Assume object is  immutable.
+
+            (interface)
+Director ---> Builder ---> ConcreteBuilder ---> Product(required object)
+
+Product class constructor dependes on concreteBuilder object.
+                                           
+
+
+The Singelton pattern.
+Usecases:Config files, connection to database/hardware resources,loggers.
+take care of thread safety.
+May violate single resposiblity pattern, functinoality+ensuring only 1 instance created hence 2 responsiblities.
+Diffcult to test- use dependency injection.
+Private constructor
+Use synchronised keyword so that two threads cant create new instance at same time ,  bottle neck when called lots of time.
+make the class enum.
+public class PrintSpool{
+
+    private PrintSpool(){}
+    private static PrintSpool INSTANCE;
+    
+    public static PrintSpool getInstance(){
+        if(INSTANCE==NULL){
+            INSTANCE=new PrintSpool();
+        }
+        return INSTANCE;
+    }
+    void print(){
+        System.out.println("Printing ... ");
+    }
+}
+
+//Thread safe with enum, as enums in java guranteed to be threadsafe, can't be used if singleton class is implementing superclass.
+
+public enum PrintSpool{
+
+    INSTANCE;
+    
+    public static PrintSpool getInstance(){
+        
+        return INSTANCE;
+    }
+    void print(){
+        System.out.println("Printing ... ");
+    }
+}
+
+public class ImagePrinter{
+    public void printImage(){
+        var spooler=PrintSpool.getInstance();
+        spooler.print();
+    }
+}
+
+The Prototype Pattern:
+
+Grphic   --->        Tree              --->
+clone()        (string type,int height)
+
+There is clonebale interface, but avoid it, the interface has no clone method and throws exception that must be handeld.
+Useful when creatinfg mutiple copies of same object.
+by default shallow copy of original.
+pubilc abstract class Meal{
+
+    private int price;
+
+    //contructor
+    //getter
+    //setter.
+
+    public abstract Meal clone();
+
+}
+
+public class Pizza extends Meal{
+
+    private PizzaFlavour pizzaFlavour;
+    public Pizza(int price,PizzaFlavour pizzaFlavour){
+        super(price);
+        this.flavour=flavour;
+    }
+
+
+    /*For prototype pattern*/
+    @Override
+    public Pizza clone(){
+        //This makes it deep copy by creating new object when cloning.
+        return new Pizza(this.getPrice(),new PizzaFlavour(this.getFlavour().getName()));
+    }
+}
+
+public class PizzaFlavour{
+    private string name;
+    //contructor
+    //getter
+    //setter.
+}
+
+public class PizzaOrder{
+
+    public static void main(String[]  args){
+        PizzaFlavour hawai=new PizzaFlavour("hawai");
+        Pizza hp1=new Pizza(4,hawai);
+       // Pizza hp2=new Pizza(4,hawai);//duplication
+        Pizza hp2=hp1.clone();
+
+        PizzaFlavour panner=new PizzaFlavour("panner");
+        Pizza p1=new Pizza(4,panner);
+        //Pizza p2=new Pizza(4,panner);
+        Pizza p2=p1.clone();
+
+        List<Meal>  order=List.of({hp1,hp2,p1,p2});
+
+    }
+}
+
+The Factory Pattern
+
+
+Ticket machine          ------>  ticket  ----/\
+createTicket(String ticketType)           Bus  Train
+
+Use facotory pattern when a class has to create instances of another class , but it does not know in advance what the concrete type
+it would be.
+
+public interface Ticket{
+    int getPrice();
+}
+
+public class BusTicket implements Ticket{
+    @Override
+    public int getPrice(){
+        return 3;
+    }
+}
+
+public class TrainTicket implements Ticket{
+    @Override
+    public int getPrice(){
+        return 5;
+    }
+}
+
+public class TicketOffce{
+    private static final TicketMachine ticketMachine=new TicketMachine();
+}
+
+//import map and supplier.
+public class TicketMachine{
+
+    private static final Map<String,Supplier<Ticket>> ticketMap=new HashMap();
+    static{
+       // supplier is interface which takes no argument and returns a object
+        ticketMap.put("Bus", () -> new BusTicket());
+        ticketMap.put("Train", TrainTicket::new);
+
+    }
+    Ticket crateTicket(String type){
+        if(ticketMap.get(type) != null){
+            return ticketMap.get(type).get();
+        }else{
+            thrw new IllegalArgumentException("Invalid type");
+        }
+
+        
+        
+    }
+}
+
+The Abstract Factories Pattern
+
+Requirements:
+The system should be independent of how objects are created.
+It should be configured with one of multiple families of objects.
+The family of related objects should be used together.
+
+Concrete classes are isolated from the client.
+Each section is easily testable.
+
+
+STRUCTURAL DESIGN PATTERNS
+
+class pattens are concernced with is-a relationship, focus on inheritance.
+Object patterns allow to change behaviour at runtime, focus on has-a relationship.
+
+
+The Adapter pattern.
+working with legacy codebase,class and object adapter.
+Adapter has an instance if adaptee as a field.
+
+Adapter ----> Adaptee
+       has-a
+
+
+public class OnlineApplication{
+    private final DocuementUploader documentUploader;
+    //getter
+    //setter
+}
+
+public interface DocuementUploader{
+    public void uploadDocument();
+}
+
+pdfUploader implements DocuementUploader{
+
+}
+
+WordDocument (a seprate class)
+
+WordDocumentAdapter implements DocuementUploader{
+
+}
+
+To not change existsing class's code but extend the behaivior
+
+WordDocumentAdapter extends WordDocumentUploader implements DocuementUploader{
+
+    Overide methods of original
+}
+
+
+The Bridge pattern:
+Allows child classes to have more flexibilty.
+Uses composition over inheritance.
+
+public interface Size{
+
+}
+ 
+public interface ClothingItem{
+    void getType();
+    Size getSize();
+}
+
+
+
+The Composite Pattern:
+Allows to treat objects and composites of objects in same way.
+The client using the composite can ignore differences between composite and its parts.
+uses common interface
+
+The decorator pattern:
+Interface , concrete implemetation, abstract implemntation
+Chenges behvaiour of object dynamically 
+n the implementation of this pattern, we prefer composition over an inheritance – so that we can reduce the overhead of subclassing again and again for each decorating element
+
+
+The Facade pattern:
+Facades are needed in software to break down large systems into smaller parts . often with lots of dependencies between them.
+client uses simple facade interface.
+Simple refactoring.
+
+The Flyweight pattern:
+Minimizes memory usage,reuses objects
+Factory class with map.
+Immutable objects,mutable state,basically caching in hashmap
+
+The Proxy pattern:
+Create expensive objects on demand.
+Control access to an object.
+
+If one object used in multiple methods/classes, intizle  that object only once by using proxy class
+
+
+BEHAVORIAL DESIGN PATTERNS
+
+The chain of Responsiblity pattern
+Logger prints to console or a file, decided at runtime.
+Decoupling is advantage.
+
+creates chain of concrete implementations
+
+
+The Command Pattern
+The request is encapsulated inside an object.
+Classes which do the operations are created ,class contains the method/operation.
+Can add queus to delay etc
+Create classes named command for executing the methods
+COmmandExecutor class to call the execute method of each class, adds a layer of abstraction
+
+var lightCommandExecutor=new LightCommandExecutor();
+lightCommandExecutor.execut(new TurnOnLightCommand(light));
+
+
+The Interpreter Pattern
+
+
+Used for custom regex,compiler, parsing sql
+the interpreter defines a grammar, then uses an abstract syntax tree to interpret it.
+Context-  AbstractExpression (terminal, non-terminal);
+
+public interface Expression{
+    String interpret(String context);
+}
+
+public class NoWhiteSpace implements Expresssion{
+    @Override
+    public String interpret(String context){
+        return context.replaceAll(" ","");
+    }
+}
+
+public class FirstLetterNotLowerCase implements Expresssion{
+    
+    private final NoWhiteSpace noWhitespace= new NoWhitespace();
+
+    @Override
+    public String interpret(String context){
+        context=context.substring(0,1).toLowerCase()+context.substring(1);
+
+        return noWhitespace.interpret(context);
+
+    }
+}
+
+
+The Iterator Pattern:
+
+Iterable interface,iterates over collection of objects.
+
+hasNext(),next() methods from iterable to be implemented.
+
+The Mediator pattern
+
+waiter/waitress as mediators in Hotel.
+Avoid tight coupling between objects.
+
+Mediator class with all interacting components
+
+
+The Memento Pattern:
+Save the state of object at given time.
+Ensuring encapsulation can be challenging with undo operatons.
+
+Originator memento  Caretaker
+
+State class with set and undo method.
+
+
+The Observer Pattern
+Users and newfeed.
+Newsfeed -Observer, implemets PropertyChangeListener
+Override propertyChange(PropertyChangeEvent event){
+    statuses.add((String)event.getEvent());
+}
+User-Observable , uses PropertyChangeSupport.
+
+
+The state pasttern:
+Alters behaviour as state changes.
+instead of multiple if else lines.
+class for state of object and implement the methods in these
+
+The Startegy Pattern:
+conter --> startegy --> stratergy A,B;
+
+
+Template Method Pattern
+Defining common steps in an algorithm in a superclass and redefining some in subclass.
+simple inheritance type code.
+
+Visior Patter
+Allows to perform an operation on all elements of an object  without making changes to the element themselves.
+
+example file system elements.
+more like polymorphism.
+create visistor interface and in concrete implemetation create the methods.

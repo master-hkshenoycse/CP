@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"c:\\Users\\acer\\Desktop\\CP\\Contests\\Codeforces\\PinelyRound4\\C.cpp","tests":[{"id":1722269635859,"input":"5\n1\n5\n2\n0 0\n3\n4 6 8\n4\n80 40 20 10\n5\n1 2 3 4 5\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\acer\\Desktop\\CP\\Contests\\Codeforces\\PinelyRound4\\C.cpp","group":"local","local":true}

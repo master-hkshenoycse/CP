@@ -185,8 +185,6 @@ think differnce array, think about even and odd number of elemnts
 Swapping adjacent elements in a distinct array is basically trying to equate two permutations using adjacent swaps.
 possible when same number of inversions
 
-
-
 https://math.stackexchange.com/questions/203835/enumerating-number-of-solutions-to-an-equation
 
 
@@ -195,3 +193,9 @@ https://codeforces.com/contest/1988/problem/D
 //total loss is a[i]*b[i],where b[i]= round in which it is removed.
 //as adjacent items can;t be picked in same round, round number will differ.
 //due to max set The "independent set" constraint ,the upper bound will be around 19 
+
+
+Minimum number of colors so that no two adjacent vertex have same color is based on size of maximum clique in graph
+https://codeforces.com/contest/1991/problem/D
+
+Think about graph bipartite
