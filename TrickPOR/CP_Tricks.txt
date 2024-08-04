@@ -199,3 +199,7 @@ Minimum number of colors so that no two adjacent vertex have same color is based
 https://codeforces.com/contest/1991/problem/D
 
 Think about graph bipartite
+
+Maintain three mutlitsets in parts and insert and remove elements and balace it.
+
+https://leetcode.com/problems/finding-mk-average/description/
