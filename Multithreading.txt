@@ -1,0 +1,63 @@
+Thread share resources with other thread.
+Daemon thread-Infrastructure thread like garbage collector,event dispatcher are examples.
+Non daemon/user thread-perform program task, main thread is non daemon.
+Newly created thread inherits daemon status from parent thread.
+so, all threads created inside main methods are non-daemon by default.
+can be set by setDaemon(true), should be called before thread starting.
+JVM gives higher priority to non-daemon threads.
+JVM waits for all non-daemon threads to finish before closing itself.
+JVM  terminates daemon thread.
+
+Java thread is instance of java.lang.thread class.
+attributes-id,name,priority,state.
+behaviour-start(),sleep(),join(),interrupt();
+
+Running behaviour of thread represneted by java.lang.Runnable interface.
+interface has only one method run().
+this method contains the block of code that's executed as thread.
+java.lang.Thread class implements the runnable interface.
+
+
+Two ways to create java threads:
+extend thread,implement runnable.
+
+dont call run() method to execute the thread, call start() method,
+if thread is used by creating extends thread class, then no other class can be extended as java does not support multiple inhertitance
+
+
+extend thread is inhertitance, tight coupling.
+Implemeting runnable is loose coupled.
+
+
+Sleep() a static method to interurpt the execution.
+
+thread goes from runnable to waiting state.
+
+Thread interruption in java.
+internal flag -interrupted status.
+interrupt()-Instance methods.
+interrupted()-static method-Return true is the thread has been interrupted by an interrupt() call, and clears the interrupt event,
+can be called without thread reference.
+isInterrupted-Instance method- returns current value of interrupted status flag.
+.
+
+Handle interrupts in try catch block.
+try{
+    Thread.sleep(1000);
+}catch(InterruptedException e){
+     break;
+}
+
+
+join() - blocking method, wait until another thread finishes.
+Calling the _____ method on a thread can cause other threads to wait until it finishes execution.
+
+in main 
+marksThread.join() try catch Interrupted exception.
+in above the Main thread will wait until marksThread is finished executing.
+
+getId() - Id generatedat time of created.
+getName()
+
+
+It's possible to respond to an interruption request when no InterruptedException is thrown with the help of the static interrupted() method. Call Thread.interrupted() to check if the interrupted status flag is true. If it’s true, it means that the thread has received a request to interrupt its task. Then you can terminate the long running task.
