@@ -143,7 +143,6 @@ https://codeforces.com/contest/1985/problem/G all digit can be 9/k at most becau
 
 Think of regular bracket sequence as tree,
 On open bracket create a new child node and move to it and on closed bracket move to parent.
-
 hash of each subtree will be based on hash of each children,all leaf node will have hash of 1.
 
 No of permutations in which i th smallest elemetn is smaleest in the cycle it is part of is N!/i
@@ -179,8 +178,7 @@ https://atcoder.jp/contests/abc360/tasks/abc360_e
 probablity of only 1 is different rest all are same, use this to compute final probablity in a loop, think like state diagram
 
 
-when operation on adjacent elements,
-think differnce array, think about even and odd number of elemnts
+when operation on adjacent elements,think differnce array, think about even and odd number of elemnts
 
 Swapping adjacent elements in a distinct array is basically trying to equate two permutations using adjacent swaps.
 possible when same number of inversions
@@ -201,8 +199,29 @@ https://codeforces.com/contest/1991/problem/D
 Think about graph bipartite
 
 Maintain three mutlitsets in parts and insert and remove elements and balace it.
-
 https://leetcode.com/problems/finding-mk-average/description/
 
 when removing a fixed size k subarray, and then concat, the remaining part, the modulo of remaining index % k does not change.
 https://codeforces.com/contest/1993/problem/D 
+
+
+When operation sare done, think about array monotonicity after operation.
+https://mirror.codeforces.com/contest/1990/problem/C
+
+when row operation and 2*2 subgrid operation, thin kin what cases 2*2 operation will be useful.
+in below problem only useful when there are <=4  black
+https://mirror.codeforces.com/contest/1990/problem/D
+
+
+AS the gain in each round is decresing , binary search can be done on the last value picked. given the values <= {certain value}
+ can be computed efficiently.
+https://mirror.codeforces.com/contest/1996/problem/F
+
+
+when maximizing for ax+b*(x+1) where a*x + b*(x+1)<=constraint, first get max possible by all x, then  for x+1, 
+then for remainder  convert the x to x+1.
+https://mirror.codeforces.com/contest/1995/problem/B2
+
+
+Square root decomposition,way to solve interval intersection queries.
+https://atcoder.jp/contests/abc365/tasks/abc365_g 

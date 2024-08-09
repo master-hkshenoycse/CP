@@ -61,3 +61,42 @@ getName()
 
 
 It's possible to respond to an interruption request when no InterruptedException is thrown with the help of the static interrupted() method. Call Thread.interrupted() to check if the interrupted status flag is true. If it’s true, it means that the thread has received a request to interrupt its task. Then you can terminate the long running task.
+
+
+stack holds primitives and refernces.
+heap stores object- reference points to objects in heap.
+thread stack is private to thread, threads shares the heap.
+
+Data Race condition
+volatile keyword provides  protection from data races,gurantees visiblity ogf shared data by reading and writing from/to main memory.
+Does not lock a shared piece of data.
+Using the volatile keyword on variables that are shared by multiple threads, could help prevent Data Races to some extent. But this visibility guarantee is not sufficient when threads that share a piece of data are not just reading but also writing. There should be some locking mechanism to prevent simultaneous access to shared data.
+Synchronized keyword to mark critical sections.
+
+every Java object has a monitor object assosicated with it.
+monior has a lock which protects the critical section if code.
+One thread at a time can hold a lock on monitor , other threads stay blocked.
+
+synchronized can be used on static methods.
+locking smaller section of code is better.
+may cause performance overheads, deadlocks and startvation.
+
+The synchronized keyword can be used on a block of code or on a method but not on a class. 
+Class-level synchronization can be achieved by using the synchronized keyword on a static method(s).
+
+Code that is enclosed in a Synchronized block or method can only be executed by a single thread at a time.
+This causes blocking as threads have to be blocked, as threads wait for another to finish executing syncronized code.
+
+Main thread spans all other thread.
+while the main thread is waiting for a thread to execute and return , its not able to spawn other threads at same time.
+
+Asnychrnux non blocking.
+
+Future Object-
+Reprsents the result of an asynchronus computation.
+Creating an asynchronus task returns a future object.
+get(),  before calling check by isDone(),
+cancel()
+
+In Java 8 there is CompletableFuture interface
+implements Future and CompletionStage interface
