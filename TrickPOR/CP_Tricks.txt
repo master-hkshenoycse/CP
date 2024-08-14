@@ -225,3 +225,16 @@ https://mirror.codeforces.com/contest/1995/problem/B2
 
 Square root decomposition,way to solve interval intersection queries.
 https://atcoder.jp/contests/abc365/tasks/abc365_g 
+
+
+
+Magnify the grids and put / and \ across diagonals in individual 3*3 grid.
+https://leetcode.com/problems/regions-cut-by-slashes
+
+https://mirror.codeforces.com/contest/1998/problem/B 
+rotate the array by 1.
+
+
+https://mirror.codeforces.com/contest/2002/problem/B
+
+observer the operation, if a or reverse of a is same as b, then bob will win

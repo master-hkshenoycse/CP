@@ -100,3 +100,69 @@ cancel()
 
 In Java 8 there is CompletableFuture interface
 implements Future and CompletionStage interface
+
+CompletionStage is a stage of an asyncronus progaramming.
+
+.get() method of future blocks until results are available.
+callback is a function that gets called automatically on the completion of another function.
+
+When attached to a CompletableFuture, the caller wont need to wait blocked for the results.
+
+Future does not handle execption.
+
+
+A group of threads that can be used to execute tasks without creating and managing them for each task execution.
+The sane thread can be used to exexcute more than 1 task.
+controlled thread creation.
+saves RAM.
+manages thread lifecycle.
+
+How a thread pool works
+Application pushes task in a queue ,
+Whenever a thread becomes free in thread pool , it picks the taskk from Task Queue.
+
+Executor is a helper that creates thread pools and takes care 
+of asynchornus task execution.Its like another way of creating and executing threads in Java.
+
+Executor is a java interface.
+Available in java.util.concurrent package.
+Has a single method named execute().
+Executes a given task or a Runnable sometimes in future.
+
+ExecutorService is  extension of Executor- described later.
+
+
+An Executor internally maintains a thread pool to avoid continous spawning of threads.
+An Executor is repsonsible for executing tasks given to it with the threads available in thread pool.
+
+ExecutorService has methods like:
+
+submit()-same as execute() method of Executor.
+Returns a Future- status and result of task execution.
+has Overloaded methods:-
+submit(Runnable task)-Returned future conatins a null result.
+submit(Runnable task,T result)-Returned Future contains the result given in second arg.
+submit(Callable<T>  task)-
+
+invokeAll()-accepts a collection of callable taksa and returns a List of Futures,
+which holds the result returned by each task when all  the asynchronus tasks are completed.
+
+invokeAny()
+
+shutdown()
+awaitTermination(timeout,Timeunit)- wait until all tasks have completed execution after shutdown request.
+or given timeuout occurs, or the current thread is interupted.
+
+
+Schduling Tasks in an application:
+for later execution
+
+Two ways of schduling tasks:
+Execute a task after period of time.
+Execute a task periodically.
+SchduleExecutorService.
+schdule()- Takes a Runnable or a callable task and a delay.
+the task is executed after the given delay in time.
+
+schduleAtFixedRate()-If an execution takes longer than the given period subsequent executions may start late, after the previous run is complete.
+schduleAtFixedDelay()-Allows a fixed length delay betweeen iterations of the task.
