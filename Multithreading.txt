@@ -166,3 +166,64 @@ the task is executed after the given delay in time.
 
 schduleAtFixedRate()-If an execution takes longer than the given period subsequent executions may start late, after the previous run is complete.
 schduleAtFixedDelay()-Allows a fixed length delay betweeen iterations of the task.
+
+
+Fork join framework of java, helps developers to take advantage of paralle processing 
+backed by multicore processors/multiple CPU cores.
+
+It is implemntation of ExecutorService interface.
+
+fork- task split into smaller indepnedent subtask.
+join - main task waits untill all subtask have been completed.
+
+Fork.join framework takes care of
+Forking,computing,joining.
+
+Parallel Streams uses fork/join framework.
+and in method Arrays.parallelSort().
+
+Worker Threads:
+Worker thread in Fork/Join pool keep looking for tasks/subtasks to execute.
+The idea is to keep wotker thread as busy as possible.
+Each worker thread in Fork/join pool has a deque called work queue.
+Client and worker thread pool shares a queue.
+
+If worker thread finds its queue has some space, then it randomly checks 
+the work queue of other worker threads to take their work
+this is called work stealing- in FIFO
+task of it own- LIFO.
+
+Core classes of framework:
+ForkJoinPool- Facilitites parallel execution using work-stealing algo.
+Methods called by client: 
+execute(ForkJoinTask task)-asynchronusly
+invoke(ForkJoinTask task)-synchronusly.
+submit(ForkJoinTask task) 
+
+ForkJoinPool.commonPool- Factory method that returns an instance of default thread pool for every FrokJoinTask.
+When above methods are called task first goes into shared global queue.
+
+ForkJoinTask.
+Methods:
+fork()- submit the task to execute async and return it.
+join()- Waits until the task is done 
+invoke()- combines both above in single call.
+
+
+RecursiveAction- doesnt return, runnable 
+RecursiveTask.-return  , callable.
+has a abstract compute() method.
+
+Synchronized collections:-
+
+Collection is wrapped in synchronized wrapper.
+All methods of collection objects are synchronized.
+Wrapper keeps a mutex and locks the collection before each operation.
+Object level synchornization, means entire collection is locked.
+Iterator is not thread safe -still needs to be done manually.
+
+
+Concurrent Collections-
+lock stripping. allows mutiple threads to access other segments of same ConcurrentHashMap.
+as locking is dobe on segment level.
+

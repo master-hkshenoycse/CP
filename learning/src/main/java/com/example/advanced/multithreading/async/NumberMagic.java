@@ -1,15 +1,19 @@
 package com.example.advanced.multithreading.async;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class NumberMagic {
     static int number=0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         Scanner myObj=new Scanner(System.in);
         boolean flag;
 
@@ -39,6 +43,24 @@ public class NumberMagic {
             return "Factorial is "+result;
         };
 
+        Callable<String> toBinary = () -> {
+            String binary=Integer.toBinaryString(number);
+            return number + " in binary "+ binary;
+        };
+
+        List<Callable<String> > callableTasks=new ArrayList<>();
+        callableTasks.add(findSqrt);
+        callableTasks.add(findFactorial);
+        callableTasks.add(toBinary);
+
+
+        List<Future<String> > futures=executorService.invokeAll(callableTasks);
+        
+        for(Future<String> future:futures){
+            System.out.println(future.get());
+        }
+
+        executorService.shutdown();
 
 
 
