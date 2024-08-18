@@ -12,3 +12,125 @@ In distributed systems and networked applications, retry strategies are crucial 
 and network instability effectively.
 
 Hash password on client side
+
+Hadoop components:HDFS(distributed file sysyem),
+Processing API- Map reduce.
+Other libraries like Spark, Hive, Pig.
+
+Scalblity(Partitioning)-commodity hardawre for data tsorge/
+Felxiblity(availablity)-
+Haddop distributions- free apache hadoop,
+Coomericail-  cloudera/databricks.
+Cloud- dataproc- GCP, Amazon- EMR.
+
+Configuration management tools - requires knowledge about hardware and OS.
+Eg.Chef, Pupper, Ansible
+
+Virtual machine as code- Heavy,  slowish, require inconvinient configuration.
+
+Virtual machine virtulizes hardware, Containers virtuizes OS Kernel.
+container cann interact with host.
+containers can run only 1 app at a time by design.
+Namespace- control the view of system visible to a application.
+Docker cant support Time namespace.
+cgroups- restrict hardware usage, docker uses this to restrict CPU usage,
+network and disk bandwidth,memory consumption,
+dont dupport disk quotas
+
+
+docker create container hello-world:linux
+after : it is called tag in above command linux is tag
+ 
+docker logs [container id]
+
+RUN - statement in dockerfile customze the image
+COPY- copies the contents from host to container image
+USER- to set the user
+xargs
+
+docker container port binding,  volume mounting.
+container registries-place for storing and tracking the conatiner images.
+docker tag , renames images
+
+docker stats - performance stats
+docker inspect
+
+docker images are made form layers
+use non-root users insid containers
+--no-chache options
+LABEL command in dockerfile
+
+docker image inspect <IMAGE-ID>
+
+docker start -- to start a stopped container
+
+docker run -it (interactive and pseudo tty)
+
+docker stop/kill  (send SIGKILL)
+
+docker inspect <container ID>
+
+docker volume create <some name>
+Volume is directory on host machine accesible to the container
+mountpoint-path inside the container where volume is accesible
+bind mount- data in bind mount lost when countainer is removed (-v) command
+
+docker image prune (removes  non used/tsgeed images)
+
+Docker compose helps define and share multi-container applications
+
+docker compose is configuration as code
+
+docker container is not designed for ditributed system i.e no tool to run container across multiple hosts.
+no support for auto scaling etc.
+
+Docker swarm or kunernetes solve these problems.
+every docker compoase configuration must be in yaml file format
+docker-compose up : starts all the services in the yaml file
+provides build (image), create (container), start(application) 
+docker-compose down :stops container removes images
+
+Environment variable accesible inside running docker container 
+
+build arguments- cloud config etc,build tool version
+mount target:File directory path inside container where volume data lives
+mount source: File directory path on host machine outside a container where volume data lives.
+
+named volumes:prevents Docker from creating a new volume for each run, which will take up extra memory on the host machine.
+services:
+    #List of containers to be run
+    storefront: 
+        build:
+            context: .
+            args: 
+                -region=us  
+        environment:
+            - runtime_env=dev  
+        ports:
+            - "80:81"
+        #defines the dependency order
+        depends_on:
+            - database  
+
+        #profiles help name together the servives
+        profiles:
+            storefront_servives
+    database:
+        image: "mysql-${TAG}"
+        env-file:
+            - ./mysql/env_vars
+        volumes:
+            #source:target:mode
+            - ./mysql:/var/lib/mysql:rw
+
+
+#named volumes easy to manage, when restrating 
+docker compose will copy data from old container to new container
+
+volumes:
+    kinetico:
+
+
+docker-compose and docker-compose.override
+for any array field: merges
+for any single-value field: override field

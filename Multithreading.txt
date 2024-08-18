@@ -225,5 +225,38 @@ Iterator is not thread safe -still needs to be done manually.
 
 Concurrent Collections-
 lock stripping. allows mutiple threads to access other segments of same ConcurrentHashMap.
-as locking is dobe on segment level.
+as locking is done on segment level.
 
+
+
+Traditional Java threads are platform threads.
+platform threads are thin wrappers around an operating system/OS thread.
+A platform thread runs Java code on its underlying OS, which is bound toh platform thread for entire lifetime of platform thread.
+The longer platform thread waits blocked, tthe longer OS thread will be bound to it.
+Thus platform threads are limited by number of available OS threads.
+Platform sthreads utilize a large thread stack maintained by operating system.
+
+Possible solutions to run blocking code:
+Java async programming using the compeletablefuture APi is one solution.
+drwaback:Hard to analyze if performance issue is coming from framework/business code.
+
+Upscale the number of threads- makethem lightweight..
+Project Loom:lighter weight thread to cater to demand of high throughput application.
+Introduces virtual threads.
+
+Platform threads are mapped to OS threads one -on -one.
+
+Virtual threads are not tied to an OS thread.
+can jump from 1 OS thread to another.
+when a virtual thread performs a blocking I/o , its unmounted from OS thread.
+
+Platform thread are easy to program and debug using thread-per-request pattern.
+Platforms unit of concuremcy which is thread maps directly to applications unit of concurency - request.
+Throughput-amount of request handled in given amount of time.
+
+Virtual threads managed by JVM unlike Platfform thread, therefore no context switching overhead.
+JVM does not wait until virtual thread completes.
+
+Virtual threads should never be pooled.
+avoid using synchronized blocks.methods causes JDK/s virtual thread schduler to block a precious OS thread.
+replace synchronzed with re entrant lock

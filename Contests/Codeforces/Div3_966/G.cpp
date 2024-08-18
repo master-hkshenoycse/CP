@@ -28,85 +28,83 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-bool comp(vector<ll> &a,vector<ll> &b){
-    return a[0]*b[1] <= b[0]*a[1];
-}
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
-
-    ll tot=0;
-    vector<ll> a(n),b(n);
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i]>>b[i];
-    }
     
-
-    vector<ll> dp(k+k+3,1e9);
-
-    dp[0]=0;
-
-    for(ll i=0;i<n;i++){
-
-        
-
-        ll x=a[i],y=b[i];
-        ll poss=x+y;
-
-        
-        
-        vector<ll> ops(poss+1,1e9);
-        ops[0]=0;
+    ll n,m;
+    cin>>n>>m;
 
 
-        for(ll i=0;i<=x;i++){
-            for(ll j=0;j<=y;j++){
-                ll cost=i*y+j*x-i*j;
-                ops[i+j]=min(ops[i+j],cost);
-
-            }
-        }
-
-        vector<ll> n_dp(k+k+3,1e9);
-        for(ll j=1;j<=k+k;j++){
-            for(ll o=1;o<=poss;o++){
-                if(j-o>=0){
-                    n_dp[j]=min(n_dp[j],dp[j-o]+ops[o]);
-                }else{
-                    break;
-                }
-            }
-        }
-
-        for(ll j=0;j<=k+k;j++){
-            dp[j]=min(dp[j],n_dp[j]);
-        }
+    ll t0,t1,t2;
+    cin>>t0>>t1>>t2;
 
 
-
-    }
-
-    ll ans=1e9;
-
-    for(ll i=k;i<=2*k;i++){
-        ans=min(ans,dp[i]);
-    }
-
-    if(ans==1e9){
-        cout<<-1<<endl;
-    }else{
-        cout<<ans<<endl;
-    }
-
+    vector<vector<  arr<ll,4> > > adj(n+1);
 
     
+    ll u,v,l1,l2; 
+    for(ll i=1;i<=m;i++){
+        cin>>u>>v>>l1>>l2;
+
+        adj[u].pb({v,l1,l2});
+        adj[v].pb({u,l1,l2});
+
+    }
+
+
+    //to find latest start from 
+    vector<ll> dp(n+1,-1);
+    
+
+    priority_queue<arr<ll,2> > pq;
+
+    pq.push({t0,n});
+
+    while(pq.size()>0){
+        ll v=pq.top()[1];
+        ll tim=pq.top()[0];
+        
+        pq.pop();
+        
+        if(dp[v]!=-1){
+            continue;
+        }
+
+        dp[v]=tim;
 
 
 
+        for(auto to:adj[v]){
+            ll nx=to[0];
+            ll bus_time=to[1];
+            ll walk_time=to[2];
+
+           
+
+            ll nt=min(dp[v],t1)-bus_time;
+
+            
+            if(dp[v]-bus_time>=t2){
+                nt=max(nt,dp[v]-bus_time);
+            }
+
+            nt=max(nt,dp[v]-walk_time);
+
+            
+            if(nt>=0){
+            
+                pq.push({nt,nx});
+            }
+        }
+    }
 
 
+
+    if(dp[1]<0){
+        dp[1]=-1;
+    } 
+
+    cout<<dp[1]<<endl;
 
 
     

@@ -28,87 +28,26 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-bool comp(vector<ll> &a,vector<ll> &b){
-    return a[0]*b[1] <= b[0]*a[1];
-}
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll a,b,c;
+    cin>>a>>b>>c;
 
-    ll tot=0;
-    vector<ll> a(n),b(n);
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i]>>b[i];
-    }
-    
-
-    vector<ll> dp(k+k+3,1e9);
-
-    dp[0]=0;
-
-    for(ll i=0;i<n;i++){
-
-        
-
-        ll x=a[i],y=b[i];
-        ll poss=x+y;
-
-        
-        
-        vector<ll> ops(poss+1,1e9);
-        ops[0]=0;
-
-
-        for(ll i=0;i<=x;i++){
-            for(ll j=0;j<=y;j++){
-                ll cost=i*y+j*x-i*j;
-                ops[i+j]=min(ops[i+j],cost);
-
-            }
+    if(b>c){
+        if(a>b){
+            cout<<"No"<<endl;
+        }else if(a<c){
+            cout<<"No"<<endl;
+        }else{
+            cout<<"Yes"<<endl;
         }
-
-        vector<ll> n_dp(k+k+3,1e9);
-        for(ll j=1;j<=k+k;j++){
-            for(ll o=1;o<=poss;o++){
-                if(j-o>=0){
-                    n_dp[j]=min(n_dp[j],dp[j-o]+ops[o]);
-                }else{
-                    break;
-                }
-            }
-        }
-
-        for(ll j=0;j<=k+k;j++){
-            dp[j]=min(dp[j],n_dp[j]);
-        }
-
-
-
-    }
-
-    ll ans=1e9;
-
-    for(ll i=k;i<=2*k;i++){
-        ans=min(ans,dp[i]);
-    }
-
-    if(ans==1e9){
-        cout<<-1<<endl;
     }else{
-        cout<<ans<<endl;
+        if(a>b and a<c){
+            cout<<"No"<<endl;
+        }else{
+            cout<<"Yes"<<endl;
+        }
     }
-
-
-    
-
-
-
-
-
-
-
     
 }
 int main(){
@@ -121,7 +60,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);
