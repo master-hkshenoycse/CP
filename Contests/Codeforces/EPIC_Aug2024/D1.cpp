@@ -29,76 +29,129 @@
 #define arr array 
 using namespace std;
 
-ll dfs(ll v,ll p,vector<vector<ll> >&adj,vector<ll> &get_sz,vector<ll> &max_pos,vector<ll> &min_pos,vector<ll> &pos){
+void dfs(ll node,ll n,vector<ll> &sz_subtree,vector<ll> &min_pos_subtree,vector<ll> &max_pos_subtree){
 
-    max_pos[v]=pos[v];
-    min_pos[v]=pos[v];
-
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-
-        dfs(to,v,adj,get_sz,max_pos,min_pos,pos);
-        max_pos[v]=max(max_pos[v],max_pos[to]);
-        min_pos[v]=min(min_pos[v],min_pos[to]);
-        get_sz[v]+=get_sz[to];
+    if(node>n){
+        return;
     }
 
-    get_sz[v]++;
+    sz_subtree[node]=1;
+    if(node*2<=n){
+        dfs(node*2,n,sz_subtree,min_pos_subtree,max_pos_subtree);
+        sz_subtree[node]+=sz_subtree[node*2];
+        min_pos_subtree[node]=min(min_pos_subtree[node],min_pos_subtree[node*2]);
+        max_pos_subtree[node]=max(max_pos_subtree[node],max_pos_subtree[node*2]);
+    }
+
+
+    if(node*2+1<=n){
+        dfs(node*2+1,n,sz_subtree,min_pos_subtree,max_pos_subtree);
+        sz_subtree[node]+=sz_subtree[node*2+1];
+        min_pos_subtree[node]=min(min_pos_subtree[node],min_pos_subtree[node*2+1]);
+        max_pos_subtree[node]=max(max_pos_subtree[node],max_pos_subtree[node*2+1]);
+    }
 
 }
 
-void update(ll v,vector<vector<ll> > &adj,vector<ll> &max_pos,vector<ll> &min_pos,vector<ll> &pos){
-    
-    for(auto to:adj[v]){
-        if(to>v){
-            max_pos[v]=max(max_pos)
-        }
+void update(ll node,vector<ll> &pos,vector<ll> &min_pos_subtree,vector<ll> &max_pos_subtree,vector<ll> &is_invalid,vector<ll> &sz_subtree,ll &cnt_invalid){
+
+    ll n=pos.size()-1;
+    min_pos_subtree[node]=pos[node];
+    max_pos_subtree[node]=pos[node];
+
+    if(node *2 <=n){
+        min_pos_subtree[node]=min(min_pos_subtree[node],min_pos_subtree[node*2]);
+        max_pos_subtree[node]=max(max_pos_subtree[node],max_pos_subtree[node*2]);
     }
 
-    
-    if(v>1){
-        update(v/2,adj,max_pos,min_pos,pos);
+    if(node *2+1<=n){
+        min_pos_subtree[node]=min(min_pos_subtree[node],min_pos_subtree[node*2+1]);
+        max_pos_subtree[node]=max(max_pos_subtree[node],max_pos_subtree[node*2+1]);
     }
+
+
+    if(min_pos_subtree[node]<pos[node] or max_pos_subtree[node]>pos[node]+sz_subtree[node]-1){
+        if(is_invalid[node]==0){
+            cnt_invalid++;
+        }
+        is_invalid[node]=1;
+    }else{
+        if(is_invalid[node]==1){
+            cnt_invalid--;
+        }
+        is_invalid[node]=0;
+    }
+
+    if(node>1){
+        update(node/2,pos,min_pos_subtree,max_pos_subtree,is_invalid,sz_subtree,cnt_invalid);
+    }
+
+
 }
 void solve(ll tc){
     ll n,q;
     cin>>n>>q;
-    
-    ll p;
-    vector<vector<ll> > adj(n+1);
-    vector<ll> get_sz(n+1,0);
-    vector<ll> is_invalid(n+1,0);
-
-    for(ll i=2;i<=n;i++){
-        cin>>p;
-        adj[p].pb(i);
-        adj[i].pb(p);
-    }   
-
-    vector<ll> max_pos(n+1),min_pos(n+1);
-
-    dfs(1,-1,adj,get_sz,max_pos,min_pos,pos);
 
     vector<ll> pos(n+1);
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        pos[p]=i;
+    vector<ll> perm(n+1);
+    vector<ll> sz_subtree(n+1,0),is_invalid(n+1,0);
+    vector<ll> min_pos_subtree(n+1),max_pos_subtree(n+1);
+    ll e;
+
+    for(ll i=2;i<=n;i++){
+        cin>>e;//ignore as structure of tree is defined.
     }
+
+    for(ll i=1;i<=n;i++){
+        cin>>perm[i];
+        e=perm[i];
+        pos[e]=i;
+        min_pos_subtree[e]=pos[e];
+        max_pos_subtree[e]=pos[e];
+    }
+
+    
+    dfs(1,n,sz_subtree,min_pos_subtree,max_pos_subtree);
+
 
     ll cnt_invalid=0;
     for(ll i=1;i<=n;i++){
-        ll curr_pos=pos[i];
-        vector<ll> p=get_path(i);
-        check(1,0,1,p,curr_pos,is_invalid);
-
-
-        cnt_invalid+=is_invalid[i];
+        if(min_pos_subtree[i]<pos[i] or max_pos_subtree[i]>pos[i]+sz_subtree[i]-1){
+            is_invalid[i]=1;
+            cnt_invalid++;
+        }
     }
 
+    ll x,y;
+
+    
+    while(q--){
+        
+        cin>>x>>y;
+        ll val_x=perm[x];
+        ll val_y=perm[y];
 
 
+
+
+        swap(pos[val_x],pos[val_y]);
+        swap(perm[x],perm[y]);
+
+        update(val_x,pos,min_pos_subtree,max_pos_subtree,is_invalid,sz_subtree,cnt_invalid);
+        update(val_y,pos,min_pos_subtree,max_pos_subtree,is_invalid,sz_subtree,cnt_invalid);
+
+
+
+
+        if(cnt_invalid==0){
+            cout<<"YES"<<endl;
+        }else{
+            cout<<"NO"<<endl;
+        }
+
+
+    }
+    
 
 
 }

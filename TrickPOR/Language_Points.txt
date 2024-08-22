@@ -59,6 +59,11 @@ public class A implements Comparable<A>{
     }
 }
 
+//sort with lambda function comparator.
+List<Item> result = new ArrayList<>(items);
+// Your code goes here. Sort the result list using a lambda expression.
+Collections.sort(result,(i1,i2) -> Float.compare(i1.getPrice(),i2.getPrice()));
+
 comprable only one logic implementable without changing source code.
 
 For multiple sorting logic comparator is used.
