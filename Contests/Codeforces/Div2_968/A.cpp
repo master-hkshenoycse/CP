@@ -31,41 +31,16 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll n;
-    cin>>n;
+    string s;
+    cin>>s;
 
-    
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-
-    sort(all(a));
-
-    ll winner=0;
-    ll sub=0;
-
-    for(ll i=0;i<n;i++){
-        a[i]-=sub;
-
-        if(a[i]==1){//no choice
-            winner=1-winner;
-            sub+=a[i];
-        }else if(a[i]>1){
-            winner=1-winner;//this person can now force move on other person
-            break;
-        }
-    }
-
-    if(winner){
-        cout<<"Alice"<<endl;
+    if(s[0]!=s.back()){
+        cout<<"YES"<<endl;
     }else{
-        cout<<"Bob"<<endl;
+        cout<<"NO"<<endl;
     }
 
-
-
+   
     
 }
 int main(){

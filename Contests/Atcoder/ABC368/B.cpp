@@ -31,42 +31,42 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll n;
+    ll n,e;
     cin>>n;
 
-    
-    vector<ll> a(n);
+    priority_queue<ll> pq;
     for(ll i=0;i<n;i++){
-        cin>>a[i];
+        cin>>e;
+        pq.push(e);
     }
 
+    ll ans=0;
+    while(pq.size()>1){
 
-    sort(all(a));
+        
+        ll v1=pq.top();
+        pq.pop();
+        
+        
+        ll v2=pq.top();
+        pq.pop();
+        
 
-    ll winner=0;
-    ll sub=0;
+        ans++;
 
-    for(ll i=0;i<n;i++){
-        a[i]-=sub;
+        v1--;
+        v2--;
 
-        if(a[i]==1){//no choice
-            winner=1-winner;
-            sub+=a[i];
-        }else if(a[i]>1){
-            winner=1-winner;//this person can now force move on other person
-            break;
+        if(v1>0){
+            pq.push(v1);
+        }
+
+        if(v2>0){
+            pq.push(v2);
         }
     }
 
-    if(winner){
-        cout<<"Alice"<<endl;
-    }else{
-        cout<<"Bob"<<endl;
-    }
-
-
-
-    
+    cout<<ans<<endl;
 }
 int main(){
     boost;
@@ -78,7 +78,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

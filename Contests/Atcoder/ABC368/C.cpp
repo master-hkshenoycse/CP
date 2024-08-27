@@ -28,45 +28,46 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll get_cnt(ll lo,ll hi){
+
+    ll ret=hi-lo+1;
+    ll cnt_multiples=(hi/3)-(lo-1)/3;
+    ret+=cnt_multiples*2;
+    return ret;
+}
+
 
 void solve(ll tc){
 
-    ll n;
+    ll n,e;
     cin>>n;
 
-    
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-    }
+    ll t=0;
+    ll h;
 
+    for(ll i=1;i<=n;i++){
+        cin>>h;
 
-    sort(all(a));
-
-    ll winner=0;
-    ll sub=0;
-
-    for(ll i=0;i<n;i++){
-        a[i]-=sub;
-
-        if(a[i]==1){//no choice
-            winner=1-winner;
-            sub+=a[i];
-        }else if(a[i]>1){
-            winner=1-winner;//this person can now force move on other person
-            break;
+        ll lo=1,hi=1e10,ch=hi;
+        while(hi>=lo){
+            ll mid=(hi+lo)/2ll;
+            ll ac=get_cnt(t+1,t+mid);
+            if(ac>=h){
+                ch=min(ch,mid);
+                hi=mid-1;
+            }else{
+                lo=mid+1;
+            }
         }
+
+        t+=ch;
+        
     }
 
-    if(winner){
-        cout<<"Alice"<<endl;
-    }else{
-        cout<<"Bob"<<endl;
-    }
+    cout<<t<<endl;
 
 
 
-    
 }
 int main(){
     boost;
@@ -78,7 +79,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

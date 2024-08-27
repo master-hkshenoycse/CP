@@ -31,41 +31,20 @@ using namespace std;
 
 void solve(ll tc){
 
-    ll n;
-    cin>>n;
+    ll n,k;
+    cin>>n>>k;
 
-    
     vector<ll> a(n);
     for(ll i=0;i<n;i++){
         cin>>a[i];
     }
+    
 
-
-    sort(all(a));
-
-    ll winner=0;
-    ll sub=0;
-
+    ll st=n-k;
     for(ll i=0;i<n;i++){
-        a[i]-=sub;
-
-        if(a[i]==1){//no choice
-            winner=1-winner;
-            sub+=a[i];
-        }else if(a[i]>1){
-            winner=1-winner;//this person can now force move on other person
-            break;
-        }
+        cout<<a[(st+i)%n]<<" ";
     }
-
-    if(winner){
-        cout<<"Alice"<<endl;
-    }else{
-        cout<<"Bob"<<endl;
-    }
-
-
-
+    
     
 }
 int main(){
@@ -78,7 +57,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);
