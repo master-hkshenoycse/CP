@@ -30,19 +30,40 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
 
-    string s;
-    cin>>s;
+    ll n,m;
+    cin>>n>>m;
 
-    if(s[0]!=s[n-1]){
-        cout<<"YES"<<endl;
-    }else{
-        cout<<"NO"<<endl;
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
     }
 
-   
+    sort(all(a));
+
+    ll ma=a[n-1];
+
+    ll l,r;
+    char ch;
+    for(ll i=0;i<m;i++){
+        cin>>ch>>l>>r;
+
+        if(ma>=l and ma<=r){
+            if(ch=='+'){
+                ma++;
+            }else{
+                ma--;
+            }
+        }
+
+        cout<<ma<<" ";
+    }
+
+    cout<<endl;
+
+
+
+
     
 }
 int main(){

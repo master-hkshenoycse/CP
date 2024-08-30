@@ -28,21 +28,82 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
-void solve(ll tc){
-    ll n;
-    cin>>n;
-
-    string s;
-    cin>>s;
-
-    if(s[0]!=s[n-1]){
-        cout<<"YES"<<endl;
-    }else{
-        cout<<"NO"<<endl;
+ll get_mex(map<ll,ll> &help){
+    ll mex=0;
+    while(help[mex]>0){
+        mex++;
     }
 
-   
+    return mex;
+}
+
+ll get_sum(ll l,ll r){
+    if(l>r){
+        return 0;
+    }
+    return ((r-l+1)*(r+l))/2ll;
+}
+void solve(ll tc){
+
+    ll n,m;
+    cin>>n>>m;
+
+    vector<ll> mex(n),mex_o_mex(n);
+    map<ll,ll> freq;
+    ll mx_mex=0;
+
+    map<ll,vector<ll> > adj;
+    vector<ll> dp;
+    ll t=0;
+
+    for(ll i=0;i<n;i++){
+        ll len,e;
+        cin>>len;
+        
+        while(len--){
+            cin>>e;
+            freq[e]++;
+        }
+        
+        mex[i]=get_mex(freq);
+        freq[mex[i]]++;
+        mex_o_mex[i]=get_mex(freq);
+        freq.clear();
+
+        t=max(t,mex[i]);
+        mx_mex=max(mx_mex,mex_o_mex[i]);
+        adj[mex[i]].push_back(mex_o_mex[i]);
+    }
+
+
+    dp.resize(mx_mex+1,0);
+    
+
+    for(ll i=mx_mex;i>=0;i--){
+        dp[i]=i;
+        for(auto to:adj[i]){
+            dp[i]=max(dp[i],dp[to]);
+        }
+
+        if(adj[i].size()>=2){
+            t=max(t,dp[i]);
+        }
+
+    }
+
+    ll ans=0;
+    for(ll i=0;i<=min(mx_mex,m);i++){
+        ans=ans+max(t,dp[i]);
+    }
+
+    ans+=get_sum(mx_mex+1,m);
+    cout<<ans<<endl;
+
+    
+
+
+
+    
     
 }
 int main(){

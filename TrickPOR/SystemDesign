@@ -335,7 +335,8 @@ Assume object is  immutable.
 Director ---> Builder ---> ConcreteBuilder ---> Product(required object)
 
 Product class constructor dependes on concreteBuilder object.
-                                           
+Final class is constructred using concreteBuilder object.
+In concrete builder most of class are setter methods, setter methods return the object itself, allows the chaning of methods
 
 
 The Singelton pattern.
@@ -346,6 +347,14 @@ Diffcult to test- use dependency injection.
 Private constructor
 Use synchronised keyword so that two threads cant create new instance at same time ,  bottle neck when called lots of time.
 make the class enum.
+
+4 ways to create singelton pattern:
+1.Lazy - Only when instance is calleed object is created.
+2.Eager-Object gets created in private field as class is defined 
+3.Synchronized method -For synchronization problem in lazy creation, expensive
+4.Double locking- used in industry, checks if object is null and
+
+
 public class PrintSpool{
 
     private PrintSpool(){}
@@ -392,6 +401,7 @@ clone()        (string type,int height)
 There is clonebale interface, but avoid it, the interface has no clone method and throws exception that must be handeld.
 Useful when creatinfg mutiple copies of same object.
 by default shallow copy of original.
+if cloning by creating a new object, then what will happen to private variables.
 pubilc abstract class Meal{
 
     private int price;
@@ -509,8 +519,13 @@ The family of related objects should be used together.
 Concrete classes are isolated from the client.
 Each section is easily testable.
 
+Object pool design pattern- manages pool of reusable object like thread, db connection etc
+Pool management requires thread safety
+paraemter : max pool size, initial pool size, free_list,in_use_list
+resourc leajeage chance, thread safety
 
 STRUCTURAL DESIGN PATTERNS
+
 
 class pattens are concernced with is-a relationship, focus on inheritance.
 Object patterns allow to change behaviour at runtime, focus on has-a relationship.

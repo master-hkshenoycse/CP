@@ -28,21 +28,56 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
-void solve(ll tc){
-    ll n;
-    cin>>n;
-
-    string s;
-    cin>>s;
-
-    if(s[0]!=s[n-1]){
-        cout<<"YES"<<endl;
-    }else{
-        cout<<"NO"<<endl;
+ll get_mex(map<ll,ll> &help){
+    ll mex=0;
+    while(help[mex]>0){
+        mex++;
     }
 
-   
+    return mex;
+}
+
+ll get_sum(ll l,ll r){
+    return ((r-l+1)*(r+l))/2ll;
+}
+void solve(ll tc){
+
+    ll n,m;
+    cin>>n>>m;
+
+    vector<ll> mex(n),mex_o_mex(n);
+    map<ll,ll> freq;
+    ll mx_mex=0;
+
+    for(ll i=0;i<n;i++){
+        ll len,e;
+        cin>>len;
+        
+        while(len--){
+            cin>>e;
+            freq[e]++;
+        }
+        mex[i]=get_mex(freq);
+        freq[mex[i]]++;
+        mex_o_mex[i]=get_mex(freq);
+        freq.clear();
+        mx_mex=max(mx_mex,mex_o_mex[i]);
+    }
+
+    //cout<<mx_mex<<endl;
+    if(m<mx_mex){
+        cout<<(m+1)*mx_mex<<endl;
+    }else{
+        ll ans=(mx_mex+1)*mx_mex;
+        ans+=get_sum(mx_mex+1,m);
+        cout<<ans<<endl;
+    }
+
+    
+
+
+
+    
     
 }
 int main(){

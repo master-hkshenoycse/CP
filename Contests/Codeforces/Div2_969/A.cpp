@@ -30,19 +30,18 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
 
-    string s;
-    cin>>s;
+    ll l,r;
+    cin>>l>>r;
 
-    if(s[0]!=s[n-1]){
-        cout<<"YES"<<endl;
-    }else{
-        cout<<"NO"<<endl;
-    }
+    ll cnt_odd=(r+1)/2;
+    cnt_odd-=(l)/2;
 
-   
+    cout<<(cnt_odd)/2<<endl;
+    
+
+
+
     
 }
 int main(){

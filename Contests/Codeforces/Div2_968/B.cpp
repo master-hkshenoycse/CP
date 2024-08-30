@@ -33,15 +33,23 @@ void solve(ll tc){
     ll n;
     cin>>n;
 
-    string s;
-    cin>>s;
-
-    if(s[0]!=s[n-1]){
-        cout<<"YES"<<endl;
-    }else{
-        cout<<"NO"<<endl;
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
     }
 
+    sort(all(a));
+    ll ch=0,l=0,r=n-1;
+    while(l<r){
+        if(ch==0){
+            l++;
+        }else{
+            r--;
+        }
+        ch=1-ch;
+    }
+
+    cout<<a[l]<<endl;
    
     
 }

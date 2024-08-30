@@ -30,19 +30,30 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
 
-    string s;
-    cin>>s;
+    ll n,a,b;
+    cin>>n>>a>>b;
+    ll gc=__gcd(a,b);
+    vector<ll> p(n);
 
-    if(s[0]!=s[n-1]){
-        cout<<"YES"<<endl;
-    }else{
-        cout<<"NO"<<endl;
+    for(ll i=0;i<n;i++){
+        cin>>p[i];
+        p[i]%=gc;
     }
 
-   
+    sort(all(p));
+    
+    ll ans=p[n-1]-p[0];
+
+
+
+
+    for(ll i=0;i<n-1;i++){
+        ll diff=max(p[n-1]-p[i+1],p[i]+gc-p[i+1]);
+        ans=min(ans,diff);
+    }
+
+    cout<<ans<<endl;
     
 }
 int main(){
