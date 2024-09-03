@@ -28,69 +28,38 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dfs(ll v,ll p,ll &lca,vector<vector<ll> >&adj,vector<ll> &mark,ll req){
-    ll ret=0;
-    ret+=mark[v];
 
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-        ret+=dfs(to,v,lca,adj,mark,req);
-    }
-
-    if(ret==req and lca==-1){
-        lca=v;
-    }
-
-    return ret;
-}
-
-ll get_sol(ll v,ll p,vector<vector<ll> >&adj,vector<ll> &mark){
-    ll ret=0;
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-
-        ret+=get_sol(to,v,adj,mark);
-
-    }
-
-    if(ret>0 or mark[v]>0){
-        ret++;
-    }
-
-    return ret;
-}
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
 
-    vector<vector<ll> > adj(n+1);
-    ll x,y;
-    for(ll i=1;i<n;i++){
-        cin>>x>>y;
-        adj[x].pb(y);
-        adj[y].pb(x);
+    ll n;
+    cin>>n;
+
+    ll ans=n+(n-1);
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
     }
 
-    ll v;
-    vector<ll> mark(n+1,0);
-    for(ll i=1;i<=k;i++){
-        cin>>v;
-        mark[v]=1;
+    ll i=0;
+    while(i+2<n){
+        
+        ll j=i+2;
+        ll d=a[i+1]-a[i];
+        ll len=2;
+
+        while(j<n and a[j]-a[j-1]==d){
+            len++;
+            j++;
+        }
+
+
+        ll ex=(len*len+len)/2ll;
+        ex-=(len + len-1);
+        ans=ans+ex;
+        i=j-1;
     }
 
-    ll lca_req=-1;
-    dfs(1,-1,lca_req,adj,mark,k);
-    //cout<<lca_req<<endl;
-
-    
-    cout<<get_sol(lca_req,-1,adj,mark)<<endl;
-
-
-
+    cout<<ans<<endl;
 }
 int main(){
     boost;

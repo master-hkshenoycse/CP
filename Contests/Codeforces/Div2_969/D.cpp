@@ -28,69 +28,62 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dfs(ll v,ll p,ll &lca,vector<vector<ll> >&adj,vector<ll> &mark,ll req){
-    ll ret=0;
-    ret+=mark[v];
 
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-        ret+=dfs(to,v,lca,adj,mark,req);
-    }
-
-    if(ret==req and lca==-1){
-        lca=v;
-    }
-
-    return ret;
-}
-
-ll get_sol(ll v,ll p,vector<vector<ll> >&adj,vector<ll> &mark){
-    ll ret=0;
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-
-        ret+=get_sol(to,v,adj,mark);
-
-    }
-
-    if(ret>0 or mark[v]>0){
-        ret++;
-    }
-
-    return ret;
-}
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
 
-    vector<vector<ll> > adj(n+1);
+    ll n;
+    cin>>n;
+
+    vector<ll> deg(n+1,0);
+
     ll x,y;
     for(ll i=1;i<n;i++){
         cin>>x>>y;
-        adj[x].pb(y);
-        adj[y].pb(x);
+        deg[x]++;
+        deg[y]++;
     }
 
-    ll v;
-    vector<ll> mark(n+1,0);
-    for(ll i=1;i<=k;i++){
-        cin>>v;
-        mark[v]=1;
+    string s;
+    cin>>s;
+
+    ll leaf_0=0,leaf_1=0;
+    ll leaf_q=0,non_leaf_q=0;
+
+    for(ll i=2;i<=n;i++){
+        if(s[i-1]=='?'){
+            if(deg[i]==1){
+                leaf_q++;
+            }else{
+                non_leaf_q++;
+            }
+        }else{
+            if(deg[i]==1){
+                if(s[i-1]=='0'){
+                    leaf_0++;
+                }else{
+                    leaf_1++;
+                }
+            }
+        }
     }
 
-    ll lca_req=-1;
-    dfs(1,-1,lca_req,adj,mark,k);
-    //cout<<lca_req<<endl;
+    //leaf nodes with number different than root will contribute to answer
+    if(s[0]=='0'){
+        cout<<leaf_1+(leaf_q+1)/2<<endl;
+    }else if(s[0]=='1'){
+        cout<<leaf_0+(leaf_q+1)/2<<endl;
+    }else{
 
-    
-    cout<<get_sol(lca_req,-1,adj,mark)<<endl;
+        if(leaf_0 == leaf_1){
+            if(non_leaf_q % 2){
+                leaf_q++;//as both leaf count are equal, first coloring the root is disadvantage.
+            }
 
-
-
+            cout<<leaf_0+leaf_q/2<<endl;
+        }else{
+            cout<<max(leaf_0,leaf_1)+leaf_q/2<<endl;// 1 move lost in coloring root appropriatley.
+        }
+    }
 }
 int main(){
     boost;
@@ -102,7 +95,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

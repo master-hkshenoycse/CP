@@ -28,68 +28,35 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dfs(ll v,ll p,ll &lca,vector<vector<ll> >&adj,vector<ll> &mark,ll req){
-    ll ret=0;
-    ret+=mark[v];
-
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
+ll mod=1e9+7;
+ll modpow(ll a,ll n){
+    ll res=1;
+    while(n>0){
+        if(n%2){
+            res=(res*a)%mod;
         }
-        ret+=dfs(to,v,lca,adj,mark,req);
+        n/=2;
+        a=(a*a)%mod;
     }
-
-    if(ret==req and lca==-1){
-        lca=v;
-    }
-
-    return ret;
-}
-
-ll get_sol(ll v,ll p,vector<vector<ll> >&adj,vector<ll> &mark){
-    ll ret=0;
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-
-        ret+=get_sol(to,v,adj,mark);
-
-    }
-
-    if(ret>0 or mark[v]>0){
-        ret++;
-    }
-
-    return ret;
+    return res;
 }
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<vector<ll> > adj(n+1);
-    ll x,y;
-    for(ll i=1;i<n;i++){
-        cin>>x>>y;
-        adj[x].pb(y);
-        adj[y].pb(x);
+    ll e,prev_sum=0,tot=0;
+
+    for(ll i=0;i<n;i++){
+        cin>>e;
+        tot=(tot+ e*prev_sum)%mod;
+        prev_sum=(prev_sum+e)%mod;
     }
 
-    ll v;
-    vector<ll> mark(n+1,0);
-    for(ll i=1;i<=k;i++){
-        cin>>v;
-        mark[v]=1;
-    }
+    ll den=((n*(n-1))/2)%mod;
+    ll ans=tot*modpow(den,mod-2);
+    ans%=mod;
 
-    ll lca_req=-1;
-    dfs(1,-1,lca_req,adj,mark,k);
-    //cout<<lca_req<<endl;
-
-    
-    cout<<get_sol(lca_req,-1,adj,mark)<<endl;
-
-
+    cout<<ans<<endl;
 
 }
 int main(){
@@ -102,7 +69,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

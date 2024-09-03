@@ -28,69 +28,62 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dfs(ll v,ll p,ll &lca,vector<vector<ll> >&adj,vector<ll> &mark,ll req){
-    ll ret=0;
-    ret+=mark[v];
 
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-        ret+=dfs(to,v,lca,adj,mark,req);
-    }
-
-    if(ret==req and lca==-1){
-        lca=v;
-    }
-
-    return ret;
-}
-
-ll get_sol(ll v,ll p,vector<vector<ll> >&adj,vector<ll> &mark){
-    ll ret=0;
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-
-        ret+=get_sol(to,v,adj,mark);
-
-    }
-
-    if(ret>0 or mark[v]>0){
-        ret++;
-    }
-
-    return ret;
-}
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<vector<ll> > adj(n+1);
-    ll x,y;
-    for(ll i=1;i<n;i++){
-        cin>>x>>y;
-        adj[x].pb(y);
-        adj[y].pb(x);
+    vector<vector<ll> > odd_pos(26,vector<ll> (n+1,0));
+    vector<vector<ll> > even_pos(26,vector<ll> (n+1,0));
+
+
+    string s;
+    cin>>s;
+
+
+    for(ll i=1;i<=n;i++){
+        ll ch=s[i-1]-'a';
+
+        for(ll j=0;j<26;j++){
+            odd_pos[j][i]+=odd_pos[j][i-1];
+            even_pos[j][i]+=even_pos[j][i-1];
+
+            if(i%2==0){
+                even_pos[j][i]+=(j==ch);
+            }else{
+                odd_pos[j][i]+=(j==ch);
+            }
+
+        }
     }
 
-    ll v;
-    vector<ll> mark(n+1,0);
-    for(ll i=1;i<=k;i++){
-        cin>>v;
-        mark[v]=1;
+    ll ans=n;
+
+    for(ll i=0;i<26;i++){
+        for(ll j=0;j<26;j++){
+            ll in_place=0;
+
+            if(n%2==0){
+                in_place=odd_pos[i][n]+even_pos[j][n];
+                ans=min(ans,n-in_place);
+            }
+
+
+
+            if(n%2){
+                //remove kth index
+                for(ll k=1;k<=n;k++){
+                    in_place=even_pos[i][k-1]+odd_pos[j][k-1]+(odd_pos[i][n]-odd_pos[i][k])+(even_pos[j][n]-even_pos[j][k]);
+                    ans=min(ans,n-in_place);
+                }
+            }
+
+        }
     }
 
-    ll lca_req=-1;
-    dfs(1,-1,lca_req,adj,mark,k);
-    //cout<<lca_req<<endl;
-
+    cout<<ans<<endl;    
     
-    cout<<get_sol(lca_req,-1,adj,mark)<<endl;
-
-
-
+    
 }
 int main(){
     boost;
@@ -102,7 +95,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

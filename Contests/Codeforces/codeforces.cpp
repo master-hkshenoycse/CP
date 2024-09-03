@@ -29,7 +29,9 @@
 #define arr array 
 using namespace std;
 
+
 void solve(ll tc){
+
 
     ll n;
     cin>>n;

@@ -28,69 +28,32 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dfs(ll v,ll p,ll &lca,vector<vector<ll> >&adj,vector<ll> &mark,ll req){
-    ll ret=0;
-    ret+=mark[v];
 
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-        ret+=dfs(to,v,lca,adj,mark,req);
-    }
-
-    if(ret==req and lca==-1){
-        lca=v;
-    }
-
-    return ret;
-}
-
-ll get_sol(ll v,ll p,vector<vector<ll> >&adj,vector<ll> &mark){
-    ll ret=0;
-    for(auto to:adj[v]){
-        if(to==p){
-            continue;
-        }
-
-        ret+=get_sol(to,v,adj,mark);
-
-    }
-
-    if(ret>0 or mark[v]>0){
-        ret++;
-    }
-
-    return ret;
-}
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
 
-    vector<vector<ll> > adj(n+1);
-    ll x,y;
-    for(ll i=1;i<n;i++){
-        cin>>x>>y;
-        adj[x].pb(y);
-        adj[y].pb(x);
+    ll n;
+    cin>>n;
+
+    ll x;
+    vector<vector<ll> > dp(n+1,vector<ll> (2,0));
+    ll ans=0;
+
+    for(ll i=1;i<=n;i++){
+        cin>>x;
+
+        if(i==1){
+            dp[i][0]=0;
+            dp[i][1]=x;
+        }else{
+            dp[i][0]=max(dp[i-1][0],dp[i-1][1]+x*2);
+            dp[i][1]=max(dp[i-1][0]+x,dp[i-1][1]);
+        }
+
+        ans=max(ans,dp[i][0]);
+        ans=max(ans,dp[i][1]);
     }
 
-    ll v;
-    vector<ll> mark(n+1,0);
-    for(ll i=1;i<=k;i++){
-        cin>>v;
-        mark[v]=1;
-    }
-
-    ll lca_req=-1;
-    dfs(1,-1,lca_req,adj,mark,k);
-    //cout<<lca_req<<endl;
-
-    
-    cout<<get_sol(lca_req,-1,adj,mark)<<endl;
-
-
-
+    cout<<ans<<endl;
 }
 int main(){
     boost;

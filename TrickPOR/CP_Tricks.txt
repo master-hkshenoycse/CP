@@ -179,7 +179,6 @@ probablity of only 1 is different rest all are same, use this to compute final p
 
 
 when operation on adjacent elements,think differnce array, think about even and odd number of elemnts
-
 Swapping adjacent elements in a distinct array is basically trying to equate two permutations using adjacent swaps.
 possible when same number of inversions
 

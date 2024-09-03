@@ -611,12 +611,17 @@ If one object used in multiple methods/classes, intizle  that object only once b
 
 
 BEHAVORIAL DESIGN PATTERNS
+Null Object Design Pattern:
+A null object replaces NULL return type.
+No need to put IF CHECK for checking NULL.
+Null object reflects do nothing or default 
 
 The chain of Responsiblity pattern
 Logger prints to console or a file, decided at runtime.
 Decoupling is advantage.
 
 creates chain of concrete implementations
+Example design ATM,Logger
 
 
 The Command Pattern
@@ -626,10 +631,18 @@ Can add queus to delay etc
 Create classes named command for executing the methods
 COmmandExecutor class to call the execute method of each class, adds a layer of abstraction
 
+Invoker class has a command object
+Commands implmented is a command object
+command interface and extend this to implement command.
+Invoker object is used to call methods
+Command interface can have the undo redo methods.
+Invoker can have the stack to track this
 var lightCommandExecutor=new LightCommandExecutor();
 lightCommandExecutor.execut(new TurnOnLightCommand(light));
 
-
+Look for abstraction
+undo/redo , code maintainence
+client program should not be responsible for undo-redo 
 The Interpreter Pattern
 
 
@@ -672,9 +685,9 @@ The Mediator pattern
 
 waiter/waitress as mediators in Hotel.
 Avoid tight coupling between objects.
-
+object comminucate vis a mediator object
 Mediator class with all interacting components
-
+Airline management system
 
 The Memento Pattern:
 Save the state of object at given time.
@@ -692,6 +705,17 @@ Override propertyChange(PropertyChangeEvent event){
     statuses.add((String)event.getEvent());
 }
 User-Observable , uses PropertyChangeSupport.
+Notification
+
+Observable interface- add(Observer obj),remove(Observer obj),notify(),List<Observer Interface> objList,setData(); HAS-A Observer
+
+Observable Concrete Class IS-A Observable interface
+
+
+Observer interface- update()
+Observerconcrete IS-A Observer,HAS-A Observable Concrete
+
+Observable 1 --> Many Observer
 
 
 The state pasttern:
@@ -700,6 +724,9 @@ instead of multiple if else lines.
 class for state of object and implement the methods in these
 
 The Startegy Pattern:
+Like constructer injection,
+solves the issue of code duplicay in inheritance when lot of child classes are there and they have various combinations of 
+overided properties
 conter --> startegy --> stratergy A,B;
 
 
@@ -707,9 +734,9 @@ Template Method Pattern
 Defining common steps in an algorithm in a superclass and redefining some in subclass.
 simple inheritance type code.
 
-Visior Patter
+Visitor Pattern
 Allows to perform an operation on all elements of an object  without making changes to the element themselves.
 
 example file system elements.
 more like polymorphism.
-create visistor interface and in concrete implemetation create the methods.
+create Visitor interface and in concrete implemetation create the methods.
