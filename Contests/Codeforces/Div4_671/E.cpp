@@ -28,19 +28,36 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
-
+ll get_sum(ll l,ll r){
+    return ((r-l+1)*(r+l))/2ll;
+}
 void solve(ll tc){
+    ll n,k;   
+    cin>>n>>k;
 
+    ll tot_sum=get_sum(k,k+n-1);
+    ll req=tot_sum/2ll;
 
-   ll n;
-   cin>>n;
+    ll lo=k,hi=k+n-1,r=lo;
 
-   
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+        if(get_sum(k,mid)<=req){
+            r=max(r,mid);
+            lo=mid+1;
+        }else{
+            hi=mid-1;
+        }
+    }
 
+    ll ans=abs(get_sum(k,r)-(tot_sum-get_sum(k,r)));
+    r++;
+    if(r<=k+n-1){
+        ans=min(ans,abs(get_sum(k,r)-(tot_sum-get_sum(k,r))));
+    }
 
+    cout<<ans<<endl;
 
-    
 }
 int main(){
     boost;

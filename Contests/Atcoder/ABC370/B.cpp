@@ -29,18 +29,30 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
+    ll n;
+    cin>>n;
+
+    vector<vector<ll> >  do_ops(n+1,vector<ll>(n+1));
+
+    for(ll i=1;i<=n;i++){
+        for(ll j=1;j<=i;j++){
+            cin>>do_ops[i][j];
+        }
+    }
+
+    ll v=1;
+    for(ll i=1;i<=n;i++){
+        if(v>=i){
+            v=do_ops[v][i];
+        }else{
+            v=do_ops[i][v];
+        }
+    }
+
+    cout<<v<<endl;
 
 
-   ll n;
-   cin>>n;
-
-   
-
-
-
-    
 }
 int main(){
     boost;
@@ -52,7 +64,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

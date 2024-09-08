@@ -29,17 +29,60 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
+    ll n,q;
+    cin>>n>>q;
+
+    vector<ll> a(n);
+    vector<ll> cnt(n+1,0);
+
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        cnt[a[i]]++;
+    }
+
+    for(ll i=1;i<=n;i++){
+        cnt[i]+=cnt[i-1];
+    }
+
+    vector<ll> sol(n+1,n);
+
+    for(ll i=1;i<=n;i++){
 
 
-   ll n;
-   cin>>n;
+        ll lo=0,hi=i,ans=i;
 
-   
+        while(hi>=lo){
+            ll mid=(hi+lo)/2ll;
+            
+            ll c=cnt[mid];
 
 
+            for(ll k=1;k*i<=n;k++){
+                c+=cnt[min(k*i+mid,n)]-cnt[k*i-1];
+            }
 
+            if(c-1>=n/2){
+                ans=min(ans,mid);
+                hi=mid-1;
+            }else{
+                lo=mid+1;
+            }
+        }
+
+        sol[i]=ans;
+
+
+    }
+
+    ll x;
+    while(q--){
+        cin>>x;
+        cout<<sol[x]<<" ";
+    }
+
+    cout<<endl;
+    
     
 }
 int main(){

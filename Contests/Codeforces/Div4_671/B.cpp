@@ -29,17 +29,32 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
+    ll n;
+    cin>>n;
 
+    vector<ll> sol(n);
 
-   ll n;
-   cin>>n;
+    vector<char> inp(4);
+    
+    for(ll i=0;i<n;i++){
+        for(ll j=0;j<4;j++){
+            cin>>inp[j];
+        }
 
-   
+        for(ll j=3;j>=0;j--){
+            if(inp[j]=='#'){
+                sol[n-i-1]=j+1;
+                break;
+            }
+        }
 
+    }
 
-
+    for(ll i=0;i<n;i++){
+        cout<<sol[i]<<" ";
+    }
+    cout<<endl;
     
 }
 int main(){

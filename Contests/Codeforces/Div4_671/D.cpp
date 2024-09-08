@@ -29,17 +29,43 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
+    ll n;
+    cin>>n;
+
+    vector<ll> x_[2];
+    map<ll,ll> cnt_x[2];
+
+    ll x,y;
+    for(ll i=1;i<=n;i++){
+        cin>>x>>y;
+
+        x_[y].pb(x);
+        cnt_x[y][x]++;
+
+    }
+
+    ll ans=0;
 
 
-   ll n;
-   cin>>n;
 
-   
+    for(ll i=0;i<2;i++){
+        for(auto c:x_[i]){
+            ll b=c-1;
+            ll f=c+1;
+            if(cnt_x[1-i].find(b)!=cnt_x[1-i].end() and cnt_x[1-i].find(f) != cnt_x[1-i].end()){
+                ans++;
+            }
+        }
+    }
 
+    for(auto c:x_[0]){
+        if(cnt_x[1].find(c) != cnt_x[1].end()){
+            ans=ans+(x_[1].size()-1)+(x_[0].size()-1);
+        }
+    }
 
-
+    cout<<ans<<endl;
     
 }
 int main(){

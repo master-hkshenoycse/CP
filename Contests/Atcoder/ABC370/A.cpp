@@ -29,17 +29,19 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
+    ll a,b;
+    cin>>a>>b;
 
-
-   ll n;
-   cin>>n;
-
-   
-
-
-
+    if(a+b==1){
+        if(a==1){
+            cout<<"Yes"<<endl;
+        }else{
+            cout<<"No"<<endl;
+        }
+    }else{
+        cout<<"Invalid"<<endl;
+    }
     
 }
 int main(){
@@ -52,7 +54,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

@@ -29,17 +29,18 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
+    ll x,y,k;
+    cin>>x>>y>>k;
 
+    ll x_ops=(x+k-1)/k;
+    ll y_ops=(y+k-1)/k;
 
-   ll n;
-   cin>>n;
-
-   
-
-
-
+    if(x_ops>y_ops){
+        cout<<2*x_ops-1<<endl;
+    }else{
+        cout<<2*y_ops<<endl;
+    }
     
 }
 int main(){

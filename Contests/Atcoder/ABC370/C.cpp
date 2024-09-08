@@ -29,18 +29,44 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
+    string s,t;
+    cin>>s>>t;
+
+    ll n=s.size();
+
+    vector<ll> is_change(n,0);
+    ll cnt=0;
+    for(ll i=0;i<n;i++){
+        if(s[i]>t[i]){
+            is_change[i]=-1;
+            cnt++;
+        }else if(s[i]<t[i]){
+            is_change[i]=1;
+            cnt++;
+        }
+    }
 
 
-   ll n;
-   cin>>n;
+    cout<<cnt<<endl;
 
-   
+    for(ll i=0;i<n;i++){
+        if(is_change[i]==-1){
+            s[i]=t[i];
+            cout<<s<<endl;
+        }
+    }
+
+    for(ll i=n-1;i>=0;i--){
+        if(is_change[i]==1){
+            s[i]=t[i];
+            cout<<s<<endl;
+        }
+    }
 
 
 
-    
+
 }
 int main(){
     boost;
@@ -52,7 +78,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

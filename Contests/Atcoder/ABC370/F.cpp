@@ -29,18 +29,11 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
-
-
-   ll n;
-   cin>>n;
-
-   
-
-
-
     
+
+
+
 }
 int main(){
     boost;
@@ -52,7 +45,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

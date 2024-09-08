@@ -28,19 +28,41 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
-
+ll mod=998244353;
 void solve(ll tc){
+    ll n,k;
+    cin>>n>>k;
+
+    map<ll,ll> help;
+
+    help[0]=1;
+    ll tot=1;
+    ll e,cs=0;
+    ll ways_correct=0;
+
+    for(ll i=1;i<=n;i++){
+        cin>>e;
+        cs=cs+e;
 
 
-   ll n;
-   cin>>n;
+        ways_correct=tot;
+        if(help.find(cs-k) != help.end()){
+            ways_correct=(ways_correct-help[cs-k]+mod)%mod;
+        }
 
-   
+        tot=(tot+ways_correct)%mod;
+        help[cs]=(help[cs]+ways_correct)%mod;
+
+        //cout<<cs<<" "<<ways_correct<<endl;
+
+    }
+
+    cout<<ways_correct<<endl;
 
 
 
-    
+
+
 }
 int main(){
     boost;
@@ -52,7 +74,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

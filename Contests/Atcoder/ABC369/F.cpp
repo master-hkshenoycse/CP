@@ -31,16 +31,28 @@ using namespace std;
 
 
 void solve(ll tc){
+    
+    ll h,w,n;
+    cin>>h>>w>>n;
 
-
-   ll n;
-   cin>>n;
-
-   
+    vector<vector<ll> > a(n,vector<ll> (2));
 
 
 
     
+    for(ll i=1;i<=n;i++){
+        cin>>a[i][0]>>a[i][1];
+    }
+
+
+
+
+
+
+
+
+
+
 }
 int main(){
     boost;
@@ -52,7 +64,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

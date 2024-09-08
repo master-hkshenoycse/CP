@@ -29,17 +29,11 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
+    ll a,b;
+    cin>>a>>b;
 
-
-   ll n;
-   cin>>n;
-
-   
-
-
-
+    cout<<b-a<<endl;
     
 }
 int main(){

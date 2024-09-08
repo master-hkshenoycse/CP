@@ -29,18 +29,64 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
-
-
-   ll n;
-   cin>>n;
-
-   
-
-
-
     
+    ll n,k,q;
+    cin>>n>>k>>q;
+    vector<ll> a(n+1),sol(n+1);
+
+    map<ll,ll> freq;
+    multiset<ll> freq_cnts;
+
+    for(ll i=1;i<=n;i++){
+        cin>>a[i];
+        a[i]-=i;
+        
+        if(freq.find(a[i])!=freq.end()){
+            freq_cnts.erase(freq_cnts.find(freq[a[i]]));
+        }
+
+        freq[a[i]]++;
+        freq_cnts.insert(freq[a[i]]);
+
+        if(i-k>=1){
+            if(freq.find(a[i-k])!=freq.end()){
+                freq_cnts.erase(freq_cnts.find(freq[a[i-k]]));
+            }
+
+            freq[a[i-k]]--;
+
+            if(freq[a[i-k]]==0){
+                freq.erase(a[i-k]);
+            }else{
+                freq_cnts.insert(freq[a[i-k]]);
+            }
+
+        }
+
+        if(i>=k){
+            sol[i-k+1]=*(--freq_cnts.end());
+        }
+    }
+
+    vector<ll> cum_sol(n+1,0);
+    for(ll i=1;i<=n;i++){
+        cout<<sol[i]<<" ";
+        cum_sol[i]=cum_sol[i-1]+sol[i];
+    }
+    cout<<endl;
+
+
+    ll l,r;
+    while(q--){
+        cin>>l>>r;
+        ll st=l;
+        ll en=r-k+1;
+        cout<<cum_sol[en]-cum_sol[st-1]<<endl;
+
+    }
+
+
 }
 int main(){
     boost;
