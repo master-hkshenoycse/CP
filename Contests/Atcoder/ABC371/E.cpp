@@ -29,78 +29,48 @@
 #define arr array 
 using namespace std;
 
-
 void solve(ll tc){
+    ll n;
+    cin>>n;
+
+    ll ans=0;
+    vector<ll> pos[n+1];
+
+    ll e;
+    for(ll i=1;i<=n;i++){
+        cin>>e;
+        pos[e].pb(i);
+    }
+
     
-    ll h,w,n;
-    cin>>h>>w>>n;
+    for(ll i=1;i<=n;i++){
+        ll sz=pos[i].size();
 
-    vector<vector<ll> > a(n,vector<ll> (2));
-
-    
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
-    }
-
-
-
-    sort(all(a));
-    vector<ll> dp(n,1e9),id(n,-1),prev(n);
-
-    //point update range query
-
-    for(ll i=0;i<n;i++){
-        ll ind=upper_bound(all(dp),a[i][1])-dp.begin();
-        dp[ind]=a[i][1];
-        id[ind]=i;
-        prev[i]=(ind?id[ind-1]:-1);
-    }
-
-    ll m=n-1;
-    while(id[m]==-1){
-        m--;
-    }
-
-    vector<vector<ll> > path={{h,w}};
-    ll now=id[m];
-    
-    while(now != -1){
-        path.push_back(a[now]);
-        now=prev[now];
-    }
-
-    path.push_back({1,1});
-
-    reverse(all(path));
-
-
-    string sol;
-
-    for(ll i=0;i+1<path.size();i++){
-        ll d=path[i+1][0]-path[i][0];
-        ll r=path[i+1][1]-path[i][1];
-
-        while(d--){
-            sol+='D';
+        if(sz==0){
+            continue;
         }
 
-        while(r--){
-            sol+='R';
+        if(sz>0){
+            ans=ans+(n*n+n)/2ll;
         }
+
+        ll len=0;
+        for(ll j=0;j<sz;j++){
+            
+            if(j==0){
+              len=pos[i][j]-1;
+            }else{
+              len=(pos[i][j]-pos[i][j-1]-1);
+            }
+
+            ans=ans-(len*len+len)/2ll;
+        }
+
+        len=n-pos[i].back();
+        ans=ans-(len*len+len)/2ll;
     }
 
-    cout<<m+1<<endl;
-    cout<<sol<<endl;
-
-
-
-
-
-
-
-
-
-
+    cout<<ans<<endl;
 
 
 }

@@ -28,79 +28,63 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+string cmp="narek";
+ll solve_dp(ll ind,ll lst_f,ll n,vector<string> &a,vector<vector<ll> > &dp,vector<vector<ll> >&memo){
+    if(ind==n){
+        return 0;
+    }
+
+    if(memo[ind][lst_f]){
+        return dp[ind][lst_f];
+    }
+
+    memo[ind][lst_f]=1;
+
+    //skip the string
+    ll res=solve_dp(ind+1,lst_f,n,a,dp,memo);
+
+    //pick the string
+    ll sz=a[ind].size();
+    ll sc=0;
+
+    ll prev_lst=lst_f;
+    for(ll i=0;i<sz;i++){
 
 
+        if(a[ind][i]==cmp[lst_f]){
+            lst_f++;
+        }
+
+        if(a[ind][i]=='n' or a[ind][i]=='a' or a[ind][i]=='r' or a[ind][i]=='e' or a[ind][i]=='k'){
+            sc--;
+        }
+
+        if(lst_f==5){
+            lst_f=0;
+            sc+=10;
+        }
+    }
+
+    res=max(res,sc+solve_dp(ind+1,lst_f,n,a,dp,memo));
+    return dp[ind][prev_lst]=res;
+
+
+}
 void solve(ll tc){
     
-    ll h,w,n;
-    cin>>h>>w>>n;
 
-    vector<vector<ll> > a(n,vector<ll> (2));
+    ll n,m;
+    cin>>n>>m;
 
-    
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
-    }
-
-
-
-    sort(all(a));
-    vector<ll> dp(n,1e9),id(n,-1),prev(n);
-
-    //point update range query
+    vector<vector<ll> >dp(n,vector<ll> (6));
+    vector<vector<ll> >memo(n,vector<ll> (6,0));
+    vector<string> a(n);
 
     for(ll i=0;i<n;i++){
-        ll ind=upper_bound(all(dp),a[i][1])-dp.begin();
-        dp[ind]=a[i][1];
-        id[ind]=i;
-        prev[i]=(ind?id[ind-1]:-1);
+        cin>>a[i];
     }
 
-    ll m=n-1;
-    while(id[m]==-1){
-        m--;
-    }
-
-    vector<vector<ll> > path={{h,w}};
-    ll now=id[m];
-    
-    while(now != -1){
-        path.push_back(a[now]);
-        now=prev[now];
-    }
-
-    path.push_back({1,1});
-
-    reverse(all(path));
-
-
-    string sol;
-
-    for(ll i=0;i+1<path.size();i++){
-        ll d=path[i+1][0]-path[i][0];
-        ll r=path[i+1][1]-path[i][1];
-
-        while(d--){
-            sol+='D';
-        }
-
-        while(r--){
-            sol+='R';
-        }
-    }
-
-    cout<<m+1<<endl;
-    cout<<sol<<endl;
-
-
-
-
-
-
-
-
-
-
+    cout<<solve_dp(0,0,n,a,dp,memo)<<endl;
 
 
 }
@@ -114,7 +98,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

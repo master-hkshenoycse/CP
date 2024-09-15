@@ -28,16 +28,67 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll get_first_y(ll x,ll r){
+    ll lo=0,hi=r,ret=r+1;
 
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+        if(x*x+mid*mid>=r*r){
+            ret=min(ret,mid);
+            hi=mid-1;
+        }else{
+            lo=mid+1;
+        }
+    }
 
+    return ret;
+}
+
+ll get_last_y(ll x,ll r){
+    ll lo=0,hi=r,ret=0;
+
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+        if(x*x+mid*mid<(r+1)*(r+1)){
+            ret=max(ret,mid);
+            lo=mid+1;
+        }else{
+            hi=mid-1;
+        }
+    }
+
+    return ret;
+}
 void solve(ll tc){
+    ll r;
+    cin>>r;
+    ll ans=0;
 
+    for(ll x=0;x<=r;x++){
+        ll fst_y=get_first_y(x,r);
+        ll lst_y=get_last_y(x,r);
+        
+        if(lst_y<fst_y){
+            continue;
+        }
 
-   ll n;
-   cin>>n;
+        ll cnt_y=lst_y-fst_y+1;
+        //cout<<x<<" "<<r<<" "<<fst_y<<" "<<lst_y<<endl;
 
-   
+        if(x>0){
+            ans=ans+cnt_y*4;
+            if(fst_y==0){
+                ans=ans-2;
+            }
+        }else{
+            ans=ans+cnt_y*2;
+            if(fst_y==0){
+                ans=ans-1;
+            }
+        }
+    }
 
+    cout<<ans<<endl;
 
 
     

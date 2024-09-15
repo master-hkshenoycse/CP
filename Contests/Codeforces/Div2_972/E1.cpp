@@ -28,80 +28,61 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll solve_dp(ll r,ll c,ll l,ll n,ll m,vector<ll> &a,vector<vector< vector<ll> > > &dp,map<ll,vector<arr<ll,2> > > &help){
+    if(r>=n or c>=m or l==a.size()){
+        return 0;
+    }
+
+    if(help.find(a[l])==help.end()){
+        return 0;
+    }
+
+    if(dp[l][r][c] != -1){
+        return dp[l][r][c];
+    }
+
+    ll res=0;
+
+    for(auto it:help[a[l]]){
+        if(it[0]>=r and it[1]>=c and solve_dp(it[0]+1,it[1]+1,l+1,n,m,a,dp,help)==0){
+            res=1;
+            break;
+        }
+    }
 
 
+
+    return dp[l][r][c]=res;
+
+}
 void solve(ll tc){
+    ll l,n,m;
+    cin>>l>>n>>m;
+    vector<vector< vector<ll> > > dp(l,vector<vector<ll> > (n,vector<ll> (m,-1))); 
+    vector<ll> a(l);
+    for(ll i=0;i<l;i++){
+        cin>>a[i];
+    }    
     
-    ll h,w,n;
-    cin>>h>>w>>n;
-
-    vector<vector<ll> > a(n,vector<ll> (2));
-
-    
+    map<ll,vector<arr<ll,2> > >help;
+    ll e;
     for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
-    }
-
-
-
-    sort(all(a));
-    vector<ll> dp(n,1e9),id(n,-1),prev(n);
-
-    //point update range query
-
-    for(ll i=0;i<n;i++){
-        ll ind=upper_bound(all(dp),a[i][1])-dp.begin();
-        dp[ind]=a[i][1];
-        id[ind]=i;
-        prev[i]=(ind?id[ind-1]:-1);
-    }
-
-    ll m=n-1;
-    while(id[m]==-1){
-        m--;
-    }
-
-    vector<vector<ll> > path={{h,w}};
-    ll now=id[m];
-    
-    while(now != -1){
-        path.push_back(a[now]);
-        now=prev[now];
-    }
-
-    path.push_back({1,1});
-
-    reverse(all(path));
-
-
-    string sol;
-
-    for(ll i=0;i+1<path.size();i++){
-        ll d=path[i+1][0]-path[i][0];
-        ll r=path[i+1][1]-path[i][1];
-
-        while(d--){
-            sol+='D';
-        }
-
-        while(r--){
-            sol+='R';
+        for(ll j=0;j<m;j++){
+            cin>>e;
+            help[e].pb({i,j});
         }
     }
 
-    cout<<m+1<<endl;
-    cout<<sol<<endl;
+ 
+    if(solve_dp(0,0,0,n,m,a,dp,help)){
+        cout<<"T"<<endl;
+    }else{
+        cout<<"N"<<endl;
+    }
 
 
 
-
-
-
-
-
-
-
-
+    
 
 }
 int main(){
@@ -114,7 +95,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

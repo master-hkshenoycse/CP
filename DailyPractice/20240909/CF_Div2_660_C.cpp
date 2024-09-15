@@ -29,80 +29,86 @@
 #define arr array 
 using namespace std;
 
+bool dfs(ll v,ll par,vector<vector<ll> >&adj,vector<ll> &h,vector<ll> &p,vector<ll> &act_happy){
+
+    bool res=true;
+
+    ll req=p[v];
+    ll good_mood_children=0;
+    for(auto to:adj[v]){
+
+        if(to==par){
+            continue;
+        }
+
+        res=(res & dfs(to,v,adj,h,p,act_happy));
+
+        req+=p[to];
+        good_mood_children+=act_happy[to];
+
+    }
+
+    p[v]=req;
+
+    req+=h[v];    
+    if(req%2 or req<0){
+        res=0;
+    }
+
+    req/=2;
+    if(good_mood_children > req){
+        res=0;
+    }
+
+    if(req>p[v]){
+        res=0;
+    }
+
+    act_happy[v]=req;
+    
+
+    
+
+
+
+    return res;
+}
 
 void solve(ll tc){
+
+
+    ll n,m;
+    cin>>n>>m;
+    vector<ll> p(n+1),h(n+1);
+    vector<vector<ll> > adj(n+1);
+    vector<ll> act_happy(n+1,0);
+
+    for(ll i=1;i<=n;i++){
+     cin>>p[i];
+    }
+
+    for(ll i=1;i<=n;i++){
+     cin>>h[i];
+    }
+
+    ll x,y;
+    for(ll i=1;i<n;i++){
+        cin>>x>>y;
+        adj[x].pb(y);
+        adj[y].pb(x);
+    }
+
+    if(dfs(1,-1,adj,h,p,act_happy)){
+        cout<<"YES"<<endl;
+    }else{
+        cout<<"NO"<<endl;
+    }
+
+
+
+
+
     
-    ll h,w,n;
-    cin>>h>>w>>n;
-
-    vector<vector<ll> > a(n,vector<ll> (2));
-
-    
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
-    }
-
-
-
-    sort(all(a));
-    vector<ll> dp(n,1e9),id(n,-1),prev(n);
-
-    //point update range query
-
-    for(ll i=0;i<n;i++){
-        ll ind=upper_bound(all(dp),a[i][1])-dp.begin();
-        dp[ind]=a[i][1];
-        id[ind]=i;
-        prev[i]=(ind?id[ind-1]:-1);
-    }
-
-    ll m=n-1;
-    while(id[m]==-1){
-        m--;
-    }
-
-    vector<vector<ll> > path={{h,w}};
-    ll now=id[m];
-    
-    while(now != -1){
-        path.push_back(a[now]);
-        now=prev[now];
-    }
-
-    path.push_back({1,1});
-
-    reverse(all(path));
-
-
-    string sol;
-
-    for(ll i=0;i+1<path.size();i++){
-        ll d=path[i+1][0]-path[i][0];
-        ll r=path[i+1][1]-path[i][1];
-
-        while(d--){
-            sol+='D';
-        }
-
-        while(r--){
-            sol+='R';
-        }
-    }
-
-    cout<<m+1<<endl;
-    cout<<sol<<endl;
-
-
-
-
-
-
-
-
-
-
-
-
 }
 int main(){
     boost;
@@ -114,7 +120,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

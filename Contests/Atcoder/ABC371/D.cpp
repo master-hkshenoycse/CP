@@ -28,78 +28,73 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll get_first_gt(vector<ll> &x,ll l){
+    ll n=x.size()-1;
+    ll lo=1,hi=n,ret=n+1;
 
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+        if(x[mid]>=l){
+            ret=min(ret,mid);
+            hi=mid-1;
+        }else{
+            lo=mid+1;
+        }
+    }
+    return ret;
+}
+
+ll get_last_lt(vector<ll> &x,ll l){
+    ll n=x.size()-1;
+    ll lo=1,hi=n,ret=-1;
+
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+        if(x[mid]<=l){
+            ret=max(ret,mid);
+            lo=mid+1;
+        }else{
+            hi=mid-1;
+        }
+    }
+
+    return ret;
+    
+}
 
 void solve(ll tc){
-    
-    ll h,w,n;
-    cin>>h>>w>>n;
+    ll n;
+    cin>>n;
 
-    vector<vector<ll> > a(n,vector<ll> (2));
-
-    
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
+    vector<ll> x(n+1),p(n+1,0);
+    for(ll i=1;i<=n;i++){
+        cin>>x[i];
     }
 
-
-
-    sort(all(a));
-    vector<ll> dp(n,1e9),id(n,-1),prev(n);
-
-    //point update range query
-
-    for(ll i=0;i<n;i++){
-        ll ind=upper_bound(all(dp),a[i][1])-dp.begin();
-        dp[ind]=a[i][1];
-        id[ind]=i;
-        prev[i]=(ind?id[ind-1]:-1);
+    for(ll i=1;i<=n;i++){
+        cin>>p[i];
+        p[i]+=p[i-1];
     }
 
-    ll m=n-1;
-    while(id[m]==-1){
-        m--;
-    }
+    ll q;
+    cin>>q;
 
-    vector<vector<ll> > path={{h,w}};
-    ll now=id[m];
-    
-    while(now != -1){
-        path.push_back(a[now]);
-        now=prev[now];
-    }
+    ll l,r;
+    while(q--){
+        cin>>l>>r;
 
-    path.push_back({1,1});
-
-    reverse(all(path));
-
-
-    string sol;
-
-    for(ll i=0;i+1<path.size();i++){
-        ll d=path[i+1][0]-path[i][0];
-        ll r=path[i+1][1]-path[i][1];
-
-        while(d--){
-            sol+='D';
+        ll fst_index=get_first_gt(x,l);
+        ll lst_index=get_last_lt(x,r);
+        
+        
+        if(lst_index==-1 or fst_index==n+1){
+            cout<<0<<endl;
+        }else{
+            cout<<p[lst_index]-p[fst_index-1]<<endl;
         }
 
-        while(r--){
-            sol+='R';
-        }
+        
     }
-
-    cout<<m+1<<endl;
-    cout<<sol<<endl;
-
-
-
-
-
-
-
-
-
 
 
 
