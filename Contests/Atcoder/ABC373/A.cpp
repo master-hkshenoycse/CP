@@ -30,7 +30,17 @@
 using namespace std;
 
 void solve(ll tc){
-    
+    ll ans=0;
+    string s;
+
+    for(ll i=1;i<=12;i++){
+        cin>>s;
+        if(s.size()==i){
+            ans++;
+        }
+    }
+
+    cout<<ans<<endl;
     
 }
 int main(){
@@ -43,7 +53,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

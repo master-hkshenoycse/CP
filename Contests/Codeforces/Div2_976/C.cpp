@@ -30,8 +30,43 @@
 using namespace std;
 
 void solve(ll tc){
+    ll b,c,d;
+    cin>>b>>c>>d;
+
+    ll a=0;
     
-    
+
+    for(ll i=0;i<=60;i++){
+        ll is_b=(b & (1ll<<i))>0;
+        ll is_c=(c & (1ll<<i))>0;
+        ll is_d=(d & (1ll<<i))>0;
+
+        if(is_d){
+            if(is_b){
+                a+=0ll;
+            }else{
+                a+=(1ll<<i);
+            }
+        }else{
+            if(is_b){
+                if(is_c){
+                    a+=(1ll<<i);
+                }
+            }else{
+                a+=0;
+            }
+        }
+
+    }
+
+    if((a|b) -(a&c) != d){
+        a=-1;
+    }
+
+    cout<<a<<endl;
+
+
+
 }
 int main(){
     boost;

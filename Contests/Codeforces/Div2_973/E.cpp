@@ -30,8 +30,39 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    
+    ll n;
+    cin>>n;
+
+    ll ans=0,curr=0,gc=0;
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        gc=__gcd(gc,a[i]);
+    }
+    for(ll i=0;i<n;i++){
+        a[i]/=gc;
+    }
+
+    //divide all number by gcd
+    //then max number of prefix gcd untill 1 occurs will be <=10
+
+    for(ll i=0;i<n;i++){
+        ll nc=1e10;
+        for(ll j=0;j<n;j++){
+            nc=min(nc,__gcd(curr,a[j]));
+        }
+
+        curr=nc;
+        ans+=curr;
+
+        if(curr==1){
+            ans=ans+n-i-1;
+            break;
+        }
+
+    }
+
+    cout<<ans*gc<<endl;
 }
 int main(){
     boost;

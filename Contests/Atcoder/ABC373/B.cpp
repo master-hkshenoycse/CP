@@ -30,7 +30,20 @@
 using namespace std;
 
 void solve(ll tc){
-    
+    string s;
+    cin>>s;
+
+    vector<ll> pos(26);
+    for(ll i=0;i<26;i++){
+        pos[s[i]-'A']=i;
+    }
+
+    ll ans=0;
+    for(ll i=1;i<26;i++){
+        ans=ans+abs(pos[i]-pos[i-1]);
+    }
+
+    cout<<ans<<endl;
     
 }
 int main(){
@@ -43,7 +56,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

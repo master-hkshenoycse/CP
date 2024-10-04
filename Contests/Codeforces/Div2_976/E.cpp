@@ -28,10 +28,66 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
+ll mod=1e9+7;
+ll modpow(ll a,ll n){
+    ll res=1;
+    while(n>0){
+        if(n%2){
+            res=(res*a)%mod;
+        }
+        n/=2;
+        a=(a*a)%mod;
+    }
+    return res;
+}
 void solve(ll tc){
+
+    ll n;
+    cin>>n;
+
+    vector<ll> dp(1024,0);
+    dp[0]=1;
+
+
+    vector<ll> a(n),p(n),p_(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+    }
+
+    for(ll i=0;i<n;i++){
+        cin>>p[i];
+        p_[i]=((10000-p[i])*modpow(10000,mod-2))%mod;
+        p[i]=(p[i] * modpow(10000,mod-2))%mod;
+
+    }
+
+    for(ll i=0;i<n;i++){
+
+        vector<ll> tmp(1024,0);
+        for(ll j=0;j<1024;j++){
+            ll nx_val=(j ^ a[i]);
+            tmp[nx_val]=(tmp[nx_val]+dp[j]*p[i])%mod;
+        }    
+
+        for(ll j=0;j<1024;j++){
+            dp[j]=(dp[j]*p_[i]+tmp[j])%mod;
+        }
+    }
+
+    ll ans=0;
+    for(ll i=0;i<1024;i++){
+        ans=ans+(i*i*dp[i]);
+        ans%=mod;
+    }
+
+    cout<<ans<<endl;
+
+
+
     
-    
+
+
+
 }
 int main(){
     boost;

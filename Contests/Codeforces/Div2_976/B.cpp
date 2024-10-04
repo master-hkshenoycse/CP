@@ -28,10 +28,45 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll get_sq(ll n){
+    ll lo=1,hi=2e9,ret=lo;
 
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+        if(mid*mid<=n){
+            ret=max(ret,mid);
+            lo=mid+1;
+        }else{
+            hi=mid-1;
+        }
+    }
+
+    return ret;
+}
 void solve(ll tc){
-    
-    
+
+    ll n;
+    cin>>n;
+
+    ll lo=1,hi=2e18,ans=hi;
+
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+
+        ll sq=get_sq(mid);
+        //cout<<mid<<" "<<sq<<endl;
+        if(mid-sq>=n){
+            ans=min(ans,mid);
+            hi=mid-1;
+        }else{
+            lo=mid+1;
+        }
+    }
+
+    cout<<ans<<endl;
+
+
+
 }
 int main(){
     boost;

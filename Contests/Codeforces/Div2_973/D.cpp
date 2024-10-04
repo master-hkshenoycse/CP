@@ -30,8 +30,64 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    
+    ll n;
+    cin>>n;
+
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+    }
+
+    ll minimumMaxima=1e15,maximumMinima=-1e15;
+
+    ll lo=-1e15,hi=1e15;
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+
+        vector<ll> curr=a;
+        for(ll i=0;i+1<n;i++){
+            if(curr[i]>mid){
+                ll ex=curr[i]-mid;
+                curr[i]=mid;
+                curr[i+1]+=ex;
+            }
+        }
+
+        if(curr[n-1]<=mid){
+            minimumMaxima=min(minimumMaxima,mid);
+            hi=mid-1;
+        }else{
+            lo=mid+1;
+        }
+    }
+
+    lo=-1e15,hi=1e15;
+
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+
+        vector<ll> curr=a;
+        for(ll i=n-1;i>0;i--){
+            if(curr[i]<mid){
+                ll ex=mid-curr[i];
+                curr[i]=mid;
+                curr[i-1]-=ex;
+            }
+        }
+
+        if(curr[0]>=mid){
+            maximumMinima=max(maximumMinima,mid);
+            lo=mid+1;
+        }else{
+            hi=mid-1;
+        }
+    }
+
+    //cout<<minimumMaxima<<" "<<maximumMinima<<endl;
+
+
+    cout<<max(0ll,minimumMaxima-maximumMinima)<<endl;
+
 }
 int main(){
     boost;

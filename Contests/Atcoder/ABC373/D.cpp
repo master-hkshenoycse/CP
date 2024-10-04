@@ -28,10 +28,60 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+void bfs(ll st,vector<ll> &vis,vector<ll> &value,vector<vector<pair<ll,ll> > > &adj){
+    queue<ll> q;
+    vis[st]=1;
 
+    q.push(st);
+
+    while(q.size()>0){
+        ll v=q.front();
+        q.pop();
+
+        for(auto to:adj[v]){
+            ll nx=to.first;
+            ll wt=to.second;
+            if(vis[nx]==0){
+                vis[nx]=1;
+                value[nx]=value[v]+wt;
+                q.push(nx);
+            }
+        }
+    }
+    
+}   
 void solve(ll tc){
-    
-    
+    ll n,m;
+    cin>>n>>m;
+
+    vector<vector<pair<ll,ll> > > adj(n+1);
+    ll x,y,w;
+    for(ll i=1;i<=m;i++){
+        cin>>x>>y>>w;
+        adj[x].pb({y,w});
+        adj[y].pb({x,-w});
+    }
+
+    vector<ll> vis(n+1);
+    vector<ll> value(n+1,0);
+
+    for(ll i=1;i<=n;i++){
+        if(vis[i]==0){
+            bfs(i,vis,value,adj);
+        }
+    }
+
+    for(ll i=1;i<=n;i++){
+        cout<<value[i]<<" ";
+    }
+
+    cout<<endl;
+
+
+
+
+
+
 }
 int main(){
     boost;
@@ -43,7 +93,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

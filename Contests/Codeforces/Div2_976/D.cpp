@@ -28,10 +28,76 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll get_par(ll v,vector<ll> &par){
+    if(par[v]==v){
+        return v;
+    }
 
+    return get_par(par[v],par);
+}
+
+
+ll do_dsu(ll x,ll y,vector<ll> &par,vector<ll> &sz){
+    ll px=get_par(x,par);
+    ll py=get_par(y,par);
+    if(px==py){
+        return 0;
+    }
+
+    if(sz[px]>sz[py]){
+        swap(px,py);
+    }
+
+    par[px]=py;
+    sz[py]+=sz[px];
+    sz[px]=0;
+
+
+    return 1;
+}
 void solve(ll tc){
+    ll n,m;
+    cin>>n>>m;
+
+    vector<ll> par(n+1),sz(n+1,1);
+    for(ll i=1;i<=n;i++){
+        par[i]=i;
+    }
+
+    vector<pair<ll,ll> > ops[11];
+
+    ll a,d,k;
     
-    
+    for(ll i=1;i<=m;i++){
+        cin>>a>>d>>k;
+        ops[d].pb({a,k});
+    }
+
+    ll ans=n;
+    for(ll d=1;d<=10;d++){
+        vector<ll> fn(n+1,0);
+        for(auto o:ops[d]){
+            fn[o.ff]++;
+            fn[o.ff+d*o.ss]--;
+        }
+
+        //take cumilative sum by d;
+        for(ll i=1;i<=n;i++){
+            if(i-d>=1){
+                fn[i]+=fn[i-d];
+            }
+        }
+
+        for(ll i=1;i<=n;i++){
+            if(fn[i]>0){
+                ans=ans-do_dsu(i,i+d,par,sz);
+            }
+        }
+    }
+
+    cout<<ans<<endl;
+
+
 }
 int main(){
     boost;

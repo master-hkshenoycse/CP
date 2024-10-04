@@ -30,8 +30,22 @@
 using namespace std;
 
 void solve(ll tc){
+    ll n,m,k;
+    cin>>n>>m>>k;
+    arr<ll,2> a[n+1];
+
+    for(ll i=1;i<=n;i++){
+        cin>>a[i][0];
+        a[i][1]=i;
+    }
+
+    sort(a+1,a+n+1);
+
+
+
     
-    
+
+
 }
 int main(){
     boost;
@@ -43,7 +57,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

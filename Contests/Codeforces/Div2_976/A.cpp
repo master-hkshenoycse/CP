@@ -30,8 +30,34 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    
+
+    ll n,k;
+    cin>>n>>k;
+
+    if(k==1){
+        cout<<n<<endl;
+        return;
+    }
+
+    vector<ll> po_req;
+    ll i=1;
+    while(i<=n){
+        po_req.pb(i);
+        i=i*k;
+    }
+
+    ll sz=po_req.size();
+    ll ans=0;
+    for(ll i=sz-1;i>=0;i--){
+        ans=ans+n/po_req[i];
+        n%=po_req[i];
+    }
+
+    cout<<ans<<endl;
+
+
+
+
 }
 int main(){
     boost;

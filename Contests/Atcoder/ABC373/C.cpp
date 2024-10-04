@@ -30,8 +30,22 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    
+    ll n,e;
+    cin>>n;
+
+    ll m1=-1e18,m2=-1e18;
+
+    for(ll i=1;i<=n;i++){
+        cin>>e;
+        m1=max(m1,e);
+    }
+
+    for(ll i=1;i<=n;i++){
+        cin>>e;
+        m2=max(m2,e);
+    }
+
+    cout<<m1+m2<<endl;
 }
 int main(){
     boost;
@@ -43,7 +57,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);
