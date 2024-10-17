@@ -28,6 +28,53 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+struct node{
+    
+    bool is_sorted;
+    ll min_index,max_index;
+
+    node(){
+        is_sorted=0;
+        min_index=1e9;
+        max_index=-1;
+    }
+};
+
+node combine(node a,node b){
+    node ret;
+    ret.is_sorted=(a.is_sorted and b.is_sorted);
+    if(a.max_index >= b.min_index){
+        ret.is_sorted=0;
+    }
+
+    ret.min_index=min(a.min_index,b.min_index);
+    ret.max_index=max(a.max_index,b.max_index);
+    return ret;
+
+}
+
+void update(ll ind,ll l,ll r,ll x,ll val,vector<node> &tree){
+    if(l>r){
+        return;
+    }
+
+    if(l==r){
+        tree[ind].is_sorted=1;
+        tree[ind].min_index=val;
+        tree[ind].max_index=val;
+        return;
+    }
+
+    ll mid=(l+r)/2ll;
+
+    if(x<=mid){
+        update(ind*2,l,mid,x,val,tree);
+    }else{
+        update(ind*2+1,mid+1,r,x,val,tree);
+    }
+
+    tree[ind]=combine(tree[ind*2],tree[ind*2+1]);
+}
 
 void solve(ll tc){
 
@@ -40,11 +87,11 @@ void solve(ll tc){
         pos[e]=i;
     }
 
-    ll f=1,max_so_far=0;
+
     vector<ll> b(m+1);
     set<ll> occ[n+1];
     for(ll i=1;i<=n;i++){
-        occ[i].insert(m+1);
+        occ[i].insert(m+i);
     }
 
     for(ll i=1;i<=m;i++){
@@ -53,17 +100,42 @@ void solve(ll tc){
         occ[b[i]].insert(i);
     }
 
+    vector<node> tree(n*5+4);
+    for(ll i=1;i<=n;i++){
+        
+        update(1,1,n,i,*occ[i].begin(),tree);
+    }
 
 
 
 
 
 
-
-    if(f){
+    if(tree[1].is_sorted){
         cout<<"YA"<<endl;
     }else{
         cout<<"TIDAK"<<endl;
+    }
+
+    ll s,t;
+
+    while(q--){
+        cin>>s>>t;
+        t=pos[t];
+
+        occ[b[s]].erase(s);
+        update(1,1,n,b[s],*occ[b[s]].begin(),tree);
+
+        b[s]=t;
+        occ[b[s]].insert(s);
+        update(1,1,n,b[s],*occ[b[s]].begin(),tree);
+
+        if(tree[1].is_sorted){
+            cout<<"YA"<<endl;
+        }else{
+            cout<<"TIDAK"<<endl;
+        }
+
     }
 }
 int main(){

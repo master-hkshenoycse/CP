@@ -28,7 +28,26 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll get_min_cost(ll m1_output,ll m1_cost,ll m2_output,ll m2_cost,ll req){
 
+    if(m1_output *m2_cost  < m2_output * m1_cost){
+        return get_min_cost(m2_output,m2_cost,m1_output,m1_cost,req);
+    }
+
+    ll m2_outputs_used=(m2_output*m1_output)/__gcd(m1_output,m2_output);
+    ll m2_used=m2_outputs_used/m2_output;//no of times m2 can be used;
+    //no of times less efficient machine can be used;
+
+    ll ret=1e10;
+    for(ll i=0;i<=m2_used;i++){
+        ll m1_outputs_req=max(0ll,req-i*m2_output);
+        ll m1_req=(m1_outputs_req+m1_output-1)/m1_output;
+        ret=min(ret,i*m2_cost+m1_req*m1_cost);
+    }
+
+    return ret;
+
+}
 void solve(ll tc){
     ll n,x;
     cin>>n>>x;
@@ -44,24 +63,7 @@ void solve(ll tc){
         ll cost=0;
 
         for(ll i=0;i<n;i++){
-            vector<ll> cnt_a={(mid+a[i][0]-1)/a[i][0],0,mid/a[i][0],1};
-            vector<ll> cnt_b={0,(mid+a[i][2]-1)/a[i][2],1,mid/a[i][2]};
-            ll c=1e18;
-
-            for(ll j=0;j<4;j++){
-                ll req_b=max(0ll,mid-cnt_a[j]*a[i][0]);
-                req_b=(req_b+a[i][2]-1)/a[i][2];
-                c=min(c,cnt_a[j]*a[i][1]+req_b*a[i][3]);
-            }
-
-            for(ll j=0;j<4;j++){
-                ll req_a=max(0ll,mid-cnt_b[j]*a[i][2]);
-                req_a=(req_a+a[i][0]-1)/a[i][0];
-                c=min(c,req_a*a[i][1]+cnt_b[j]*a[i][3]);
-            }
-
-
-            cost=cost+c;
+            cost=cost+get_min_cost(a[i][0],a[i][1],a[i][2],a[i][3],mid);
         }
 
         if(cost<=x){
