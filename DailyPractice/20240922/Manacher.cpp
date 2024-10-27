@@ -29,8 +29,9 @@ class Manacher{
         int l=1,r=1;
 
         for(int i=1;i<n;i++){
+            cout<<i<<" "<<r+l-i<<" ";
             p[i]=max(0,min(r-i,p[r+l-i]));
-
+            cout<<p[i]<<endl;
             while(i+p[i]<n and i-p[i]>=0 and s[i+p[i]]==s[i-p[i]]){
                 p[i]++;
             }
@@ -39,6 +40,8 @@ class Manacher{
                 l=i-p[i];
                 r=i+p[i];
             }
+
+            cout<<i<<" "<<l<<" "<<r<<endl;
         }
     }
     
@@ -78,7 +81,7 @@ class Manacher{
 int main(){
 
     string s;
-    s="babbabbabc";
+    s="abaaba";
 
     Manacher manacher(s);
     manacher.print();
