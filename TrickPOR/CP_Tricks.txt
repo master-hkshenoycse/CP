@@ -235,5 +235,9 @@ rotate the array by 1.
 
 
 https://mirror.codeforces.com/contest/2002/problem/B
-
 observer the operation, if a or reverse of a is same as b, then bob will win
+
+
+https://leetcode.com/problems/count-number-of-balanced-permutations/submissions/1444046895
+For sum make partitions , in partition keep count of frequency of each digot used, this will be used for inverse factorial, 
+usig formula for making permutations using repeated elements
