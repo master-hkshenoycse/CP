@@ -19,14 +19,21 @@ int main() {
         }
         ll al_cnt=0,bob_cnt=0;
         
-        for(int i=n-1;i>=0;i--){
-            int ch=(i%k);
-            if(s[i%k]=='A'){
-                al_cnt+=(n+m-1)-2*(n-i-1);
+        for(ll i=0;i<k;i++){
+            //how many times does index i%k occur from 0,n-1;
+            ll no_times=(n-1)/k;
+            if(((n-1)%k) >= i){
+                no_times++;
+            }
+
+            
+            if(s[i]=='A'){
+                al_cnt+=(n+m-1)*(no_times)-2*(n-1)*(no_times)+(no_times)*(i+i+(no_times-1)*k);
             }else{
-                bob_cnt+=(n+m-1)-2*(n-i-1);
+                bob_cnt+=(n+m-1)*(no_times)-2*(n-1)*(no_times)+(no_times)*(i+i+(no_times-1)*k);
             }
         }
+        
 	    
 	    if(al_cnt>bob_cnt){
 	        cout<<"Alice"<<endl;
