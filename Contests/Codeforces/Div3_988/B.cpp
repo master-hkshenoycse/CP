@@ -30,46 +30,34 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
+    ll n,e;
     cin>>n;
-    vector<ll> a(n+1),prefix_max(n+1,0),suffix_min(n+1);
 
-
-
-
+    map<ll,ll> help;
     for(ll i=1;i<=n;i++){
-        cin>>a[i];
-        prefix_max[i]=max(prefix_max[i-1],a[i]);
+        cin>>e;
+        help[e]++;
     }
-    for(ll i=n;i>=1;i--){
-        suffix_min[i]=a[i];
-        if(i+1<=n){
-            suffix_min[i]=min(suffix_min[i],suffix_min[i+1]);
+
+    for(ll i=1;i<=n-2;i++){
+        if((n-2)%i==0){
+            ll a=i;
+            ll b=(n-2)/i;
+            if(a!=b){
+                if(help.find(a) != help.end() and help.find(b) != help.end()){
+                    cout<<a<<" "<<b<<endl;
+                    return;
+                }
+            }else{
+                if(help.find(a) != help.end() and help[a]>1){
+                    cout<<a<<" "<<a<<endl;
+                    return;
+                }
+            }
         }
     }
 
-    vector<ll> sol(n+1);
-
-
-    for(ll i=n;i>=1;i--){
-        sol[i]=prefix_max[i];
-
-        if(i+1<=n and prefix_max[i]>suffix_min[i+1]){
-            sol[i]=max(sol[i],sol[i+1]);
-        }
-
-    }
-
-
-
-    for(ll i=1;i<=n;i++){
-        cout<<sol[i]<<" ";
-    }
-    cout<<endl;
-
-
-    
-  
+    cout<<-1<<endl;
 }
 int main(){
     boost;

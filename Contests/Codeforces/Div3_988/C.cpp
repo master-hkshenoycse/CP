@@ -32,44 +32,34 @@ using namespace std;
 void solve(ll tc){
     ll n;
     cin>>n;
-    vector<ll> a(n+1),prefix_max(n+1,0),suffix_min(n+1);
 
-
-
-
-    for(ll i=1;i<=n;i++){
-        cin>>a[i];
-        prefix_max[i]=max(prefix_max[i-1],a[i]);
+    if(n<5){
+        cout<<-1<<endl;
+        return;
     }
-    for(ll i=n;i>=1;i--){
-        suffix_min[i]=a[i];
-        if(i+1<=n){
-            suffix_min[i]=min(suffix_min[i],suffix_min[i+1]);
+
+    vector<ll> a;
+    for(ll i=2;i<=n;i+=2){
+        if(i==4){
+            continue;
         }
+        a.pb(i);
     }
 
-    vector<ll> sol(n+1);
-
-
-    for(ll i=n;i>=1;i--){
-        sol[i]=prefix_max[i];
-
-        if(i+1<=n and prefix_max[i]>suffix_min[i+1]){
-            sol[i]=max(sol[i],sol[i+1]);
+    a.pb(4);
+    a.pb(5);
+    for(ll i=1;i<=n;i+=2){
+        if(i==5){
+            continue;
         }
-
+        a.pb(i);
     }
 
-
-
-    for(ll i=1;i<=n;i++){
-        cout<<sol[i]<<" ";
+    for(auto e:a){
+        cout<<e<<" ";
     }
     cout<<endl;
-
-
     
-  
 }
 int main(){
     boost;
