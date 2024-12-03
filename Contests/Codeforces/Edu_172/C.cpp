@@ -30,45 +30,58 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,m,L;
-    cin>>n>>m>>L;
 
-    vector<arr<ll,2> > a(n);
+    ll n,k;
+    cin>>n>>k;
+
+    vector<ll> val;
+    string s;
+    cin>>s;
+
+    ll tot=0;
+    vector<ll> csum;
+    for(auto ch:s){
+        if(ch=='0'){
+            val.pb(-1);
+        }else{
+            val.pb(1);
+        }
+        
+    }
+
     for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
+        tot=tot+val[i];
+        csum.pb(tot);
     }
 
-    vector<arr<ll,2> > p(m);
-    for(ll i=0;i<m;i++){
-        cin>>p[i][0]>>p[i][1];
+    sort(all(csum));
+    ll ex=0;
+    ll ans=n+1;
+    for(ll i=1;i<=n;i++){
+        
+        ll val=tot*(i-1)-ex;
+        if(val>=k){
+            ans=min(ans,i);
+        }
+        ex=ex+csum[i-1];
+        
+
     }
 
-    ll i=0,j=0,k=1,ans=0;
-    priority_queue<ll> pq;
-
-
-    while(i<n){
-        while(j<m && p[j][0]<=a[i][0]){
-            pq.push(p[j][1]);
-            j++;
-        }
-
-        while(pq.size()>0 && a[i][0]-1+k<=a[i][1]){
-            k=k+pq.top();
-            pq.pop();
-            ans++;
-        }
-
-        if(a[i][0]-1+k<=a[i][1]){
-            cout<<-1<<endl;
-            return;
-        }
-
-        i++;
+    if(ans>n){
+        ans=-1;
     }
 
     cout<<ans<<endl;
+
+
+
+
+
+    
+
+
+
 }
 int main(){
     boost;

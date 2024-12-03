@@ -30,45 +30,56 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,m,L;
-    cin>>n>>m>>L;
+    map<ll,ll> help;
+    ll n,e;
+    cin>>n;
 
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
+    for(ll i=1;i<=n;i++){
+        cin>>e;
+        help[e]++;
     }
 
-    vector<arr<ll,2> > p(m);
-    for(ll i=0;i<m;i++){
-        cin>>p[i][0]>>p[i][1];
+    priority_queue<pair<ll,ll> > pq;
+    for(auto it:help){
+        pq.push({-it.ss,it.ff});
     }
 
-    ll i=0,j=0,k=1,ans=0;
-    priority_queue<ll> pq;
+    ll ch=0,ans=0;
+    map<ll,ll> alice_cnt;
+    while(pq.size()>0){
+        auto it=pq.top();
+        pq.pop();
 
+        ll cnt=-it.ff;
+        ll val=it.ss;
 
-    while(i<n){
-        while(j<m && p[j][0]<=a[i][0]){
-            pq.push(p[j][1]);
-            j++;
+        if(ch==0){
+            if(alice_cnt.find(val)==alice_cnt.end()){
+                ans++;
+            }
+
+            alice_cnt[val]++;
         }
 
-        while(pq.size()>0 && a[i][0]-1+k<=a[i][1]){
-            k=k+pq.top();
-            pq.pop();
+        cnt--;
+        if(cnt>0){
+            pq.push({-cnt,val});
+        }
+
+        ch=1-ch;
+    }
+
+    for(auto it:alice_cnt){
+        if(it.ss==help[it.ff]){
             ans++;
         }
-
-        if(a[i][0]-1+k<=a[i][1]){
-            cout<<-1<<endl;
-            return;
-        }
-
-        i++;
     }
 
     cout<<ans<<endl;
+
+
+
+
 }
 int main(){
     boost;

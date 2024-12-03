@@ -30,45 +30,40 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,m,L;
-    cin>>n>>m>>L;
+    ll n,k;
+    cin>>n>>k;
 
-    vector<arr<ll,2> > a(n);
+    vector<ll> a(n);
     for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
+        cin>>a[i];
+    }
+    sort(all(a));
+    reverse(all(a));
+
+    ll ans=0,s=0;
+    for(ll i=0;i<n;i++){
+        if(s+a[i]>k){
+            
+            ans=ans+(k-s);
+            s=s+a[i];
+            break;
+        }else if(s+a[i]==k){
+            
+            ans=0;
+            s=s+a[i];
+            break;
+        }else{
+            s=s+a[i];
+        }
     }
 
-    vector<arr<ll,2> > p(m);
-    for(ll i=0;i<m;i++){
-        cin>>p[i][0]>>p[i][1];
+    if(s<k){
+        ans=(k-s);
     }
-
-    ll i=0,j=0,k=1,ans=0;
-    priority_queue<ll> pq;
-
-
-    while(i<n){
-        while(j<m && p[j][0]<=a[i][0]){
-            pq.push(p[j][1]);
-            j++;
-        }
-
-        while(pq.size()>0 && a[i][0]-1+k<=a[i][1]){
-            k=k+pq.top();
-            pq.pop();
-            ans++;
-        }
-
-        if(a[i][0]-1+k<=a[i][1]){
-            cout<<-1<<endl;
-            return;
-        }
-
-        i++;
-    }
-
+    
     cout<<ans<<endl;
+
+
 }
 int main(){
     boost;

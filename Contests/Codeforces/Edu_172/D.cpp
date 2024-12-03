@@ -30,45 +30,86 @@
 using namespace std;
 
 void solve(ll tc){
+
+    ll n;
+    cin>>n;
+
+    vector<vector<ll> > p;
+    vector<ll> l(n),r(n);
+    map<pair<ll,ll>,ll> help;
     
-    ll n,m,L;
-    cin>>n>>m>>L;
-
-    vector<arr<ll,2> > a(n);
     for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
+        cin>>l[i]>>r[i];
+        help[{l[i],r[i]}]++;
+        p.pb({l[i],-r[i],i});
     }
 
-    vector<arr<ll,2> > p(m);
-    for(ll i=0;i<m;i++){
-        cin>>p[i][0]>>p[i][1];
+    sort(all(p));
+
+
+    multiset<ll> m;
+    vector<ll> r_lim(n),l_lim(n);
+    for(ll i=0;i<n;i++){
+       ll ind=p[i][2];
+       p[i][1]*=-1;
+       r_lim[ind]=p[i][1];
+       if(m.lower_bound(p[i][1]) != m.end()){
+            r_lim[ind]=*m.lower_bound(p[i][1]);
+       } 
+       m.insert(p[i][1]);
     }
 
-    ll i=0,j=0,k=1,ans=0;
-    priority_queue<ll> pq;
 
-
-    while(i<n){
-        while(j<m && p[j][0]<=a[i][0]){
-            pq.push(p[j][1]);
-            j++;
-        }
-
-        while(pq.size()>0 && a[i][0]-1+k<=a[i][1]){
-            k=k+pq.top();
-            pq.pop();
-            ans++;
-        }
-
-        if(a[i][0]-1+k<=a[i][1]){
-            cout<<-1<<endl;
-            return;
-        }
-
-        i++;
+    while(m.size()>0){
+        m.erase(m.begin());
     }
 
-    cout<<ans<<endl;
+    for(ll i=0;i<n;i++){
+        swap(p[i][0],p[i][1]);
+        p[i][1]*=-1;
+
+    }
+    sort(all(p));
+
+    multiset<ll>::iterator it;
+    for(ll i=n-1;i>=0;i--){
+        ll ind=p[i][2];
+        p[i][1]*=-1;
+ 
+        l_lim[ind]=p[i][1];
+        it=m.upper_bound(p[i][1]);
+
+        if(m.size()>0 and it!=m.begin()){
+            it--;
+            l_lim[ind]=*it;
+        }
+
+        m.insert(p[i][1]);
+    }
+
+
+    vector<ll> sol(n);
+    for(ll i=0;i<n;i++){
+        ll ind=p[i][2];
+        sol[ind]=(r_lim[ind]-l_lim[ind])-(r[ind]-l[ind]);
+        if(help[{l[ind],r[ind]}]>1){
+            sol[ind]=0;
+        }
+    }
+
+    for(ll i=0;i<n;i++){
+       cout<<sol[i]<<endl;
+    }
+
+    
+
+    
+
+
+    
+
+
+
 }
 int main(){
     boost;

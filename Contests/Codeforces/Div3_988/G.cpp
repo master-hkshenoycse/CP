@@ -28,52 +28,38 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
+vector<ll> factors[1000005];
+void pre_cum(){
+    for(ll i=2;i<=1000000;i++){
+        if(factors[i].size()==0){
+            for(ll j=i;j<=1000000;j+=i){
+                factors[j].pb(i);
+            }
+        }
+    }
+}
 void solve(ll tc){
-    
-    ll n,m,L;
-    cin>>n>>m>>L;
+    ll n;
+    cin>>n;
 
-    vector<arr<ll,2> > a(n);
+    vector<ll> a(n);
+    map<ll,ll> help;
+    ll ans=0;
+
     for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
+        cin>>a[i];
     }
 
-    vector<arr<ll,2> > p(m);
-    for(ll i=0;i<m;i++){
-        cin>>p[i][0]>>p[i][1];
+    for(ll i=0;i<n;i++){
+        ll tmp=0;
+        
     }
-
-    ll i=0,j=0,k=1,ans=0;
-    priority_queue<ll> pq;
-
-
-    while(i<n){
-        while(j<m && p[j][0]<=a[i][0]){
-            pq.push(p[j][1]);
-            j++;
-        }
-
-        while(pq.size()>0 && a[i][0]-1+k<=a[i][1]){
-            k=k+pq.top();
-            pq.pop();
-            ans++;
-        }
-
-        if(a[i][0]-1+k<=a[i][1]){
-            cout<<-1<<endl;
-            return;
-        }
-
-        i++;
-    }
-
-    cout<<ans<<endl;
+   
 }
 int main(){
     boost;
 
-    //pre_cum();
+    pre_cum();
     //prec(10);
 	//fre;
 

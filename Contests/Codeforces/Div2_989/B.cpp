@@ -30,45 +30,48 @@
 using namespace std;
 
 void solve(ll tc){
+    ll n,m,k;
+    cin>>n>>m>>k;
+
+    string s;
+    cin>>s;
     
-    ll n,m,L;
-    cin>>n>>m>>L;
 
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
-    }
-
-    vector<arr<ll,2> > p(m);
-    for(ll i=0;i<m;i++){
-        cin>>p[i][0]>>p[i][1];
-    }
-
-    ll i=0,j=0,k=1,ans=0;
-    priority_queue<ll> pq;
-
-
+    ll ans=0,i=0;
     while(i<n){
-        while(j<m && p[j][0]<=a[i][0]){
-            pq.push(p[j][1]);
+        ll j=i;
+        while(j<n and s[i]==s[j]){
             j++;
         }
 
-        while(pq.size()>0 && a[i][0]-1+k<=a[i][1]){
-            k=k+pq.top();
-            pq.pop();
-            ans++;
-        }
+        if(s[i]=='1'){
+            i=j;
+        }else{
+            
+            while(i+m-1<j){
+                ll st=i+m-1;
+                ll rem=k;
+                ans++;
+                while(st<n && rem>0){
+                    s[st]='1';
+                    st++;
+                    rem--;
+                }
 
-        if(a[i][0]-1+k<=a[i][1]){
-            cout<<-1<<endl;
-            return;
-        }
+                i=st;
+            }
 
-        i++;
+            if(i<j){
+                i=j;
+            }
+
+            
+        }
     }
 
+    
     cout<<ans<<endl;
+
 }
 int main(){
     boost;

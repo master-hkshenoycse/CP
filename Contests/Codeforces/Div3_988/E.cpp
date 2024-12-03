@@ -30,45 +30,49 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,m,L;
-    cin>>n>>m>>L;
+   ll n;
+   cin>>n;
 
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0]>>a[i][1];
-    }
+   vector<ll> vals(n+1,-1);
+   ll res;
+   for(ll i=2;i<=n;i++){
+     cout<<"? "<<1<<" "<<i<<endl;
+     cin>>res;
+     vals[i]=res;
+   }
 
-    vector<arr<ll,2> > p(m);
-    for(ll i=0;i<m;i++){
-        cin>>p[i][0]>>p[i][1];
-    }
+   string ret;
+   for(ll i=2;i<=n;i++){
+        if(vals[i]>0){
+            ll trail_zero=vals[i];
+            ll lead_ones=i-trail_zero-1;
+            for(ll j=1;j<=lead_ones;j++){
+                ret=ret+'1';
+            }
+            for(ll j=1;j<=trail_zero;j++){
+                ret=ret+'0';
+            }
 
-    ll i=0,j=0,k=1,ans=0;
-    priority_queue<ll> pq;
+            ret+='1';
 
+            for(ll j=i+1;j<=n;j++){
+                if(vals[j]==vals[j-1]){
+                    ret=ret+'0';
+                }else{
+                    ret=ret+'1';
+                }
+            }
 
-    while(i<n){
-        while(j<m && p[j][0]<=a[i][0]){
-            pq.push(p[j][1]);
-            j++;
-        }
-
-        while(pq.size()>0 && a[i][0]-1+k<=a[i][1]){
-            k=k+pq.top();
-            pq.pop();
-            ans++;
-        }
-
-        if(a[i][0]-1+k<=a[i][1]){
-            cout<<-1<<endl;
+            cout<<"! "<<ret<<endl;
             return;
+
         }
+   }
 
-        i++;
-    }
-
-    cout<<ans<<endl;
+   
+    cout<<"! IMPOSSIBLE"<<endl;
+    return;
+   
 }
 int main(){
     boost;
