@@ -245,3 +245,7 @@ usig formula for making permutations using repeated elements
 https://codeforces.com/contest/2031/problem/D
 See the movement focus on prefix max, suffix minimma, sol(i)=sol(i+1) 
 if prefix max < sufiix_minima, becuase every tree reachable from i+1 is also reachable from i
+
+
+With any positive integer x,there is at least one square number in [x,2x]
+https://codeforces.com/problemset/problem/1713/C
