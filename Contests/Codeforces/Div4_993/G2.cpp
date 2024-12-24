@@ -52,13 +52,22 @@ void mark_cycles(ll v,vector<ll> &a,vector<ll> &in_cycle){
     }
 }
 
-void get_dist(ll v,vector<vector<ll> > &adj,vector<ll> &in_cycle){
+void get_sol(ll v,vector<vector<ll> > &adj,vector<ll> &in_cycle,vector<ll> &dp,vector<ll> &sub_sz){
+    
     for(auto to:adj[v]){
         if(in_cycle[to]==0){
-            in_cycle[to]=in_cycle[v]+1;
-            get_dist(to,adj,in_cycle);
+            in_cycle[to]=1;
+            get_sol(to,adj,in_cycle,dp,sub_sz);
+            sub_sz[v]+=sub_sz[to];
+            dp[v]=max(dp[v],dp[to]+1);
+            dp[v]=max(dp[v],dp[to]+sub_sz[to]-1);
         }
     }
+
+    //dp[v]=max(dp[v],sub_sz[v]);
+    sub_sz[v]++;
+
+
 }
 void solve(ll tc){
 
@@ -66,7 +75,7 @@ void solve(ll tc){
     ll n;
     cin>>n;
 
-    vector<ll> a(n+1),vis(n+1,0),in_cycle(n+1,0);
+    vector<ll> a(n+1),vis(n+1,0),in_cycle(n+1,0),sub_sz(n+1,0);
     vector<vector<ll> > rev_adj(n+1);
     for(ll i=1;i<=n;i++){
         cin>>a[i];
@@ -87,15 +96,16 @@ void solve(ll tc){
     }
 
 
-    for(ll i=1;i<=n;i++){
-        if(in_cycle[i]==1 and rev_adj[i].size()>1){
-            get_dist(i,rev_adj,in_cycle);
+    vector<ll> dp(n+1,1);
+    for(ll i=1;i<=n;i++){   
+        if(in_cycle[i]==1){
+            get_sol(i,rev_adj,in_cycle,dp,sub_sz);
         }
     }
 
     ll ans=0;
     for(ll i=1;i<=n;i++){
-        ans=max(ans,1+in_cycle[i]);
+        ans=max(ans,1+dp[i]);
     }
 
    cout<<ans<<endl;

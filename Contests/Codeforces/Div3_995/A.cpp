@@ -28,77 +28,35 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-void dfs(ll v,vector<ll> &a,vector<ll> &vis,ll &st){
 
-    vis[v]=2;
-   
-
-
-    if(vis[a[v]]==0){
-        dfs(a[v],a,vis,st);
-    }else if(vis[a[v]]==2){
-        st=a[v];
-    }
-
-    vis[v]=1;
-
-}
-void mark_cycles(ll v,vector<ll> &a,vector<ll> &in_cycle){
-    in_cycle[v]=1;
-    
-    
-    if(in_cycle[a[v]]==0){
-        mark_cycles(a[v],a,in_cycle);
-    }
-}
-
-void get_dist(ll v,vector<vector<ll> > &adj,vector<ll> &in_cycle){
-    for(auto to:adj[v]){
-        if(in_cycle[to]==0){
-            in_cycle[to]=in_cycle[v]+1;
-            get_dist(to,adj,in_cycle);
-        }
-    }
-}
 void solve(ll tc){
-
-
     ll n;
     cin>>n;
 
-    vector<ll> a(n+1),vis(n+1,0),in_cycle(n+1,0);
-    vector<vector<ll> > rev_adj(n+1);
-    for(ll i=1;i<=n;i++){
+    vector<ll> a(n),b(n);
+    ll tot=0;
+
+    for(ll i=0;i<n;i++){
         cin>>a[i];
-        rev_adj[a[i]].pb(i);
+
     }
 
-
-    for(ll i=1;i<=n;i++){   
-        //cout<<i<<" "<<vis[i]<<endl;
-        if(vis[i]==0){
-            ll st=-1;
-            vis[i]=2;
-            dfs(i,a,vis,st);
-            if(st!=-1){
-                mark_cycles(st,a,in_cycle);
-            }
-        }
-    }
-
-
-    for(ll i=1;i<=n;i++){
-        if(in_cycle[i]==1 and rev_adj[i].size()>1){
-            get_dist(i,rev_adj,in_cycle);
-        }
+    for(ll i=0;i<n;i++){
+        cin>>b[i];
     }
 
     ll ans=0;
-    for(ll i=1;i<=n;i++){
-        ans=max(ans,1+in_cycle[i]);
+
+    for(ll i=0;i<n;i++){
+        ll x=a[i];
+        if(i+1<n){
+            x-=b[i+1];
+        }
+        ans=ans+max(0ll,x);
     }
 
-   cout<<ans<<endl;
+    cout<<ans<<endl;
+
 
 }
 int main(){
