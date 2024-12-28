@@ -30,51 +30,40 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    string s;
+    cin>>s;
 
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i][1];
-    }
+    ll n=s.size();
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
+    ll ans=n;
+    for(ll ch=0;ch<26;ch++){
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
+        ll i=0,ma=0;    
 
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
+        while(i<n){
+            
+            if(s[i]-'a'==ch){
+                i++;
+            }else{
+                ll len=0,j=i;
+                while(j<n and s[j]-'a'!=ch){
+                    len++;
+                    j++;
+                }
+                ll ops=0;
+                while(len>0){
+                    len/=2;
+                    ops++;
+                }
+                ma=max(ma,ops);
+                i=j;
             }
+        }
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+        ans=min(ans,ma);
     }
-    cout<<endl;
 
     cout<<ans<<endl;
-
-
-    
-
-
-
 }
 int main(){
     boost;

@@ -28,52 +28,49 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll dp[5005][5005][2];
+ll solve_dp(ll ind,ll up_taken,ll both,vector<ll> &a,vector<ll> &b){
+    if(ind==a.size()){
+        if(both==0)return -1e18;
+        return 0;
+    }
 
+    if(dp[ind][up_taken][both] != -1e9){
+        return dp[ind][up_taken][both];
+    }
+
+    ll ret=-1e9;
+    ret=max(ret,solve_dp(ind+1,up_taken+1,both,a,b)+a[ind]);
+    ret=max(ret,solve_dp(ind+1,up_taken,both,a,b)+b[ind]);
+    if(both==0){
+        ret=max(ret,solve_dp(ind+1,up_taken+1,1,a,b)+a[ind]+b[ind]);
+    }
+
+    return dp[ind][up_taken][both]=ret;
+}
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
 
-    vector<arr<ll,2> > a(n);
+    ll n;
+    cin>>n;
+
+
+    vector<ll> a(n),b(n);
     for(ll i=0;i<n;i++){
-        cin>>a[i][1];
+        cin>>a[i];
     }
 
     for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+        cin>>b[i];
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+    for(ll i=0;i<=n;i++){
+        for(ll j=0;j<=n;j++){
+            dp[i][j][0]=-1e9;
+            dp[i][j][1]=-1e9;
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
-
-
-    
-
-
+    cout<<solve_dp(0,0,0,a,b)<<endl;
 
 }
 int main(){

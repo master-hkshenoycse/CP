@@ -30,48 +30,40 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n,e;
+    cin>>n;
 
-    vector<arr<ll,2> > a(n);
+    map<ll,ll> help[n+1];
     for(ll i=0;i<n;i++){
-        cin>>a[i][1];
+        
+        for(ll j=1;j<=n-1;j++){
+            cin>>e;
+            help[e][j]++;
+        }
+
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
+    vector<ll> sol(n+1);
+    for(ll i=1;i<=n;i++){
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
+        for(ll p=1;p<=n;p++){
+            if(help[i][p-1]==p-1 and help[i][p]==n-p){
+                sol[p]=i;
+                break;
             }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+        }
     }
+
+
+
+    for(ll i=1;i<=n;i++){
+        cout<<sol[i]<<" ";
+    }
+
     cout<<endl;
 
-    cout<<ans<<endl;
 
 
-    
 
 
 

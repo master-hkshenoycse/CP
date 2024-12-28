@@ -30,51 +30,48 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
 
-    vector<arr<ll,2> > a(n);
+    ll n;
+    cin>>n;
+
+    vector<ll> a(n);
     for(ll i=0;i<n;i++){
-        cin>>a[i][1];
+        cin>>a[i];
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+    vector<ll> b;
+
+    ll i=0;
+    while(i<n){
+        ll j=i;
+        b.push_back(a[i]);
+        while(j<n and a[i]==a[j]){
+            j++;
+        }
+        i=j;
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
+    ll cnt=0;
+    for(ll i=0;i<b.size();i++){
+        ll v=0;
+        if(i>0 and b[i-1]<b[i]){
+            v++;
+        }
 
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+        if(i+1<b.size() and b[i+1]<b[i]){
+            v++;
+        }
+        
+        if(v==0){
+            cnt++;
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
-
-
-    
-
-
-
+    if(cnt==1){
+        cout<<"YES"<<endl;
+    }else{
+        cout<<"NO"<<endl;
+    }
 }
 int main(){
     boost;

@@ -30,51 +30,29 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
 
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i][1];
-    }
+    ll n;
+    cin>>n;
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
+    string s;
+    cin>>s;
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
+    vector<ll> sol(2,0);
+    ll ans=1;
+    for(ll i=0;i<n-1;i++){
+        
+        sol[s[i]-'0']=i+1;
 
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
+        if(s[i]=='0'){
+            cout<<sol[1]+1<<" ";
         }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
+            cout<<sol[0]+1<<" ";
+        }
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+
+
     }
     cout<<endl;
-
-    cout<<ans<<endl;
-
-
-    
-
-
-
 }
 int main(){
     boost;

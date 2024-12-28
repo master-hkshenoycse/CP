@@ -28,58 +28,33 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll ops[200005];
+void pre_cum(){
 
+    for(ll i=1;i<=200000;i++){
+        ll j=i,op=0;
+        while(j>0){
+            op++;
+            j/=3;
+        }
+        ops[i]=op;
+        ops[i]+=ops[i-1];
+    }
+}
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
 
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i][1];
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
-    }
-    cout<<endl;
+    ll l,r;
+    cin>>l>>r;
+    ll ans=ops[r]-ops[l-1];
+    ans=ans+(ops[l]-ops[l-1]);
 
     cout<<ans<<endl;
-
-
-    
-
-
 
 }
 int main(){
     boost;
 
-    //pre_cum();
+    pre_cum();
     //prec(10);
 	//fre;
 

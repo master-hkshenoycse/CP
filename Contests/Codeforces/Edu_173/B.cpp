@@ -31,47 +31,48 @@ using namespace std;
 
 void solve(ll tc){
     
-    ll n,k;
-    cin>>n>>k;
+    ll n,d;
+    cin>>n>>d;
 
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i][1];
+    vector<ll> sol;
+    sol.pb(1);
+
+    ll rem=min(n,9ll);
+    ll mul=d;
+    for(ll i=1;i<=rem;i++){
+        mul=(mul * i);
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+    if(mul%3==0){
+        sol.pb(3);
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
+    if(mul%9==0){
+        sol.pb(9);
+    }
 
-    multiset<ll> violated;
+    if(d==5){
+        sol.pb(5);
+    }
 
+    if(n>=3){
+        sol.pb(7);
+    }else{
+        ll num=0;
+        for(ll i=1;i<=n;i++){
+            num=num*10+d;
+        }
 
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
+        if(num%7==0){
+            sol.pb(7);
+        }
+    }
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+    sort(all(sol));
+    for(auto s:sol){
+        cout<<s<<" ";
     }
     cout<<endl;
-
-    cout<<ans<<endl;
-
-
-    
 
 
 

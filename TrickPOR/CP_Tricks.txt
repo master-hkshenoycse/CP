@@ -204,7 +204,7 @@ when removing a fixed size k subarray, and then concat, the remaining part, the 
 https://codeforces.com/contest/1993/problem/D 
 
 
-When operation sare done, think about array monotonicity after operation.
+When operation sare done, think about array monotonicity after operation,In below question array becomes monotonic after 2 operations
 https://mirror.codeforces.com/contest/1990/problem/C
 
 when row operation and 2*2 subgrid operation, thin kin what cases 2*2 operation will be useful.
@@ -249,3 +249,12 @@ if prefix max < sufiix_minima, becuase every tree reachable from i+1 is also rea
 
 With any positive integer x,there is at least one square number in [x,2x]
 https://codeforces.com/problemset/problem/1713/C
+
+https://codeforces.com/problemset/problem/1924/A
+it is always optimal to choose the first character as the one whose first index of occurrence 
+in the given string is the highest
+
+https://codeforces.com/problemset/problem/1949/B
+Match the largest and smallest element of a and b,
+check for all i , smallest i A with largest i b, and largest n-i A with smallest b-i B.
+ 

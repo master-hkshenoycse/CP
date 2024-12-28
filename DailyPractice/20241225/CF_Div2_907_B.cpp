@@ -30,48 +30,37 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll lowest_so_far=31;
+    ll n,q;
+    cin>>n>>q;
 
-    vector<arr<ll,2> > a(n);
+    vector<ll> a(n);
+
     for(ll i=0;i<n;i++){
-        cin>>a[i][1];
+        cin>>a[i];
+    }
+
+    ll x;
+
+    while(q--){
+        cin>>x;
+
+        if(x<lowest_so_far){
+            for(ll i=0;i<n;i++){
+                if(a[i] % (1ll<<x)){
+                    continue;
+                }
+                a[i]+=(1ll<<(x-1));
+            }
+            lowest_so_far=x;
+        }
     }
 
     for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+        cout<<a[i]<<" ";
     }
     cout<<endl;
 
-    cout<<ans<<endl;
-
-
-    
 
 
 

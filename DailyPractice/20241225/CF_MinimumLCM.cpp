@@ -30,48 +30,39 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i][1];
-    }
+    ll lc=1e18,x=0,y=0;
+    for(ll i=1;i*i<=n;i++){
+        if(n%i==0){
+            ll d=i;
+            ll req=n/i;
+            ll p=1*d;
+            ll q=(req-1)*d;
+            ll curr_lc=(p*q)/__gcd(p,q);
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
+            if(p>0 and q>0 and curr_lc < lc){
+                lc=curr_lc;
+                x=p;
+                y=q;
             }
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
+            d=n/i;
+            req=i;
+            p=1*d;
+            q=(req-1)*d;
+            curr_lc=(p*q)/__gcd(p,q);
+
+            if(p>0 and q>0 and curr_lc < lc){
+                lc=curr_lc;
+                x=p;
+                y=q;
             }
-        }   
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
-
-
-    
+    cout<<x<<" "<<y<<endl;
 
 
 

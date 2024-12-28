@@ -28,51 +28,49 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+arr<ll,2> central_cordi(vector<ll> &r,vector<ll> &c){
+    ll x,y; 
+    if(r[0]==r[1])x=r[0];
+    else x=r[2];
 
+    if(c[0]==c[1])y=c[0];
+    else y=c[2];
+
+    return {x,y};
+}
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i][1];
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
+    vector<ll> r(3),c(3);
+    cin>>r[0]>>c[0]>>r[1]>>c[1]>>r[2]>>c[2];
 
 
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
+    ll x,y;
+    cin>>x>>y;
+
+    auto p=central_cordi(r,c);
+    ll u=p[0],v=p[1];
+
+    if((u==1 or u==n) and (v==1 or v==n)){
+        if(u==x or v==y){
+            cout<<"YES"<<endl;
         }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
+            cout<<"NO"<<endl;
+        }
+    }else{
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
+        if((x+y)%2==(u+v)%2){
+            if(x%2==u%2){
+                cout<<"YES"<<endl;
+            }else{
+                cout<<"NO"<<endl;
             }
-        }   
+        }else{
+            cout<<"YES"<<endl;
+        }
+
     }
-    cout<<endl;
-
-    cout<<ans<<endl;
-
-
-    
-
 
 
 }

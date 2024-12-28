@@ -30,51 +30,44 @@
 using namespace std;
 
 void solve(ll tc){
+
+    ll n;
+    cin>>n;
+
+    vector<ll> a(n);
+    ll gc=0;
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        gc=__gcd(gc,a[i]);
+    }
     
-    ll n,k;
-    cin>>n>>k;
-
-    vector<arr<ll,2> > a(n);
+    ll ans=n;
+    if(gc==1){
+        ans=0;
+    }
     for(ll i=0;i<n;i++){
-        cin>>a[i][1];
+        ll og=a[i];
+        a[i]=__gcd(a[i],i+1);
+
+        ll c=0;
+
+        for(ll j=0;j<n;j++){
+            c=__gcd(c,a[j]);
+        }
+
+        a[i]=og;
+
+
+        if(c==1){
+            ans=min(ans,n-i);
+        }
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+    if(ans>3){
+        ans=3;
     }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
-    }
-    cout<<endl;
 
     cout<<ans<<endl;
-
-
-    
-
-
-
 }
 int main(){
     boost;

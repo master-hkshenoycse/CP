@@ -30,48 +30,37 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll l,r,G;
+    cin>>l>>r>>G;
 
-    vector<arr<ll,2> > a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i][1];
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
+    ll nx_gt=((l+G-1)/G)*G;
+    ll prev_ls=(r/G)*G;
 
 
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
+
+    nx_gt/=G;
+    prev_ls/=G;
+
+    ll d=-1;
+    ll lx=-1,rx=-1;
+    for(ll i=0;i<=30;i++){
+        for(ll j=0;j<=30;j++){
+            ll x=nx_gt+i;
+            ll y=prev_ls-j;
+            if(x<=y and __gcd(x*G,y*G)==G){
+                if(G*(y-x) > d){
+                    d=G*(y-x);
+                    lx=G*x;
+                    rx=G*y;
+
+                }
             }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
+    cout<<lx<<" "<<rx<<endl;
 
 
-    
 
 
 
