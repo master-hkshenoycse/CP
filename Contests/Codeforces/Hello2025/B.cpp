@@ -30,54 +30,38 @@
 using namespace std;
 
 void solve(ll tc){
-    
     ll n,k;
     cin>>n>>k;
 
-    vector<arr<ll,3> > a;
-    ll p;
-
+    ll e;
+    map<ll,ll> help;
     for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+        cin>>e;
+        help[e]++;
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+    vector<ll> freq;
+    for(auto it:help){
+        freq.push_back(it.ss);
     }
+    
+    sort(all(freq));
+    ll sz=freq.size();
+    ll ans=sz;
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
+    for(ll i=0;i<sz-1;i++){
+        ll req=min(freq[i],k);
+        k-=req;
+        freq[i]-=req;
 
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+        if(freq[i]==0){
+            ans--;
+        }
     }
-    cout<<endl;
 
     cout<<ans<<endl;
 
-
     
-
-
-
 }
 int main(){
     boost;

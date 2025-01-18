@@ -30,54 +30,38 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n,m;
+    cin>>m>>n;
 
-    vector<arr<ll,3> > a;
-    ll p;
+    string s;
+    getline(cin,s);
 
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
-    }
-
+    vector<arr<ll,3> >points(n);
     for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+        cin>>points[i][1]>>points[i][0];
+        points[i][2]=i;
+    } 
+
+    sort(all(points));
+    ll tot=0;
+    vector<arr<ll,2> > selected_points;
+    for(ll i=0;i<2*m;i++){
+        tot+=points[i][0];
+
+        selected_points.push_back({points[i][1],points[i][2]});
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
+    sort(all(selected_points));
 
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+    ll lo=0,hi=2*m-1;
+    cout<<tot<<endl;
+    while(hi>lo){
+        cout<<selected_points[lo][1]+1<<" "<<selected_points[hi][1]+1<<endl;
+        lo++;
+        hi--;
     }
+
     cout<<endl;
-
-    cout<<ans<<endl;
-
-
-    
-
-
-
 }
 int main(){
     boost;

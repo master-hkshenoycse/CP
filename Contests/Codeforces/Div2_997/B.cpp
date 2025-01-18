@@ -30,54 +30,59 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
 
-    vector<arr<ll,3> > a;
-    ll p;
+    ll n;
+    cin>>n;
+
+    vector<vector<ll> > a(n+1,vector<ll> (n+1,0));
+    for(ll i=1;i<=n;i++){
+        string s;
+        cin>>s;
+
+        for(ll j=1;j<=n;j++){
+            if(s[j-1]=='1'){
+                a[i][j]=1;
+            }
+        }
+
+    }
+
+    vector<ll> sol(n+1,-1);
+
+    for(ll i=n;i>=1;i--){
+        ll cnt_ls_behind=0;
+        ll cnt_gt_ahead=0;
+        ll cnt_gt_behind=0;
+        ll cnt_ls_ahead=0;
+
+        for(ll j=1;j<=n;j++){
+            if(j<i and a[i][j]){
+                cnt_ls_behind++;
+            }
+
+            if(j<i and a[i][j]==0){
+                cnt_ls_ahead++;
+            }
+
+            if(j>i and a[i][j]){
+                cnt_gt_ahead++;
+            }
+
+            if(j>i and a[i][j]==0){
+                cnt_gt_behind++;
+            }
+        }
+
+        sol[cnt_ls_behind+cnt_gt_behind+1]=i;
+    }
+
 
     for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+        cout<<sol[i]<<" ";
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
-    }
     cout<<endl;
-
-    cout<<ans<<endl;
-
-
     
-
-
-
 }
 int main(){
     boost;

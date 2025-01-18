@@ -30,51 +30,40 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    string s;
+    cin>>s;
 
-    vector<arr<ll,3> > a;
-    ll p;
 
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
-    }
+    vector<ll> cnt[26];
+    ll n=s.size();
 
     for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+        cnt[s[i]-'a'].push_back(i);
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
+    ll cost=abs(s[0]-s[n-1]);
+    vector<ll> steps;
 
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
+    if(s[0] < s[n-1]){
+        for(ll i=s[0]-'a';i<=s[n-1]-'a';i++){
+            for(auto ind:cnt[i]){
+                steps.pb(ind);
             }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
+        }
+    }else{
+        for(ll i=s[0]-'a';i>=s[n-1]-'a';i--){
+            for(auto ind:cnt[i]){
+                steps.pb(ind);
             }
-        }   
+        }
+    }
+
+    cout<<cost<<" "<<steps.size()<<endl;
+    for(auto s:steps){
+        cout<<s+1<<" ";
     }
     cout<<endl;
 
-    cout<<ans<<endl;
-
-
-    
 
 
 

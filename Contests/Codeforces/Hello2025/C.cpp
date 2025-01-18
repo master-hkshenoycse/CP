@@ -30,54 +30,40 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll l,r;
+    cin>>l>>r;
 
-    vector<arr<ll,3> > a;
-    ll p;
+    ll a=0,c=0,b=0;
+    ll hsb=0;
 
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
-    }
+    for(ll i=31;i>=0;i--){
+        ll b1=(l & (1ll<<i));
+        ll b2=(r & (1ll<<i));
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
+        if(hsb){
+            a+=0;
+            b+=(1ll<<i);
         }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+            if(b1==b2){
+                if(b1){
+                    a+=(1ll<<i);
+                    b+=(1ll<<i);
+                }
+            }else{
+                  a+=(1ll<<i);
+                  b+=0;
+                  hsb=1;
+            } 
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
-
-
-    
-
-
-
+    c=l;
+    while(c==a or c==b){
+        c++;
+    }
+    cout<<a<<" "<<b<<" "<<c<<endl;
+   
 }
 int main(){
     boost;

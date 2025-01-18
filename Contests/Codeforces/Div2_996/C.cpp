@@ -30,54 +30,50 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n,m,e;
+    cin>>n>>m;
 
-    vector<arr<ll,3> > a;
-    ll p;
+    string s;
+    cin>>s;
 
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
-    }
+    vector<vector<ll> > a(n,vector<ll> (m));
+
+    vector<ll> row_sum(n,0),col_sum(m,0);
 
     for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+        for(ll j=0;j<m;j++){
+            cin>>a[i][j];
+            row_sum[i]+=a[i][j];
+            col_sum[j]+=a[i][j];
+        }
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
+    ll x=0,y=0;
 
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
+    for(ll i=0;i<n+m-2;i++){
+        if(s[i]=='D'){
+            a[x][y]=-row_sum[x];
+            col_sum[y]+=a[x][y];
+            x++;
         }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+            a[x][y]=-col_sum[y];
+            row_sum[x]+=a[x][y];
+            y++;
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
+    a[n-1][m-1]=-row_sum[n-1];
+
+    for(ll i=0;i<n;i++){
+        for(ll j=0;j<m;j++){
+            cout<<a[i][j]<<" ";
+        }
+        cout<<endl;
+    }
 
 
     
-
-
-
+    
 }
 int main(){
     boost;

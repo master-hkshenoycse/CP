@@ -30,52 +30,38 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<arr<ll,3> > a;
-    ll p;
-
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
+    ll lo=1,hi=n,l=0,r=n-1;
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
+    while(r>l){
+        if(a[l]==lo || a[r]==hi || a[l]==hi || a[r]==lo){
+            if(a[l]==lo){
+                l++;
+                lo++;
+            }else if(a[l]==hi){
+                l++;
+                hi--;
+            }else if(a[r]==lo){
+                r--;
+                lo++;
+            }else if(a[r]==hi){
+                r--;
+                hi--;
+            }
         }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+            cout<<l+1<<" "<<r+1<<endl;
+            return;
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
-
-
-    
-
+    cout<<-1<<endl;
 
 
 }

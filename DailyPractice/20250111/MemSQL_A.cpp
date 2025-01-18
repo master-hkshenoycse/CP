@@ -29,51 +29,44 @@
 #define arr array 
 using namespace std;
 
+
 void solve(ll tc){
+    ll n;
+    cin>>n;
     
-    ll n,k;
-    cin>>n>>k;
+    ll ma_x=-1e18,mi_x=1e18,ma_y=-1e18,mi_y=1e18;
+    ll area=0;
 
-    vector<arr<ll,3> > a;
-    ll p;
-
+    ll x1,y1,x2,y2;
     for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+        cin>>x1>>y1>>x2>>y2;
+
+        if(x1>x2){
+            swap(x1,x2);
+        }
+
+        if(y1>y2){
+            swap(y1,y2);
+        }
+
+        ma_x=max(ma_x,x2);
+        mi_x=min(mi_x,x1);
+        ma_y=max(ma_y,y2);
+        mi_y=min(mi_y,y1);
+
+        area+=(x2-x1)*(y2-y1);
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
+   // cout<<area<<endl;
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
+   for(ll i=1;i<=1000000;i++){
+        if(area==i*i and ma_x-mi_x==i and ma_y-mi_y==i){
+            cout<<"YES"<<endl;
+            return;
+        }
+   }
 
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
-    }
-    cout<<endl;
-
-    cout<<ans<<endl;
-
-
+    cout<<"NO"<<endl;
     
 
 
@@ -89,7 +82,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

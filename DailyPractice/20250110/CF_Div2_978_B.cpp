@@ -30,52 +30,37 @@
 using namespace std;
 
 void solve(ll tc){
+    ll n,x;
+    cin>>n>>x;
+
+    vector<ll> a(n);
+    ll s=0;
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        s+=a[i];
+    }
     
-    ll n,k;
-    cin>>n>>k;
 
-    vector<arr<ll,3> > a;
-    ll p;
+    ll lo=1,hi=1e15,ans=hi;
 
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
-    }
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+        ll sold=0;  
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
+        for(ll i=0;i<n;i++){
+            sold+=min(mid,a[i]);
+        }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
+        if(sold<=x*mid and sold==s){
+            ans=min(ans,mid);
+            hi=mid-1;
         }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
+            lo=mid+1;
+        }
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
     }
-    cout<<endl;
 
     cout<<ans<<endl;
-
-
-    
-
 
 
 }

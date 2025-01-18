@@ -30,52 +30,63 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n,x;
+    cin>>n>>x;
 
-    vector<arr<ll,3> > a;
-    ll p;
+    vector<ll> in_deg(n+1,0);
+    vector<ll> nx(n+1,-1);
+    vector<ll> rank_in_seg(n+1,-1);
+    vector<ll> seg_value(n+1,0);
+    vector<ll> seg_sizes;
 
+    ll in_front;
     for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+        cin>>in_front;
+        if(in_front != 0){
+            in_deg[i]++;
+            nx[in_front]=i;
+        }
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
+    ll c=0;
+    for(ll i=1;i<=n;i++){
+        if(in_deg[i]==0 and rank_in_seg[i]==-1){
+            c++;
+            ll rank=0;
+            ll curr=i;
+            while(curr!=-1){
+                rank++;
+                rank_in_seg[curr]=rank;
+                seg_value[curr]=c;
+                curr=nx[curr];
             }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+            seg_sizes.push_back(rank);
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
+    set<ll> poss;
+    poss.insert(0);
+
+    for(ll i=0;i<c;i++){
+        if(i+1==seg_value[x]){
+            continue;
+        }
+
+        set<ll> tmp;
+        for(auto c:poss){
+            tmp.insert(c+seg_sizes[i]);
+        }
+
+        for(auto c:tmp){
+            poss.insert(c);
+        }
+
+    }
 
 
-    
-
+    for(auto p:poss){
+        cout<<p+rank_in_seg[x]<<endl;
+    }
 
 
 }
@@ -89,7 +100,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

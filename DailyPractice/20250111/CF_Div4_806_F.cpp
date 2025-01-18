@@ -29,54 +29,43 @@
 #define arr array 
 using namespace std;
 
+void upd(ll ind,ll val,ll n,vector<ll> &bit){
+    while(ind<=n){
+        bit[ind]+=val;
+        ind+=(ind & (-ind));
+    }
+}
+
+ll query(ll ind,vector<ll> &bit){
+    ll s=0;
+    while(ind>0){
+        s+=bit[ind];
+        ind-=(ind & (-ind));
+    }
+    return s;
+}
 void solve(ll tc){
+    ll n;
+    cin>>n;
+    vector<ll> bit(n+2,0);
+    vector<ll> a(n+1);
     
-    ll n,k;
-    cin>>n>>k;
-
-    vector<arr<ll,3> > a;
-    ll p;
-
     for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+        cin>>a[i];
     }
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
 
     ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
+    for(ll i=1;i<=n;i++){
+        if(i<=a[i]){
+            continue;
+        }
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+        ans=ans+query(a[i]-1,bit);
+        upd(i,1,n,bit);
+
     }
-    cout<<endl;
 
     cout<<ans<<endl;
-
-
-    
-
-
 
 }
 int main(){

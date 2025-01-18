@@ -28,53 +28,70 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll dx[4]={-1,1,0,0};
+ll dy[4]={0,0,-1,1};
 
+void dfs(ll x,ll y,ll &cnt,ll &ma_i,ll &mi_i,ll &ma_j,ll &mi_j,vector<vector<char> >&grid,vector<vector<ll> >&vis){
+    vis[x][y]=1;
+    ma_i=max(ma_i,x);
+    mi_i=min(mi_i,x);
+    ma_j=max(ma_j,y);
+    mi_j=min(mi_j,y);
+
+    cnt++;
+
+    ll n=grid.size(),m=grid[0].size();
+
+
+    for(ll i=0;i<4;i++){
+        ll nx=x+dx[i];
+        ll ny=y+dy[i];
+
+        if(nx>=0 and ny>=0 and nx<n and ny<m and grid[nx][ny]=='1' and vis[nx][ny]==0){
+            dfs(nx,ny,cnt,ma_i,mi_i,ma_j,mi_j,grid,vis);
+        }
+
+    }
+}
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n,m;
+    cin>>n>>m;
 
-    vector<arr<ll,3> > a;
-    ll p;
+    vector<vector<char> > grid(n,vector<char> (m));
+    for(ll i=0;i<n;i++){
+        string s;
+        cin>>s;
 
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+        for(ll j=0;j<m;j++){
+            grid[i][j]=s[j];
+        }
     }
+
+    ll f=1;
+
+    vector<vector<ll> > vis(n,vector<ll> (m,0));
 
     for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+        for(ll j=0;j<m;j++){
+            if(vis[i][j]==0 and grid[i][j]=='1'){
+                ll cnt=0,ma_i=i,mi_i=i,ma_j=j,mi_j=j;
+                dfs(i,j,cnt,ma_i,mi_i,ma_j,mi_j,grid,vis);
+
+                if(cnt != (ma_i-mi_i+1)*(ma_j-mi_j+1)){
+                    f=0;
+                }
+            }
+        }
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+    if(f){
+        cout<<"YES"<<endl;
+    }else{
+        cout<<"NO"<<endl;
     }
-    cout<<endl;
-
-    cout<<ans<<endl;
 
 
-    
+
 
 
 

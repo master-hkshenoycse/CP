@@ -29,52 +29,35 @@
 #define arr array 
 using namespace std;
 
+
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll m,k,a1,ak;
+    cin>>m>>k>>a1>>ak;
 
-    vector<arr<ll,3> > a;
-    ll p;
-
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
-    }
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
+    ll req_k=m/k;
+    ll rem=m%k;
+    ll use_a1=min(a1,rem);
+    a1-=use_a1;
+    rem-=use_a1;
 
     ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
+    ans+=rem;
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+    ll use_ak=min(ak,req_k);
+    ak-=use_ak;
+    req_k-=use_ak;
+
+    if(req_k>0){
+        use_a1=min(a1,req_k*k);
+        a1-=use_a1;
+        req_k-=use_a1/k;
+
     }
-    cout<<endl;
+
+    ans+=req_k;
 
     cout<<ans<<endl;
 
-
-    
 
 
 

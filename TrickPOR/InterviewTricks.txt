@@ -56,3 +56,34 @@ Compare-and-Swap
 two-phase-locks
 Thread throttling
 Distributed Algo's and race-conditions [example rate limiter]
+
+
+Questions:
+
+
+1️⃣ Binary Tree Root (No Color Constraints):
+Given an undirected acyclic connected graph where each node has at most 3 edges, find a node which, when made the root, converts the graph into a binary tree.
+Approach: Just return any node with degree less than 3
+
+
+2️⃣ Binary Tree with Alternating Colors:
+Given an undirected connected acyclic graph where each node has at most 3 edges, and nodes are colored Black or White, find a root such that:
+• The graph becomes a binary tree.
+• The tree alternates in color across layers (e.g., Depth 0: White, Depth 1: Black, Depth 2: White, etc.).
+Either White or Black can be the starting color.
+Approach: First check if there is no edge with same color on both ends and after verfiying this return any node with degree less than 3.
+
+
+3️⃣ Binary Tree with Fixed Color Order (R, B, W):
+Given an undirected connected acyclic graph where each node has at most 3 edges, and nodes are colored Red (R), Blue (B), or White (W), find a root such that:
+• The graph becomes a binary tree.
+• The layers of the tree follow a fixed color sequence (e.g., RBWRBW… or BWRBWR… or WRBWRB).
+Approach: For any given node with it's color we can determine it's parent color beause relative order is fixed RBWRBW. So there can be atmost 1 neighbor with it's parent color and other nodes should have color equal to it's child color. Ex: If given node is B then parent can be R and child can be W. If there is a node with no parent color neighbor that means it is candidate for root and if we find more than 1 candidate for root then we return -1.
+
+
+Explained and coded all 3 problems within 40min Yestarday and got call from recrutor today that I have cleared the round.
+
+
+I will keep this post updated with further process.
+
+https://leetcode.com/discuss/interview-question/6246929/amazon-problems-online-rounds

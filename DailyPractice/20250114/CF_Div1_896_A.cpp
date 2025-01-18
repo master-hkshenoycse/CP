@@ -28,54 +28,55 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll calc_mex(vector<vector<ll> > &a){
+    ll n=a.size();
+    ll m=a[0].size();
+    map<ll,ll> overall;
 
+    for(ll j=0;j<m;j++){
+        map<ll,ll> help;
+        for(ll i=0;i<n;i++){
+            help[a[i][j]]++;
+        }
+
+        ll mex=0;
+        while(help[mex]>0){
+            mex++;
+        }
+        overall[mex]++;
+    }
+
+    ll ret=0;
+    while(overall[ret]>0){
+        ret++;
+    }
+    return ret;
+}
 void solve(ll tc){
+    ll n,m;
+    cin>>n>>m;
+
+    vector<vector<ll> > sol(n,vector<ll> (m,0));
     
-    ll n,k;
-    cin>>n>>k;
-
-    vector<arr<ll,3> > a;
-    ll p;
-
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
-    }
-
     for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
+        if(i<m-1){
+            for(ll j=0;j<m;j++){
+                sol[i][j]=(i+j)%m;
+            }
         }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
+            for(ll j=0;j<m;j++){
+                if(i>0)sol[i][j]=sol[i-1][j];
             }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
-
-
-    
-
+    cout<<calc_mex(sol)<<endl;
+    for(ll i=0;i<n;i++){
+        for(ll j=0;j<m;j++){
+            cout<<sol[i][j]<<" ";
+        }
+        cout<<endl;
+    }
 
 
 }

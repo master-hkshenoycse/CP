@@ -30,52 +30,29 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<arr<ll,3> > a;
-    ll p;
+    vector<ll> a(n+1),csum(n+3,0);
 
     for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+        cin>>a[i];
+        csum[i]+=csum[i-1];
+        ll curr=a[i]+csum[i];
+        a[i]+=csum[i];
+
+        if(a[i]==0){
+            cout<<a[i]<<" ";
+            continue;
+        }
+
+        ll loss=min(n-i,a[i]);
+        csum[i+1]++;
+        csum[min(n+1,i+loss+1)]--;
+
+        a[i]=a[i]-loss;
+        cout<<a[i]<<" ";
     }
-
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
-    }
-    cout<<endl;
-
-    cout<<ans<<endl;
-
-
-    
-
 
 
 }
@@ -89,7 +66,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

@@ -30,51 +30,29 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<arr<ll,3> > a;
-    ll p;
-
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
-    }
-
+    vector<ll> a(n);
     for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+        cin>>a[i];
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+    ll l=0,r=1e9;
+     
+    for(ll i=1;i<n;i++){
+        if(a[i]>a[i-1]){
+            r=min(r,(a[i]+a[i-1])/2ll);           
+        }else if(a[i]<a[i-1]){
+            l=max(l,(a[i]+a[i-1]+1)/2ll);
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
-
-
-    
+    if(l<=r){
+        cout<<l<<endl;
+        return;
+    }
+    cout<<-1<<endl;
 
 
 

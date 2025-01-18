@@ -30,53 +30,58 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<arr<ll,3> > a;
-    ll p;
+    vector<ll> in_deg(n+1,0);
+    vector<vector<ll> > adj(n+1);
+    string s;
+    for(ll i=1;i<=n;i++){
+        cin>>s;
+
+        for(ll j=1;j<=n;j++){
+            if(s[j-1]=='1'){
+                in_deg[j]++;
+                adj[i].pb(j);
+            }
+        } 
+    }
+
+    vector<set<ll> > sol(n+1);
+    queue<ll> q;
+
 
     for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+        if(in_deg[i]==0){
+            q.push(i);
+            sol[i].insert(i);
+        }
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
+    while(q.size()>0){
+        ll v=q.front();
+        q.pop();
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
+        for(auto to:adj[v]){
+            in_deg[to]--;
+            if(in_deg[to]==0){  
+                sol[to].insert(to);
+                q.push(to);
             }
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
+            for(auto e:sol[v]){
+                sol[to].insert(e);
             }
-        }   
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
-
-
-    
-
-
+    for(ll i=1;i<=n;i++){
+        cout<<sol[i].size()<<" ";
+        for(auto e:sol[i]){
+            cout<<e<<" ";
+        }
+        cout<<endl;
+    }
 
 }
 int main(){

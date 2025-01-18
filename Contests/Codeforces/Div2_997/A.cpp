@@ -30,54 +30,38 @@
 using namespace std;
 
 void solve(ll tc){
+
+    ll n,m,ans=0;
+    ll x1,x2,y1,y2;
+
+    cin>>n>>m;
+
+    ans=n*4*m;
+    ll x,y;
     
-    ll n,k;
-    cin>>n>>k;
-
-    vector<arr<ll,3> > a;
-    ll p;
-
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
-    }
-
     for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
+        cin>>x>>y;
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
+        if(i==0){
+            x1=x;
+            x2=x+m;
+            y1=y;
+            y2=y+m;
         }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+            ll x_inter=min(x2,x1+x+m)-max(x1,x1+x);
+            ll y_inter=min(y2,y2+y+m)-max(y1,y1+y);
+            ans=ans-2*(x_inter+y_inter);
+            x1+=x;
+            x2=x1+m;
+            y1+=y;
+            y2=y1+m;
+
+        }
     }
-    cout<<endl;
 
     cout<<ans<<endl;
-
-
     
-
-
-
 }
 int main(){
     boost;

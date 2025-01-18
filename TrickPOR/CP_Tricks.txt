@@ -258,3 +258,37 @@ https://codeforces.com/problemset/problem/1949/B
 Match the largest and smallest element of a and b,
 check for all i , smallest i A with largest i b, and largest n-i A with smallest b-i B.
  
+
+https://leetcode.com/problems/longest-subsequence-with-decreasing-adjacent-difference/description/ 
+dp with state reduction dp(num,diff)-- > store longest ending at num with diff<=diff (prefix max of diff)
+
+https://leetcode.com/problems/maximize-subarray-sum-after-removing-all-occurrences-of-one-element/
+For removal of elements use segment tree and keep segment tree for max subarray
+
+https://codeforces.com/contest/2057/problem/C 
+Start from highest set bit where they differ
+
+https://codeforces.com/contest/2057/problem/D
+maximum and minimum are at extremes ends of segment in optimal solution,use this fact to build a segment tree.
+
+https://codeforces.com/problemset/problem/1770/B 
+Always a constant answer, think about typical permutations (n,1,n-1,2,)..
+
+https://leetcode.com/problems/count-non-decreasing-subarrays-after-k-operations/solutions/6267498/java-c-python-mono-decreasing-deque-o-n/
+
+
+20250114
+https://leetcode.com/problems/count-non-decreasing-subarrays-after-k-operations/?slug=count-non-decreasing-subarrays-after-k-operations&region=global_v2
+maintain deque, iterate from right to left, and decrese right pointer based on operation count.
+
+
+https://codeforces.com/contest/2055/problem/C
+Try to make sum 0
+
+https://www.codechef.com/problems/EQUXOR
+Prefix xor and equalize it , see the condition, and dp on the prefix xor value
+
+
+20250118
+https://codeforces.com/contest/2056/problem/D
+way to calculate bad sehment, count of <= element=gt element, use +1, -1 cumiltaive sum

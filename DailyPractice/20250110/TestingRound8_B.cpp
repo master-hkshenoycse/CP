@@ -30,52 +30,31 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    vector<ll> req(10,0),avail(10,0);
 
-    vector<arr<ll,3> > a;
-    ll p;
+    string t,s;
+    cin>>t>>s;
 
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+    for(auto ch:t){
+        if(ch=='9' || ch=='6')req['6'-'0']++;
+        else if(ch=='5'|| ch=='2')req['2'-'0']++;
+        else req[ch-'0']++;
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+    for(auto ch:s){
+        if(ch=='9' || ch=='6')avail['6'-'0']++;
+        else if(ch=='5'|| ch=='2')avail['2'-'0']++;
+        else avail[ch-'0']++;
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+    ll ans=1e18;
+    for(ll i=0;i<10;i++){
+        if(req[i]>0){
+            ans=min(ans,avail[i]/req[i]);
+        }
     }
-    cout<<endl;
 
     cout<<ans<<endl;
-
-
-    
-
 
 
 }
@@ -89,7 +68,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

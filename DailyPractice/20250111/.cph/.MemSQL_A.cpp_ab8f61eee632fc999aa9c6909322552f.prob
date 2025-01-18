@@ -1,0 +1,1 @@
+{"name":"Local: MemSQL_A","url":"c:\\Users\\acer\\Desktop\\CP\\DailyPractice\\20250111\\MemSQL_A.cpp","tests":[{"id":1736617481347,"input":"5\n0 0 2 3\n0 3 3 5\n2 0 5 2\n3 2 5 5\n2 2 3 3\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\acer\\Desktop\\CP\\DailyPractice\\20250111\\MemSQL_A.cpp","group":"local","local":true}

@@ -1,0 +1,1 @@
+{"name":"Local: CF_ABBY_3_0","url":"c:\\Users\\acer\\Desktop\\CP\\DailyPractice\\20250114\\CF_ABBY_3_0.cpp","tests":[{"id":1736866545689,"input":"5 5\n1 3 1 2 4\n2 1 4\n2 1 5\n2 2 4\n1 3 10\n2 1 5\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\acer\\Desktop\\CP\\DailyPractice\\20250114\\CF_ABBY_3_0.cpp","group":"local","local":true}

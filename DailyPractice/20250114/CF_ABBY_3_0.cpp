@@ -28,68 +28,59 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll f[200005];
+ll mod=1e9;
 
+void pre_cum(){
+    f[0]=1;
+    f[1]=1;
+
+    for(ll i=2;i<=2000;i++){
+        f[i]=(f[i-1]+f[i-2])%mod;
+    }
+}
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n,m;
+    cin>>n>>m;
 
-    vector<arr<ll,3> > a;
-    ll p;
-
+    vector<ll> a(n+1);
     for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+        cin>>a[i];
     }
+    ll ty,l,r,x,v;
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
-    }
+    while(m--){
+        cin>>ty;
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
+        if(ty==1){
+            cin>>x>>v;
+            a[x]=v;
+        }else if(ty==2){
+            cin>>l>>r;
+            ll res=0;
+            for(ll i=0;i<=r-l;i++){
+                res=res+(f[i]*a[i+l])%mod;
+                res%=mod;
             }
+            cout<<res<<endl;
+        }
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+
     }
-    cout<<endl;
-
-    cout<<ans<<endl;
-
-
-    
-
 
 
 }
 int main(){
     boost;
 
-    //pre_cum();
+    pre_cum();
     //prec(10);
 	//fre;
 
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

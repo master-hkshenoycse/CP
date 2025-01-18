@@ -30,54 +30,41 @@
 using namespace std;
 
 void solve(ll tc){
-    
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<arr<ll,3> > a;
-    ll p;
-
-    for(ll i=1;i<=n;i++){
-        cin>>p;
-        a.push_back({})
+    vector<ll> a(n),b(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
     }
 
     for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+        cin>>b[i];
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
-
-    ll ans=0;
-    ans=0;
+    ll ex_min=1e18,req_max=0,req_cnt=0;
     for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
+        if(a[i]<b[i]){
+            req_cnt++;
+            req_max=max(req_max,b[i]-a[i]);
         }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
-
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
-            }
-        }   
+            ex_min=min(ex_min,a[i]-b[i]);
+        }
     }
-    cout<<endl;
 
-    cout<<ans<<endl;
+    if(req_cnt>1){
+        cout<<"NO"<<endl;
+        return;
+    }
+
+    if(req_max<=ex_min){
+        cout<<"YES"<<endl;
+    }else{
+        cout<<"NO"<<endl;
+    }
 
 
     
-
-
-
 }
 int main(){
     boost;
