@@ -292,3 +292,9 @@ Prefix xor and equalize it , see the condition, and dp on the prefix xor value
 20250118
 https://codeforces.com/contest/2056/problem/D
 way to calculate bad sehment, count of <= element=gt element, use +1, -1 cumiltaive sum
+
+
+20250120
+https://leetcode.com/problems/manhattan-distances-of-all-arrangements-of-pieces/description/
+consider every pair, and select positions for other pairs(multiply this value , use combinatorics forumla)
+technique to calculate this
