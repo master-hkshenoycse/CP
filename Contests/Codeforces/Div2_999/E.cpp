@@ -28,67 +28,73 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+ll get_cnt(ll n){
+    ll c=0;
+    while(n>0){
+        c++;
+        n=(n & (n-1));
+    }
+    return c;
+}
 void solve(ll tc){
-    ll e,n,m;
-    cin>>n>>m;
+    ll n,m,k;
+    cin>>n>>m>>k;
 
-    multiset<ll> a,b;
-    for(ll i=1;i<=n;i++){
-        cin>>e;
-        a.insert(e);
+    vector<ll> a(n),b(m);
+    ll ans=0;
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        ans+=a[i];
     }
 
-    for(ll i=1;i<=m;i++){
-        cin>>e;
-        b.insert(e);
+    for(ll i=0;i<m;i++){
+        cin>>b[i];
+    }
+    ll lim=(1<<m);
+    vector<ll> and_val(lim+1),one_cnt(lim+1);
+    for(ll i=1;i<(1<<m);i++){
+        ll v=-1,cnt=0;
+        for(ll j=0;j<m;j++){
+            if(i&(1ll<<j)){
+                cnt++;
+                if(v==-1){
+                    v=b[j];
+                }else{
+                    v=(v & b[j]);
+                }
+            }
+        }
+       and_val[i]=v;
+       one_cnt[i]=cnt;
     }
 
+    vector<ll> diff;
+    for(ll i=0;i<n;i++){
+        vector<ll> min_val(m+1,a[i]);
 
-    ll ops=n-m;
-
-    while(b.size()>0){
-
-        if(a.size()==0){
-            cout<<"No"<<endl;
-            return;
-        }
-        
-
-        ll x=*(--a.end());
-        ll y=*(--b.end());
-
-
-        if(x==y){
-            b.erase(b.find(y));
-            a.erase(a.find(x));
-            continue;
+        for(ll j=1;j<(1<<m);j++){
+           
+            min_val[one_cnt[j]]=min(min_val[one_cnt[j]],and_val[j]&a[i]);
         }
 
-        if(x > y){
-            cout<<"No"<<endl;
-            return;
+        for(ll j=1;j<=m;j++){
+            diff.pb(min_val[j]-min_val[j-1]);
         }
-
-        if(ops==0){
-            cout<<"No"<<endl;
-            return;
-        }
-
-
-        ops--;
-        b.erase(b.find(y));
-        b.insert(y/2);
-        b.insert((y+1)/2);        
-        
-
-    }   
-
-    if(a.size()>0 or b.size()>0){
-        cout<<"No"<<endl;
-        return;
     }
 
-    cout<<"Yes"<<endl;
+    
+    sort(all(diff));
+    for(ll i=0;i<k;i++){
+        ans=ans+diff[i];
+    }
+
+    cout<<ans<<endl;
+
+
+
+
+
+
 
 }
 int main(){

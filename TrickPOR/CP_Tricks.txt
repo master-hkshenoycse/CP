@@ -298,3 +298,11 @@ way to calculate bad sehment, count of <= element=gt element, use +1, -1 cumilta
 https://leetcode.com/problems/manhattan-distances-of-all-arrangements-of-pieces/description/
 consider every pair, and select positions for other pairs(multiply this value , use combinatorics forumla)
 technique to calculate this
+
+
+20250121
+https://codeforces.com/contest/2061/problem/D start from highest element,if not found, then it can be created by 
+x/2 and (x+1)/2
+
+https://codeforces.com/contest/2061/problem/E : as number of elements to do AND is less, brute force for number of operation
+and min value acheived, see incremental gain in each operation for a particualr elemenet select k least incremental gain.

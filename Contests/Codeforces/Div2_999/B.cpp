@@ -52,8 +52,13 @@ void solve(ll tc){
         
     
 
-        if(c==4){
+        if(c>=4){
             cout<<a[i]<<" "<<a[i]<<" "<<a[i]<<" "<<a[i]<<endl;
+            return;
+        }
+
+        if(c==3 and x.size()>0){
+            cout<<a[i]<<" "<<a[i]<<" "<<a[i]<<" "<<(*x.begin())<<endl;
             return;
         }
 
@@ -72,7 +77,23 @@ void solve(ll tc){
             return;
         }
 
-        if(freq_3.size()>0 and )
+        if(freq_3.size()>0){
+            ll x=*(--freq_3.end());
+            ll y=-1;
+
+            if(freq_2.size()>0){
+                y=max(y,*(--freq_2.end()));
+            }
+
+            if(freq_1.size()>0){
+                y=max(y,*(--freq_1.end()));
+            }
+
+            if(y!=-1 and 2*x+y>a[i]){
+                cout<<x<<" "<<x<<" "<<y<<" "<<a[i]<<endl;
+                return;
+            }
+        }
 
 
         if(freq_2.size()>0){

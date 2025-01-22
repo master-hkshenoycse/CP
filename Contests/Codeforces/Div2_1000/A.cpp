@@ -29,67 +29,16 @@
 #define arr array 
 using namespace std;
 void solve(ll tc){
-    ll e,n,m;
-    cin>>n>>m;
+    ll l,r;
+    cin>>l>>r;
 
-    multiset<ll> a,b;
-    for(ll i=1;i<=n;i++){
-        cin>>e;
-        a.insert(e);
+    ll ans=r-l;
+
+    if(l==1 and r==1){
+        ans=1;
     }
 
-    for(ll i=1;i<=m;i++){
-        cin>>e;
-        b.insert(e);
-    }
-
-
-    ll ops=n-m;
-
-    while(b.size()>0){
-
-        if(a.size()==0){
-            cout<<"No"<<endl;
-            return;
-        }
-        
-
-        ll x=*(--a.end());
-        ll y=*(--b.end());
-
-
-        if(x==y){
-            b.erase(b.find(y));
-            a.erase(a.find(x));
-            continue;
-        }
-
-        if(x > y){
-            cout<<"No"<<endl;
-            return;
-        }
-
-        if(ops==0){
-            cout<<"No"<<endl;
-            return;
-        }
-
-
-        ops--;
-        b.erase(b.find(y));
-        b.insert(y/2);
-        b.insert((y+1)/2);        
-        
-
-    }   
-
-    if(a.size()>0 or b.size()>0){
-        cout<<"No"<<endl;
-        return;
-    }
-
-    cout<<"Yes"<<endl;
-
+    cout<<ans<<endl;
 }
 int main(){
     boost;

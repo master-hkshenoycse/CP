@@ -29,66 +29,52 @@
 #define arr array 
 using namespace std;
 void solve(ll tc){
-    ll e,n,m;
-    cin>>n>>m;
+    ll e,n,l,r;
 
-    multiset<ll> a,b;
+    cin>>n>>l>>r;
+
+    vector<ll> pref,curr,suff;
+    ll ans=0,og=0;
     for(ll i=1;i<=n;i++){
         cin>>e;
-        a.insert(e);
+        if(i<l){
+            pref.pb(e);
+        }else if(i>=l and i<=r){
+            curr.pb(e);
+            og+=e;
+        }else{
+            suff.pb(e);
+        }
     }
 
-    for(ll i=1;i<=m;i++){
-        cin>>e;
-        b.insert(e);
+    sort(all(pref));
+    sort(all(curr));
+    sort(all(suff));
+    
+    
+    ll gain_pref=0;
+
+    ll sz;
+    ll cs=0;
+    sz=min(curr.size(),pref.size());
+    for(ll i=0;i<sz;i++){
+        cs=cs+(pref[i]-curr[curr.size()-i-1]);
+        gain_pref=min(gain_pref,cs);
+    }
+
+    
+
+    ll gain_suff=0;
+    sz=min(curr.size(),suff.size());
+    cs=0;
+    for(ll i=0;i<sz;i++){
+        cs=cs+(suff[i]-curr[curr.size()-i-1]);
+        gain_suff=min(gain_suff,cs);
     }
 
 
-    ll ops=n-m;
 
-    while(b.size()>0){
-
-        if(a.size()==0){
-            cout<<"No"<<endl;
-            return;
-        }
-        
-
-        ll x=*(--a.end());
-        ll y=*(--b.end());
-
-
-        if(x==y){
-            b.erase(b.find(y));
-            a.erase(a.find(x));
-            continue;
-        }
-
-        if(x > y){
-            cout<<"No"<<endl;
-            return;
-        }
-
-        if(ops==0){
-            cout<<"No"<<endl;
-            return;
-        }
-
-
-        ops--;
-        b.erase(b.find(y));
-        b.insert(y/2);
-        b.insert((y+1)/2);        
-        
-
-    }   
-
-    if(a.size()>0 or b.size()>0){
-        cout<<"No"<<endl;
-        return;
-    }
-
-    cout<<"Yes"<<endl;
+    cout<<min(og+gain_pref,og+gain_suff)<<endl;
 
 }
 int main(){
