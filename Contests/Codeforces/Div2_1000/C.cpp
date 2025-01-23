@@ -29,24 +29,79 @@
 #define arr array 
 using namespace std;
 
-void dfs(ll v,ll p,vector<vector<ll> > &adj,)
+void dfs(ll v,ll p,vector<vector<ll> > &adj,vector<ll> &gain,ll &ans){
+    ll ex_comp=adj[v].size();
+    if(p != -1){
+        ex_comp--;
+    }
+    gain[v]=0;
+
+    for(auto to:adj[v]){
+        if(to==p){
+            continue;
+        }
+        dfs(to,v,adj,gain,ans);
+        gain[v]=max(gain[v],gain[to]);
+    }
+
+    ans=max(ans,gain[v]+ex_comp);
+    gain[v]=max(gain[v],ex_comp);
+}
+
+void dfs2(ll v,ll p,vector<vector<ll> >&adj,ll prev,vector<ll> &gain,ll &ans){
+    vector<ll> suff,pref;
+    ans=max(ans,gain[v]+prev);
+    for(auto to:adj[v]){
+        if(to==p){
+            continue;
+        }
+        pref.pb(gain[to]);
+        suff.pb(gain[to]);
+    }
+    ll sz=pref.size();
+    for(ll i=1;i<sz;i++){
+        pref[i]=max(pref[i],pref[i-1]);
+    }
+
+    for(ll i=sz-2;i>=0;i--){
+        suff[i]=max(suff[i],suff[i+1]);
+    }
+
+    ll c=0;
+    for(auto to:adj[v]){
+        if(to==p){
+            continue;
+        }
+        ll nx_p=prev;
+        if(c-1>=0){
+            nx_p=max(nx_p,pref[c-1]);
+        }
+        if(c+1<sz){
+            nx_p=max(nx_p,suff[c+1]);
+        }
+
+        dfs2(to,v,adj,nx_p,gain,ans);
+    }
+}
+
 void solve(ll tc){
     ll n;
     cin>>n;
 
     vector<vector<ll> > adj(n+1);
-    vector<ll> deg(n+1,0);
-    vector<ll> sub_max(n+1,0);
+    vector<ll> gain(n+1,0);
     ll x,y;
-    for(ll i=1;i<=n;i++){
+    for(ll i=1;i<=n-1;i++){
         cin>>x>>y;
         adj[x].pb(y);
         adj[y].pb(x);
-        deg[x]++;
-        deg[y]++;
+    
     }
 
     ll ans=0;
+    dfs(1,-1,adj,gain,ans);
+    dfs2(1,-1,adj,0,gain,ans);
+    cout<<ans<<endl;
 
 }
 int main(){
