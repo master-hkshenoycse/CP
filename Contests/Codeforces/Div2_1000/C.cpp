@@ -31,10 +31,8 @@ using namespace std;
 
 void dfs(ll v,ll p,vector<vector<ll> > &adj,vector<ll> &gain,ll &ans){
     ll ex_comp=adj[v].size();
-    if(p != -1){
-        ex_comp--;
-    }
-    gain[v]=0;
+   
+    gain[v]=-1e18;
 
     for(auto to:adj[v]){
         if(to==p){
@@ -42,15 +40,28 @@ void dfs(ll v,ll p,vector<vector<ll> > &adj,vector<ll> &gain,ll &ans){
         }
         dfs(to,v,adj,gain,ans);
         gain[v]=max(gain[v],gain[to]);
+        ans=max(ans,ex_comp+adj[to].size()-2);
     }
 
-    ans=max(ans,gain[v]+ex_comp);
-    gain[v]=max(gain[v],ex_comp);
+    //cout<<v<<" "<<ans<<endl;
+    ans=max(ans,gain[v]+ex_comp-1);
+
+    //cout<<v<<" "<<ans<<endl;
+    for(auto to:adj[v]){
+        if(to==p){
+            continue;
+        }
+        gain[to]=max(gain[to],adj[to].size()*1ll);
+        gain[v]=max(gain[v],gain[to]);
+    }
+
+    //gain[v]=max(gain[v],ex_comp);
+  
 }
 
 void dfs2(ll v,ll p,vector<vector<ll> >&adj,ll prev,vector<ll> &gain,ll &ans){
     vector<ll> suff,pref;
-    ans=max(ans,gain[v]+prev);
+    ans=max(ans,gain[v]+prev-1);
     for(auto to:adj[v]){
         if(to==p){
             continue;
@@ -81,6 +92,8 @@ void dfs2(ll v,ll p,vector<vector<ll> >&adj,ll prev,vector<ll> &gain,ll &ans){
         }
 
         dfs2(to,v,adj,nx_p,gain,ans);
+
+        c++;
     }
 }
 
@@ -89,7 +102,7 @@ void solve(ll tc){
     cin>>n;
 
     vector<vector<ll> > adj(n+1);
-    vector<ll> gain(n+1,0);
+    vector<ll> gain(n+1,-1e18);
     ll x,y;
     for(ll i=1;i<=n-1;i++){
         cin>>x>>y;
@@ -100,6 +113,9 @@ void solve(ll tc){
 
     ll ans=0;
     dfs(1,-1,adj,gain,ans);
+
+    //gain[1]=adj[1].size();
+    
     dfs2(1,-1,adj,0,gain,ans);
     cout<<ans<<endl;
 
