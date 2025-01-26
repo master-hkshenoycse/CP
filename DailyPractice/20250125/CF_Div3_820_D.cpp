@@ -30,38 +30,44 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,m,sx,sy,d;
-    cin>>n>>m>>sx>>sy>>d;
+    ll n;
+    cin>>n;
 
-    if(n-sx<=d and sx-1<=d){
-        cout<<-1<<endl;
-        return;
+    vector<ll> x(n),y(n);
+    for(ll i=0;i<n;i++){
+        cin>>x[i];
     }
 
-    if(m-sy<=d and sy-1<=d){
-        cout<<-1<<endl;
-        return;
+    for(ll i=0;i<n;i++){
+        cin>>y[i];
     }
 
-    if(sy-1<=d and sx-1<=d){
-        cout<<-1<<endl;
-        return;
-    }
+    ll ans=0;
 
-    if(m-sy<=d and n-sx<=d){
-        cout<<-1<<endl;
-        return;
+    vector<ll> diff;
+    for(ll i=0;i<n;i++){
+        diff.pb(y[i]-x[i]);
     }
 
 
-    if(abs(n-sx)+abs(m-sy)<=d){
-        cout<<-1<<endl;
-        return;
+    ll lo=0,hi=n-1;
+    sort(all(diff));
+    while(hi>lo){
+        while(hi>lo and diff[hi]+diff[lo]<0){
+            lo++;
+        }
+
+        if(diff[hi]+diff[lo]>=0 and lo<hi){
+            lo++;
+            hi--;
+            ans++;
+
+        }
     }
 
-    cout<<n+m-2<<endl;
+    cout<<ans<<endl;
 
-
+    
 
 
 }

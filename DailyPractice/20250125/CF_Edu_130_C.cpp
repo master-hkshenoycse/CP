@@ -30,39 +30,73 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,m,sx,sy,d;
-    cin>>n>>m>>sx>>sy>>d;
+    ll n;
+    cin>>n;
 
-    if(n-sx<=d and sx-1<=d){
-        cout<<-1<<endl;
+    string s,t;
+    cin>>s>>t;
+
+    ll c_a=0,c_b=0,c_c=0;
+
+    vector<ll> s_a_ind,t_a_ind,s_c_ind,t_c_ind;
+
+    string tmp_s,tmp_t;
+
+    for(ll i=0;i<n;i++){
+        if(s[i]=='a'){
+            c_a++;
+            s_a_ind.pb(i);
+            tmp_s+=s[i];
+
+        }else if(s[i]=='b'){
+            c_b++;
+        }else{
+            c_c++;
+            s_c_ind.pb(i);
+            tmp_s+=s[i];
+
+        }
+
+        if(t[i]=='a'){
+            c_a--;
+            t_a_ind.pb(i);
+            tmp_t+=t[i];
+        }else if(t[i]=='b'){
+            c_b--;
+        }else{
+            c_c--;
+            t_c_ind.pb(i);
+            tmp_t+=t[i];
+        }   
+
+    }
+
+    if(c_a!=0 || c_b!=0 || c_c!=0){
+        cout<<"NO"<<endl;
+        return;
+    }
+    
+
+    for(ll i=0;i<s_a_ind.size();i++){
+        if(s_a_ind[i] > t_a_ind[i]){
+            cout<<"NO"<<endl;
+            return;
+        }
+    }
+
+    for(ll i=0;i<s_c_ind.size();i++){
+        if(s_c_ind[i] < t_c_ind[i]){
+            cout<<"NO"<<endl;
+            return;
+        }
+    }
+
+    if(tmp_s != tmp_t){
+        cout<<"NO"<<endl;
         return;
     }
 
-    if(m-sy<=d and sy-1<=d){
-        cout<<-1<<endl;
-        return;
-    }
-
-    if(sy-1<=d and sx-1<=d){
-        cout<<-1<<endl;
-        return;
-    }
-
-    if(m-sy<=d and n-sx<=d){
-        cout<<-1<<endl;
-        return;
-    }
-
-
-    if(abs(n-sx)+abs(m-sy)<=d){
-        cout<<-1<<endl;
-        return;
-    }
-
-    cout<<n+m-2<<endl;
-
-
-
+    cout<<"YES"<<endl;
 
 }
 int main(){

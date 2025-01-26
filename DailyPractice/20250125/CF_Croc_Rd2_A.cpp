@@ -30,37 +30,70 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,m,sx,sy,d;
-    cin>>n>>m>>sx>>sy>>d;
+    ll n;
+    cin>>n;
 
-    if(n-sx<=d and sx-1<=d){
-        cout<<-1<<endl;
-        return;
+    string s,t;
+    cin>>s>>t;
+
+    ll one=0;
+
+    ll c11=0,c10=0,c01=0,c00=0;
+
+    for(ll i=0;i<2*n;i++){
+        if(s[i]=='1' and t[i]=='1'){
+            c11++;
+        }else if(s[i]=='1' and t[i]=='0'){
+            c10++;
+        }else if(s[i]=='0' and t[i]=='1'){
+            c01++;
+        }else{
+            c00++;
+        }
+
     }
 
-    if(m-sy<=d and sy-1<=d){
-        cout<<-1<<endl;
-        return;
+    ll ch=0,moves=0;
+
+    while(moves<2*n){
+        if(ch==0){
+            if(c11>0){
+                c11--;
+                one++;
+            }else if(c10>0){
+                c10--;
+                one++;
+            }else if(c01>0){
+                c01--;
+            }else{
+                c00--;
+            }
+        }else{
+
+            if(c11>0){
+                c11--;
+                one--;
+            }else if(c01>0){
+                c01--;
+                one--;
+            }else if(c10>0){
+                c10--;
+            }else{
+                c00--;
+            }
+
+        }
+        ch=1-ch;
+        moves++;
     }
 
-    if(sy-1<=d and sx-1<=d){
-        cout<<-1<<endl;
-        return;
+    if(one>0){
+        cout<<"First"<<endl;
+    }else if(one<0){
+        cout<<"Second"<<endl;
+    }else{
+        cout<<"Draw"<<endl;
     }
-
-    if(m-sy<=d and n-sx<=d){
-        cout<<-1<<endl;
-        return;
-    }
-
-
-    if(abs(n-sx)+abs(m-sy)<=d){
-        cout<<-1<<endl;
-        return;
-    }
-
-    cout<<n+m-2<<endl;
-
 
 
 
@@ -75,7 +108,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);
