@@ -30,67 +30,43 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,m;
-    cin>>n>>m;
+    ll n;
+    cin>>n;
 
-    vector<ll> p(n);
-    
+    vector<ll> a(n);
     for(ll i=0;i<n;i++){
-        cin>>p[i];
+        cin>>a[i];
     }
 
+    vector<ll> front_side(n);
+    multiset<ll> back_side;
 
-    ll lo=0,hi=m,max_x=0;
+    ll suff_min_start=n,suff_min_end=n;
 
-    while(hi>=lo){
-        ll mid=(hi+lo)/2ll;
-
-
-        ll f=1,rem=m;
-
-        for(ll i=0;i<n;i++){
-
-            ll units=(p[i]+mid)/(2*p[i]);
-
-
-            if(units>0 and p[i]*units > rem/units){
-                f=0;
-                break;
-            }
-
-            rem-=p[i]*units*units;
-            
-        }
-
-        if(f){
-            max_x=max(max_x,mid);
-            lo=mid+1;
+    for(ll i=n-1;i>=0;i--){
+        if(suff_min_start>=suff_min_end or a[i]<=front_side[suff_min_start]){
+            suff_min_start--;
+            front_side[suff_min_start]=a[i];
         }else{
-            hi=mid-1;
+            back_side.insert(a[i]+1);
+        }
+
+        while(suff_min_start < suff_min_end && back_side.size()>0 and  front_side[suff_min_end-1] > *back_side.begin()){
+            back_side.insert(front_side[suff_min_end-1]+1);
+            suff_min_end--;
         }
     }
 
-    ll ans=0;
-    for(ll i=0;i<n;i++){
-        ll units=(p[i]+max_x)/(2*p[i]);
-        m-=p[i]*units*units;
-        ans+=units;
+    for(ll i=suff_min_start;i<suff_min_end;i++){
+        cout<<front_side[i]<<" ";
     }
 
-    for(ll i=0;i<n;i++){
-        ll units=(p[i]+max_x)/(2*p[i]);
-        p[i]=(2*units+1)*p[i];
+    for(auto e:back_side){
+        cout<<e<<" ";
     }
 
-    sort(all(p));
-    for(ll i=0;i<n;i++){
-        if(m>=p[i]){
-            ans++;
-            m-=p[i];
-        }
-    }
+    cout<<endl;
 
-    cout<<ans<<endl;
 }
 int main(){
     boost;
@@ -102,7 +78,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    //cin>>t;
+    cin>>t;
 
 	while(t--){
 		solve(tc);

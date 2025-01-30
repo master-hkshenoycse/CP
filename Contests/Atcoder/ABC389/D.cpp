@@ -35,43 +35,23 @@ void solve(ll tc){
     cin>>r;
 
     ll cnt=0;
+    ll up=r-1;
 
-    for(ll i=-r;i<=r;i++){
-        for(ll j=-r;j<=r;j++){
-            if(i*i+j*j<=r*r){
-                cnt++;
-            }
+
+    for(ll i=1;i<r && up>0;i++){
+        while(up>0 and (2*i+1)*(2*i+1)+(2*up+1)*(2*up+1)>4*r*r){
+            up--;
         }
+
+        cnt=cnt+4*up;
     }
 
-    cout<<cnt-2025<<endl;
+    cnt+=4*(r-1);
+    cnt++;
 
-    for(ll i=0;i<=r-1;i++){
-        ll lo=0,hi=r,ret=0;
+  
 
-        while(hi>=lo){
-            ll mid=(hi+lo)/2ll;
-            if(mid*mid + i*i<=r*r){
-                ret=max(ret,mid);
-                lo=mid+1;
-            }else{
-                hi=mid-1;
-            }
-        }
-
-        ans=ans+1+(i>0);
-        if(i>0){
-            if(ret>0){
-                ans=ans+(ret-1)*4;
-            }
-        }else{
-            if(ret>0){
-                ans=ans+(ret-1)*2;
-            }
-        }
-    }
-
-    cout<<ans<<endl;
+    cout<<cnt<<endl;
 
 }
 int main(){
