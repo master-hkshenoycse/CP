@@ -43,6 +43,39 @@ void solve(ll tc){
     }
 
     ll kevin=a[0];
+    sort(all(a));
+    sort(all(b));
+
+
+    vector<ll> gain(m,0);
+    ll j=0;
+    for(ll i=0;i<m;i++){
+        while(j<n and a[j]<b[i]){
+            j++;
+        }
+
+        if(b[i]>kevin){
+            gain[i]=n-j;
+        }
+
+      //  cout<<i<<" "<<b[i]<<" "<<gain[i]<<endl;
+    }    
+
+    sort(all(gain));
+    
+
+    for(ll i=1;i<=m;i++){
+ 
+        ll sol=0;
+        
+        for(ll j=i;j<=m;j+=i){
+            sol=sol+gain[j-1]+1;
+        }
+
+        cout<<sol<<" ";
+    }
+    cout<<endl;
+
 }
 int main(){
     boost;

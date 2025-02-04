@@ -34,46 +34,59 @@ void solve(ll tc){
     ll n,k;
     cin>>n>>k;
 
-    vector<arr<ll,3> > a;
+    set<ll> violated_set;
+    ll brought_cnt=0;
+
+    vector<arr<ll,2> > a;
     ll p;
 
     for(ll i=1;i<=n;i++){
         cin>>p;
-        a.push_back({})
+        a.push_back({p,i});
     }
 
-    for(ll i=0;i<n;i++){
-        cin>>a[i][0];
+    for(ll i=1;i<=n;i++){
+        cin>>p;
+        a.push_back({p,i});
     }
 
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-
-    multiset<ll> violated;
-
+    sort(all(a));
+   
 
     ll ans=0;
-    ans=0;
-    for(ll i=0;i<n;i++){
-        violated.insert(a[i][1]);
-        if(violated.size()<k+1){
-            ans=max(ans,(i+1)*a[i][0]);
-        }else{
-            while(violated.size()>k+1 and (*violated.begin()) <= a[i][0]){
-                violated.erase(violated.begin());
-            }
+    ll sz=a.size();
+    ll i=sz-1;
 
-            if(violated.size()==k+1){
-                ans=max(ans,(i+1)*(*violated.begin()));
-                //cout<<i<<" "<<((i+1)*(*violated.begin()))<<" ";
+    while(i>=0){
+       
+        ll p=a[i][0];
+        ll j=i;
+        while(j>=0 and a[j][0]==p){
+            ll index=a[j][1];
+            if(violated_set.find(index) == violated_set.end()){
+                violated_set.insert(index);
+                brought_cnt++;
+            }else{
+                violated_set.erase(index);
             }
-        }   
+            j--;
+        }
+        
+        
+
+        //cout<<brought_cnt<<" "<<p<<" "<<violated_set.size()<<endl;
+
+        if(violated_set.size()<=k){
+            ans=max(ans,brought_cnt*p);
+        }
+
+        i=j;
+
     }
-    cout<<endl;
+
+
 
     cout<<ans<<endl;
-
-
     
 
 
