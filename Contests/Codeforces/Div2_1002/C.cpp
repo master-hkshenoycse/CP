@@ -29,7 +29,38 @@
 #define arr array 
 using namespace std;
 void solve(ll tc){
-    
+    ll n;
+    cin>>n;
+
+    vector<ll> b,tmp(n);
+
+    for(ll i=1;i<=n;i++){
+        for(ll j=1;j<=n;j++){
+            cin>>tmp[j-1];
+        }
+
+        ll v=0;
+        for(ll j=n-1;j>=0;j--){
+            if(tmp[j]==1){
+                v++;
+            }else{
+                break;
+            }
+        }
+
+        b.pb(v);
+    }
+
+    sort(all(b));
+    ll ans=0;
+    for(ll i=0;i<n;i++){
+        if(b[i]>=ans){
+            ans++;
+        }
+    }
+
+    cout<<ans<<endl;
+
 
 }
 int main(){

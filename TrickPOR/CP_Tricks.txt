@@ -320,3 +320,8 @@ Think in terms of directed acylic graphs,
 20250129
 https://codeforces.com/problemset/problem/2046/B , think in terms that lexicographically minimal sequence means,
 picking from suffix minima greedily, and rest of elements 
+
+
+20250209
+https://codeforces.com/contest/2059/problem/C : consider  suffix and only upto where all values are 1, then greedily select
+values >=i for filling elements for mex .
