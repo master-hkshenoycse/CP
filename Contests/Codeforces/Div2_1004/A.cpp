@@ -30,45 +30,23 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,m;
-    cin>>n>>m;
+    ll x,y;
+    cin>>x>>y;
 
-    vector<ll> a(n),b(m);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
+    if(y==x+1){
+        cout<<"Yes"<<endl;
+        return;
     }
-
-    for(ll i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    for(ll i=0;i<n;i++){
-        ll v_=b[0]-a[i];
-
-        if(i==0){
-            a[i]=min(a[i],v_);
-        }else{
-            if(v_ >= a[i-1]){
-                if( a[i]<a[i-1]){
-                    a[i]=v_;
-                }else{
-                    a[i]=min(a[i],v_);
-                }
-            }
-        }
         
+    if(y<x and abs(y-x)%9==8){
+        cout<<"Yes"<<endl;
+        return;
     }
 
-    for(ll i=1;i<n;i++){
-        if(a[i] <a[i-1]){
-            cout<<"NO"<<endl;
-            return;
-        }
-    }
+    cout<<"No"<<endl;
 
-    cout<<"YES"<<endl;
 
-    
+   
 }
 int main(){
     boost;

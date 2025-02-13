@@ -42,32 +42,8 @@ void solve(ll tc){
         cin>>b[i];
     }
 
-    for(ll i=0;i<n;i++){
-        ll v_=b[0]-a[i];
-
-        if(i==0){
-            a[i]=min(a[i],v_);
-        }else{
-            if(v_ >= a[i-1]){
-                if( a[i]<a[i-1]){
-                    a[i]=v_;
-                }else{
-                    a[i]=min(a[i],v_);
-                }
-            }
-        }
-        
-    }
-
-    for(ll i=1;i<n;i++){
-        if(a[i] <a[i-1]){
-            cout<<"NO"<<endl;
-            return;
-        }
-    }
-
-    cout<<"YES"<<endl;
-
+    
+    sort(all(b));
     
 }
 int main(){

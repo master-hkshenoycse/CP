@@ -30,45 +30,38 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,m;
-    cin>>n>>m;
+    ll n;
+    cin>>n;
 
-    vector<ll> a(n),b(m);
+    vector<ll> a(n);
+    vector<ll> cnt(2*n+5,0);
     for(ll i=0;i<n;i++){
         cin>>a[i];
+        cnt[a[i]]++;
     }
-
-    for(ll i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    for(ll i=0;i<n;i++){
-        ll v_=b[0]-a[i];
-
-        if(i==0){
-            a[i]=min(a[i],v_);
-        }else{
-            if(v_ >= a[i-1]){
-                if( a[i]<a[i-1]){
-                    a[i]=v_;
-                }else{
-                    a[i]=min(a[i],v_);
-                }
-            }
-        }
-        
-    }
-
-    for(ll i=1;i<n;i++){
-        if(a[i] <a[i-1]){
-            cout<<"NO"<<endl;
-            return;
-        }
-    }
-
-    cout<<"YES"<<endl;
 
     
+
+    for(ll i=1;i<=2*n;i++){
+        
+        if(cnt[i]==0){
+            continue;
+        }
+
+        if(cnt[i]==1){
+            cout<<"No"<<endl;
+            return;
+        }
+
+        cnt[i+1]+=(cnt[i]-2);
+        cnt[i]=2;
+    }
+
+    cout<<"Yes"<<endl;
+
+
+
+   
 }
 int main(){
     boost;

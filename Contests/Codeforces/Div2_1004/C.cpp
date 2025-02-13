@@ -28,47 +28,33 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
+bool check(string &s){
+    for(auto ch:s){
+        if(ch=='7'){
+            return 1;
+        }
+    }
+    return 0;
+}
 void solve(ll tc){
-    ll n,m;
-    cin>>n>>m;
+    ll n;
+    cin>>n;
 
-    vector<ll> a(n),b(m);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    for(ll i=0;i<m;i++){
-        cin>>b[i];
-    }
-
-    for(ll i=0;i<n;i++){
-        ll v_=b[0]-a[i];
-
-        if(i==0){
-            a[i]=min(a[i],v_);
-        }else{
-            if(v_ >= a[i-1]){
-                if( a[i]<a[i-1]){
-                    a[i]=v_;
-                }else{
-                    a[i]=min(a[i],v_);
-                }
+    string s=to_string(n);
+    ll sz=s.size();
+    ll ans=1e18;
+    ll add=9;
+    while(add <= n*10){
+        for(ll i=0;i<=10;i++){
+            string tmp=to_string(n+add*i);
+            if(check(tmp)){
+                ans=min(ans,i);
             }
         }
-        
+        add=add*10+9;
     }
 
-    for(ll i=1;i<n;i++){
-        if(a[i] <a[i-1]){
-            cout<<"NO"<<endl;
-            return;
-        }
-    }
-
-    cout<<"YES"<<endl;
-
-    
+    cout<<ans<<endl;
 }
 int main(){
     boost;
