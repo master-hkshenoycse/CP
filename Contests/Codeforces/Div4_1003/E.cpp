@@ -30,29 +30,71 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,m;
-    cin>>n>>m;
+    ll n,m,k;
+    cin>>n>>m>>k;
 
 
-    vector<ll> s(n);
-    ll ans=0;
-    for(ll i=0;i<n;i++){
-        ll e,curr=0;
-        for(ll j=0;j<m;j++){
-            cin>>e;
-            curr=curr+e;
-            ans+=curr;
+    if(k < abs(n-m)){
+        cout<<-1<<endl;
+        return;
+    }
+    
+    if(k > max(n,m)){
+        cout<<-1<<endl;
+        return;
+    }
+    
+    string sol;
+    if(n>m){
+        
+        for(ll i=0;i<k;i++){
+            sol+='0';
+            n--;
+        }   
+
+
+        while(m>n){
+            sol+='1';
+            m--;
         }
 
-        s[i]=curr;
+        while(n>0){
+            if(sol.back()=='0'){
+                sol+="10";
+            }else{
+                sol+="01";
+            }
+            n--;
+        }
+
+
+
+
+
+    }else{
+
+        for(ll i=0;i<k;i++){
+            sol+='1';
+            m--;
+        }
+
+        while(n>m){
+            sol+='0';
+            n--;
+        }
+
+        while(n>0){
+            if(sol.back()=='0'){
+                sol+="10";
+            }else{
+                sol+="01";
+            }
+            n--;
+        }
+
     }
 
-    sort(all(s));
-    for(ll i=0;i<n;i++){
-        ans=ans+s[i]*i*m;
-    }
-
-    cout<<ans<<endl;
+    cout<<sol<<endl;
 }
 
 int main(){

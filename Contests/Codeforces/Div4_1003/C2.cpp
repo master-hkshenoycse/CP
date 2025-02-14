@@ -33,28 +33,55 @@ void solve(ll tc){
     ll n,m;
     cin>>n>>m;
 
+    vector<ll> a(n),b(m);
 
-    vector<ll> s(n);
-    ll ans=0;
     for(ll i=0;i<n;i++){
-        ll e,curr=0;
-        for(ll j=0;j<m;j++){
-            cin>>e;
-            curr=curr+e;
-            ans+=curr;
+        cin>>a[i];
+    }
+
+    for(ll i=0;i<m;i++){
+        cin>>b[i];
+    }
+
+    
+    sort(all(b));
+    ll prev=-1e18;
+    
+    for(ll i=0;i<n;i++){
+
+        ll lo=0,hi=m-1,r=m;
+
+        while(hi>=lo){
+            ll mid=(hi+lo)/2ll;
+            if(b[mid]-a[i] >= prev){
+                r=min(r,mid);
+                hi=mid-1;
+            }else{
+                lo=mid+1;
+            }
         }
 
-        s[i]=curr;
+       
+
+        if(r<m){
+            if(a[i]>=prev){
+                a[i]=min(a[i],b[r]-a[i]);
+            }else{
+                a[i]=b[r]-a[i];
+            }
+        }
+
+        if(a[i] < prev){
+            cout<<"NO"<<endl;
+            return;
+        }
+
+        prev=a[i];
+
     }
 
-    sort(all(s));
-    for(ll i=0;i<n;i++){
-        ans=ans+s[i]*i*m;
-    }
-
-    cout<<ans<<endl;
+    cout<<"YES"<<endl;
 }
-
 int main(){
     boost;
 
