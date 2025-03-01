@@ -28,47 +28,44 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dx[4]={-1,1,0,0};
-ll dy[4]={0,0,-1,1};
+
+//sequence shoudl be of form 12\1+3.
 void solve(ll tc){
-    ll n,m,e;
-    cin>>n>>m;
+    ll n;
+    cin>>n;
+    
+    string s;
+    cin>>s;
 
-    vector<vector<ll> > a(n,vector<ll> (m));
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-            cin>>a[i][j];
+    vector<ll> change_req(n+1,0);
+    for(ll i=1;i<=n;i++){
+        if(s[i-1] != s[n-i-1-1]){
+            change_req[i]=1;
         }
     }
 
-    map<ll,ll> help;
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-
-            if(help.find(a[i][j])==help.end()){
-                help[a[i][j]]=1;
-            }
-            for(ll k=0;k<4;k++){
-                ll ni=i+dx[k];
-                ll nj=j+dy[k];
-                if(ni>=0 and nj>=0 && ni<n && nj<m && a[ni][nj] == a[i][j]){
-                    help[a[i][j]]=2;
-                }   
-            }
-        }
+    for(ll i=1;i<=n;i++){
+        change_req[i]+=change_req[i-1];
     }
 
-    ll c2=0,c1=0;
-    for(auto it:help){
-        if(it.ss==2){
-            c2++;    
-        }else{
-            c1++;
-        }
+
+    ll lo=1,hi=n;
+    while(lo<hi && s[lo]==s[hi]){
+        lo++;
+        hi--;
     }
 
-    cout<<2*c2+c1-(c2>0)-1<<endl;
+    if(lo==hi){
+        cout<<0<<endl;
+        return;
+    }
 
+    ll l=lo,r=(hi+lo)/2ll;
+    while(r>=l){
+        ll mid=(l+r)/2ll;
+
+        
+    }
 
 
 }

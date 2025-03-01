@@ -28,47 +28,62 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dx[4]={-1,1,0,0};
-ll dy[4]={0,0,-1,1};
+ll mod=998244353;
+void dfs(ll v,ll p,ll d,vector<vector<ll> >&adj,vector<vector<ll> >&depth_sorted){
+    
+    if(depth_sorted.size()==d){
+        depth_sorted.pb({});
+    }
+
+    depth_sorted[d].pb(v);
+
+    for(auto to:adj[v]){
+        if(to==p){
+            continue;
+        }
+        dfs(to,v,d+1,adj,depth_sorted);
+    }
+}
 void solve(ll tc){
-    ll n,m,e;
-    cin>>n>>m;
+    ll n;
+    cin>>n;
 
-    vector<vector<ll> > a(n,vector<ll> (m));
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-            cin>>a[i][j];
-        }
+    vector<vector<ll> > adj(n+1);
+    vector<ll> par(n+1);
+    for(ll i=2;i<=n;i++){
+        cin>>par[i];
+        adj[i].pb(par[i]);
+        adj[par[i]].pb(i);
     }
 
-    map<ll,ll> help;
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
 
-            if(help.find(a[i][j])==help.end()){
-                help[a[i][j]]=1;
+    vector<vector<ll> > depth_sorted;
+    dfs(1,-1,0,adj,depth_sorted);
+
+    ll sz=depth_sorted.size();
+    vector<ll> dp(n+1,0);
+
+    ll sum_other=0;
+    for(ll i=sz-1;i>=0;i--){
+
+        for(auto v:depth_sorted[i]){
+            dp[v]=1;
+            for(auto nx:adj[v]){
+                if(nx!=par[v] && (v>1)){
+                    dp[v]=(dp[v]-dp[nx])%mod;
+                }
             }
-            for(ll k=0;k<4;k++){
-                ll ni=i+dx[k];
-                ll nj=j+dy[k];
-                if(ni>=0 and nj>=0 && ni<n && nj<m && a[ni][nj] == a[i][j]){
-                    help[a[i][j]]=2;
-                }   
-            }
+            dp[v]=(dp[v]+sum_other)%mod;
+            dp[v]=(dp[v]+mod)%mod;
+        }
+
+        sum_other=0;
+        for(auto v:depth_sorted[i]){
+            sum_other=(sum_other+dp[v])%mod;
         }
     }
 
-    ll c2=0,c1=0;
-    for(auto it:help){
-        if(it.ss==2){
-            c2++;    
-        }else{
-            c1++;
-        }
-    }
-
-    cout<<2*c2+c1-(c2>0)-1<<endl;
-
+    cout<<dp[1]<<endl;
 
 
 }
@@ -78,6 +93,7 @@ int main(){
     //pre_cum();
     //prec(10);
 	//fre;
+    
 
 
     ll t=1;

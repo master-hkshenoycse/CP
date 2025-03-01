@@ -28,48 +28,24 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dx[4]={-1,1,0,0};
-ll dy[4]={0,0,-1,1};
+
 void solve(ll tc){
-    ll n,m,e;
-    cin>>n>>m;
+    ll n;
+    cin>>n;
 
-    vector<vector<ll> > a(n,vector<ll> (m));
+    vector<pair<ll,string> > a;
+    string s;
+
     for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-            cin>>a[i][j];
-        }
+        cin>>s;
+        a.pb({s.size(),s});
     }
 
-    map<ll,ll> help;
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
+    sort(all(a));
 
-            if(help.find(a[i][j])==help.end()){
-                help[a[i][j]]=1;
-            }
-            for(ll k=0;k<4;k++){
-                ll ni=i+dx[k];
-                ll nj=j+dy[k];
-                if(ni>=0 and nj>=0 && ni<n && nj<m && a[ni][nj] == a[i][j]){
-                    help[a[i][j]]=2;
-                }   
-            }
-        }
+    for(auto it:a){
+        cout<<it.second;
     }
-
-    ll c2=0,c1=0;
-    for(auto it:help){
-        if(it.ss==2){
-            c2++;    
-        }else{
-            c1++;
-        }
-    }
-
-    cout<<2*c2+c1-(c2>0)-1<<endl;
-
-
 
 }
 int main(){
@@ -82,7 +58,7 @@ int main(){
 
     ll t=1;
     ll tc=1;
-    cin>>t;
+    //cin>>t;
 
 	while(t--){
 		solve(tc);

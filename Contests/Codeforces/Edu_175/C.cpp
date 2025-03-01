@@ -28,48 +28,61 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dx[4]={-1,1,0,0};
-ll dy[4]={0,0,-1,1};
+
 void solve(ll tc){
-    ll n,m,e;
-    cin>>n>>m;
+    ll n,k;
+    cin>>n>>k;
+    
+    string s;
+    cin>>s;
 
-    vector<vector<ll> > a(n,vector<ll> (m));
+    vector<ll> a(n);
+
     for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-            cin>>a[i][j];
-        }
+        cin>>a[i];
     }
+    
 
-    map<ll,ll> help;
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
+    ll lo=0,hi=1e9+5,ans=1e9+5;
 
-            if(help.find(a[i][j])==help.end()){
-                help[a[i][j]]=1;
-            }
-            for(ll k=0;k<4;k++){
-                ll ni=i+dx[k];
-                ll nj=j+dy[k];
-                if(ni>=0 and nj>=0 && ni<n && nj<m && a[ni][nj] == a[i][j]){
-                    help[a[i][j]]=2;
-                }   
+    while(hi>=lo){
+
+        ll mid=(hi+lo)/2ll;
+        
+        string tmp;
+        for(ll i=0;i<n;i++){
+            if(a[i]>mid){
+                tmp+=s[i];
+            }else{
+                tmp+='A';
             }
         }
-    }
 
-    ll c2=0,c1=0;
-    for(auto it:help){
-        if(it.ss==2){
-            c2++;    
+        ll chunks=0;
+        ll i=0;
+
+        while(i<n){
+            if(tmp[i]=='A'){
+                i++;
+            }else{
+                chunks+=(tmp[i]=='B');
+                ll j=i;
+                while(j<n && (tmp[j]=='A' || tmp[j]==tmp[i])){
+                    j++;
+                }
+                i=j;
+            }
+        }
+
+        if(chunks <= k){
+            ans=min(ans,mid);
+            hi=mid-1;
         }else{
-            c1++;
-        }
+            lo=mid+1;
+        }        
     }
 
-    cout<<2*c2+c1-(c2>0)-1<<endl;
-
-
+    cout<<ans<<endl;
 
 }
 int main(){
@@ -78,6 +91,7 @@ int main(){
     //pre_cum();
     //prec(10);
 	//fre;
+    
 
 
     ll t=1;

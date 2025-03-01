@@ -28,49 +28,39 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dx[4]={-1,1,0,0};
-ll dy[4]={0,0,-1,1};
+void rec(ll rem,ll x,ll y,vector<arr<ll,2> > &sol){
+
+    if(rem==0){
+        return;
+    }
+
+    ll r=0,st=1;
+    while((st*st-st)/2ll <= rem){
+        r=st;
+        st++;
+    }
+
+    for(ll i=1;i<=r;i++){
+        sol.pb({x+i-1,y});
+    }
+
+    rem-=(r*r-r)/2ll;
+    rec(rem,x+r,y+1,sol);
+
+
+}
 void solve(ll tc){
-    ll n,m,e;
-    cin>>n>>m;
+    
+   ll n;
+   cin>>n;
 
-    vector<vector<ll> > a(n,vector<ll> (m));
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-            cin>>a[i][j];
-        }
-    }
+   vector<arr<ll,2> > sol;
+   rec(n,0,0,sol);
 
-    map<ll,ll> help;
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-
-            if(help.find(a[i][j])==help.end()){
-                help[a[i][j]]=1;
-            }
-            for(ll k=0;k<4;k++){
-                ll ni=i+dx[k];
-                ll nj=j+dy[k];
-                if(ni>=0 and nj>=0 && ni<n && nj<m && a[ni][nj] == a[i][j]){
-                    help[a[i][j]]=2;
-                }   
-            }
-        }
-    }
-
-    ll c2=0,c1=0;
-    for(auto it:help){
-        if(it.ss==2){
-            c2++;    
-        }else{
-            c1++;
-        }
-    }
-
-    cout<<2*c2+c1-(c2>0)-1<<endl;
-
-
-
+   cout<<sol.size()<<endl;
+   for(auto p:sol){
+    cout<<p[0]<<" "<<p[1]<<endl;
+   }
 }
 int main(){
     boost;

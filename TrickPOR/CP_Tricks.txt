@@ -325,3 +325,12 @@ picking from suffix minima greedily, and rest of elements
 20250209
 https://codeforces.com/contest/2059/problem/C : consider  suffix and only upto where all values are 1, then greedily select
 values >=i for filling elements for mex .
+
+
+20250225
+Lucas theorem basically suggests that the value of nCr can be computed by multiplying results of niCri where ni and ri are individual same-positioned digits 
+in base p representations of n and r respectively., can be helpful when p is smalll.
+
+
+20250301
+https://codeforces.com/contest/2071/problem/C  ::Think about depth of tree, when making movements, 

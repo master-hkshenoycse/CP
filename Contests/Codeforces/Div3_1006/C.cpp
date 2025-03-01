@@ -28,49 +28,44 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dx[4]={-1,1,0,0};
-ll dy[4]={0,0,-1,1};
+
 void solve(ll tc){
-    ll n,m,e;
-    cin>>n>>m;
+    ll n,x;
+    cin>>n>>x;
 
-    vector<vector<ll> > a(n,vector<ll> (m));
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-            cin>>a[i][j];
+    ll lo=1,hi=n,r=0;
+
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+        ll f=1,curr=0,len=0;
+        
+        for(ll i=0;i<=mid-1;i++){
+            curr=(curr | i);
         }
-    }
+        
 
-    map<ll,ll> help;
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-
-            if(help.find(a[i][j])==help.end()){
-                help[a[i][j]]=1;
-            }
-            for(ll k=0;k<4;k++){
-                ll ni=i+dx[k];
-                ll nj=j+dy[k];
-                if(ni>=0 and nj>=0 && ni<n && nj<m && a[ni][nj] == a[i][j]){
-                    help[a[i][j]]=2;
-                }   
-            }
+        
+        for(ll i=mid+1;i<=n;i++){
+            curr=(curr | x);
         }
-    }
 
-    ll c2=0,c1=0;
-    for(auto it:help){
-        if(it.ss==2){
-            c2++;    
+        if(curr==x){
+            r=max(r,mid);
+            lo=mid+1;
         }else{
-            c1++;
+            hi=mid-1;
         }
+
     }
 
-    cout<<2*c2+c1-(c2>0)-1<<endl;
+    for(ll i=0;i<=r-1;i++){
+        cout<<i<<" ";
+    }
+    for(ll i=r+1;i<=n;i++){
+        cout<<x<<" ";
+    }
 
-
-
+    cout<<endl;
 }
 int main(){
     boost;

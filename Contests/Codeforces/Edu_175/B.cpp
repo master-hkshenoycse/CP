@@ -28,48 +28,51 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dx[4]={-1,1,0,0};
-ll dy[4]={0,0,-1,1};
+
 void solve(ll tc){
-    ll n,m,e;
-    cin>>n>>m;
+    ll n,x,k;
+    cin>>n>>x>>k;
 
-    vector<vector<ll> > a(n,vector<ll> (m));
+    string s;
+    cin>>s;
+
+    ll period=0;
+    ll cnt_0=0;
+     
     for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-            cin>>a[i][j];
+        if(i+1 > k){
+            cout<<0<<endl;
+            return;
         }
-    }
 
-    map<ll,ll> help;
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
+        if(s[i]=='L'){
+            x--;
+        }else if(s[i]=='R'){
+            x++;
+        }
 
-            if(help.find(a[i][j])==help.end()){
-                help[a[i][j]]=1;
+        if(x==0){
+            cnt_0++;
+            ll rem=(k- (i+1));
+            
+            for(ll j=0;j<n;j++){
+                if(s[j]=='L'){
+                    x--;
+                }else{
+                    x++;
+                }
+
+                if(x==0){
+                    cnt_0+=(rem/(j+1));
+                    break;
+                }
             }
-            for(ll k=0;k<4;k++){
-                ll ni=i+dx[k];
-                ll nj=j+dy[k];
-                if(ni>=0 and nj>=0 && ni<n && nj<m && a[ni][nj] == a[i][j]){
-                    help[a[i][j]]=2;
-                }   
-            }
+            break;
         }
     }
 
-    ll c2=0,c1=0;
-    for(auto it:help){
-        if(it.ss==2){
-            c2++;    
-        }else{
-            c1++;
-        }
-    }
-
-    cout<<2*c2+c1-(c2>0)-1<<endl;
-
-
+    cout<<cnt_0<<endl;
+    
 
 }
 int main(){
@@ -78,6 +81,7 @@ int main(){
     //pre_cum();
     //prec(10);
 	//fre;
+    
 
 
     ll t=1;

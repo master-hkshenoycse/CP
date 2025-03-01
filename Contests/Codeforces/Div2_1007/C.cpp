@@ -28,48 +28,44 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll dx[4]={-1,1,0,0};
-ll dy[4]={0,0,-1,1};
+void dfs(ll v,ll p,ll d,vector<vector<ll> > &adj,vector<vector<ll> > &height_order){
+    if(height_order.size()==d){
+        height_order.pb({});
+    }
+    height_order[d].pb(v);
+
+    for(auto to:adj[v]){
+        if(to==p){
+            continue;
+        }
+        dfs(to,v,d+1,adj,height_order);
+    }
+
+}
 void solve(ll tc){
-    ll n,m,e;
-    cin>>n>>m;
+    ll n,st,en;
+    cin>>n>>st>>en;
 
-    vector<vector<ll> > a(n,vector<ll> (m));
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
-            cin>>a[i][j];
-        }
+    vector<vector<ll> > adj(n+1);
+
+    ll x,y;
+    for(ll i=1;i<n;i++){
+        cin>>x>>y;
+        adj[x].pb(y);
+        adj[y].pb(x);
     }
 
-    map<ll,ll> help;
-    for(ll i=0;i<n;i++){
-        for(ll j=0;j<m;j++){
+    vector<vector<ll> > height_order;
 
-            if(help.find(a[i][j])==help.end()){
-                help[a[i][j]]=1;
-            }
-            for(ll k=0;k<4;k++){
-                ll ni=i+dx[k];
-                ll nj=j+dy[k];
-                if(ni>=0 and nj>=0 && ni<n && nj<m && a[ni][nj] == a[i][j]){
-                    help[a[i][j]]=2;
-                }   
-            }
+    dfs(en,-1,0,adj,height_order);
+
+    ll sz=height_order.size();
+    for(ll i=sz-1;i>=0;i--){
+        for(auto e:height_order[i]){
+            cout<<e<<" ";
         }
     }
-
-    ll c2=0,c1=0;
-    for(auto it:help){
-        if(it.ss==2){
-            c2++;    
-        }else{
-            c1++;
-        }
-    }
-
-    cout<<2*c2+c1-(c2>0)-1<<endl;
-
-
+    cout<<endl;
 
 }
 int main(){
