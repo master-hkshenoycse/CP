@@ -334,3 +334,25 @@ in base p representations of n and r respectively., can be helpful when p is sma
 
 20250301
 https://codeforces.com/contest/2071/problem/C  ::Think about depth of tree, when making movements, 
+
+20250303
+https://leetcode.com/problems/maximize-the-distance-between-points-on-a-square  :: As points are on perimter
+the manhtatn distance can be linearized, imagine opening the square from one of sides end and spreading it along x axis
+
+20250307
+https://codeforces.com/contest/2071/problem/D1  : Make patterns and think recursively, like for m>n , a(2m) and a(2m+1)
+are same
+
+20250308
+https://codeforces.com/contest/2067/problem/D: Think about permutation, and manhtaan distance limits , Hint:think extreme points
+,point not being there etc.
+
+https://codeforces.com/contest/2067/problem/E: Only 1 zero can be there in sequence, see if zero can be included, Hint: mex 
+means think about 0.
+
+20250309
+https://leetcode.com/problems/maximize-subarrays-after-removing-one-conflicting-pair: priorty queue ,iterate from right to left
+
+20250310
+https://leetcode.com/problems/count-of-substrings-containing-every-vowel-and-k-consonants-ii : to get a count for exactly k,
+get_cnt(k)-get_cnt(k-1), if counting atleast k is easy.

@@ -29,80 +29,47 @@
 #define arr array 
 using namespace std;
 
-//sequence shoudl be of form 12\1+3.
 void solve(ll tc){
-    ll n;
+    ll n,m;
+    cin>>n>>m;
 
-    
-    string s;
-    cin>>s;
+    map<ll,ll> help;
 
-    n=s.size();
-
-    ll i=0;
-    while(i<n/2 && s[i] == s[n-i-1]){
-        i++;
+    vector<ll> x(n),r(n);
+    for(ll i=0;i<n;i++){
+        cin>>x[i];
     }
-    n-=2*i;
-    s=s.substr(i,n);
-    
 
-    ll ans=n;
-
-    for(ll rev=0;rev<2;rev++){
-        ll lo=0,hi=n;
+    for(ll i=0;i<n;i++){
+        cin>>r[i];
+    }
 
 
-        while(hi>=lo){
+    for(ll i=0;i<n;i++){
+        
+        for(ll j=x[i]-r[i];j<=x[i]+r[i];j++){
+            ll lo=0,hi=r[i],res=0;
 
-            ll mid=(hi+lo)/2ll;
-            vector<ll> cnt(26,0);
-
-            for(ll i=0;i<mid;i++){
-                cnt[s[i]-'a']++;
-            }
-
-            ll f=1;
-            for(ll i=0;i<min(n/2,n-mid);i++){
-                ll ch=s[n-i-1]-'a';
-                if(i<mid){
-                    if(cnt[ch] == 0){
-                        f=0;
-                        break;
-                    }else{
-                        cnt[ch]--;
-                    }
+            while(hi>=lo){
+                ll mid=(hi+lo)/2ll;
+                if((j-x[i])*(j-x[i])+mid*mid<=r[i]*r[i]){
+                    res=max(res,mid);
+                    lo=mid+1;
                 }else{
-                    if(s[i] - 'a'!= ch){
-                        f=0;
-                        break;
-                    }
+                    hi=mid-1;
                 }
+
             }
 
-            for(ll i=0;i<26;i++){
-                if(cnt[i] % 2){
-                    f=0;
-                    break;
-                }
-            }
-
-            if(f){
-                ans=min(ans,mid);
-                hi=mid-1;
-            }else{
-                lo=mid+1;
-            }
+            help[j]=max(help[j],res);
         }
-
-
-        reverse(s.begin(),s.end());
-
     }
 
+    ll ans=0;
+    for(auto it:help){
+        ans=ans+(it.ss*2+1);
+    }
     cout<<ans<<endl;
-
-
 }
 int main(){
     boost;
