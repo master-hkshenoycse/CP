@@ -356,3 +356,19 @@ https://leetcode.com/problems/maximize-subarrays-after-removing-one-conflicting-
 20250310
 https://leetcode.com/problems/count-of-substrings-containing-every-vowel-and-k-consonants-ii : to get a count for exactly k,
 get_cnt(k)-get_cnt(k-1), if counting atleast k is easy.
+
+20250317
+https://codeforces.com/contest/2075/problem/C : to get count of twp color >=i and >=n-i, this is a way to simplyfy
+calculation, as (i,n-i) partitions the total possible colorings
+
+20250323
+https://codeforces.com/contest/448/problem/C : Divide and conquer, find minimum index and split the array and solve independently.
+https://codeforces.com/contest/2085/problem/C : Make the laregr number power of 2 greater than it, so that smaller number will not have that
+bit set, to get x+y = x^y , x&y=0, means no bit which is common to both.
+
+20250324
+https://www.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1 : O(n^3)dp ,assume we put bracket at various places
+for example in interval [st,en] try all places [st+1,en-1]
+
+20250331
+https://leetcode.com/problems/put-marbles-in-bags/description: Priority queue of adjacent elements
