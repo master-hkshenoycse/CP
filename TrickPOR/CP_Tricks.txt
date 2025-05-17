@@ -333,7 +333,7 @@ in base p representations of n and r respectively., can be helpful when p is sma
 
 
 20250301
-https://codeforces.com/contest/2071/problem/C  ::Think about depth of tree, when making movements, 
+https://codeforces.com/contest/2071/problem/C ::Think about depth of tree, when making movements, 
 
 20250303
 https://leetcode.com/problems/maximize-the-distance-between-points-on-a-square  :: As points are on perimter
@@ -372,3 +372,14 @@ for example in interval [st,en] try all places [st+1,en-1]
 
 20250331
 https://leetcode.com/problems/put-marbles-in-bags/description: Priority queue of adjacent elements
+
+
+20250417
+https://www.geeksforgeeks.org/problems/minimum-weight-cycle Using Dijkstra's algorithm for each edge by removing that edge and calculating the shortest distance from the edge points
+to find if the loop is present or not between that edge and the shortest weight for that loop.
+Minimum weight cycle in a undirected graph
+ 
+
+ 20250501
+ https://leetcode.com/problems/maximum-number-of-tasks-you-can-assign , binary search+ greedily assign, for each worker keep the asisgnable 
+ tasks in a deque and iterate over workers in an increasing order
