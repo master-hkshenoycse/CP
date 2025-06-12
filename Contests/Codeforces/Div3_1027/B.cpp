@@ -33,44 +33,32 @@ void solve(ll tc){
     ll n,k;
     cin>>n>>k;
 
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-    }
+    string s;
+    cin>>s;
 
-    ll lo=0,hi=n,ret=0;
-    while(hi>=lo){
-        ll mid=(hi+lo)/2ll;
-        
-        ll mex=0,subs=0;
-        vector<ll> cnt(mid+2,0);
-
-        for(ll i=0;i<n;i++){
-            if(a[i]<mid && cnt[a[i]]==subs){
-                cnt[a[i]]++;
-            }
-
-            while(mex<mid && cnt[mex]==subs+1){
-                mex++;
-            }
-
-            if(mex == mid){
-                subs++;
-                mex=0;
-            }
-        }
-
-
-
-        if(subs>=k){
-            ret=max(ret,mid);
-            lo=mid+1;
+    ll c0=0,c1=0;
+    for(auto ch:s){
+        if(ch=='0'){
+            c0++;
         }else{
-            hi=mid-1;
+            c1++;
         }
     }
 
-    cout<<ret<<endl;
+    for(ll i=0;i<=k;i++){
+        ll eq_0 = i;
+        ll eq_1 = k-i;
+        ll rem_0 = c0-2*eq_0;
+        ll rem_1 = c1-2*eq_1;
+
+        if(eq_0>=0 && eq_1>=0 && eq_0*2<=c0 && eq_1*2<=c1 && rem_0==rem_1 && rem_0>=0 && rem_1>=0){
+            cout<<"YES"<<endl;
+            return;
+        }
+    }
+
+    
+    cout<<"NO"<<endl;
 }
 int main(){
     boost;

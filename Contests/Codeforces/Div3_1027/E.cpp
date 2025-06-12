@@ -28,49 +28,46 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-
+void dfs(ll v,ll p,vector<ll> &sol,vector<vector<ll> > &adj,vector<ll> &a,ll max_val,ll min_val){
+    sol[v]=max(a[v],a[v]-min_val);
+    
+    ll nx_min=min(a[v],a[v]-max_val);
+    ll nx_max=max(a[v],a[v]-min_val);
+    for(auto to:adj[v]){
+        if(to==p){
+            continue;
+        }
+        dfs(to,v,sol,adj,a,nx_max,nx_min);
+    }
+}
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
+    vector<ll> a(n+1);
+    vector<vector<ll> > adj(n+1);
+    for(ll i=1;i<=n;i++){
         cin>>a[i];
     }
 
-    ll lo=0,hi=n,ret=0;
-    while(hi>=lo){
-        ll mid=(hi+lo)/2ll;
-        
-        ll mex=0,subs=0;
-        vector<ll> cnt(mid+2,0);
-
-        for(ll i=0;i<n;i++){
-            if(a[i]<mid && cnt[a[i]]==subs){
-                cnt[a[i]]++;
-            }
-
-            while(mex<mid && cnt[mex]==subs+1){
-                mex++;
-            }
-
-            if(mex == mid){
-                subs++;
-                mex=0;
-            }
-        }
-
-
-
-        if(subs>=k){
-            ret=max(ret,mid);
-            lo=mid+1;
-        }else{
-            hi=mid-1;
-        }
+    ll x,y;
+    for(ll i=1;i<n;i++){
+        cin>>x>>y;
+        adj[x].pb(y);
+        adj[y].pb(x);
     }
 
-    cout<<ret<<endl;
+
+    vector<ll> sol(n+1);
+    dfs(1,-1,sol,adj,a,0,0);
+
+    for(ll i=1;i<=n;i++){
+        cout<<sol[i]<<" ";
+    }
+    cout<<endl;
+    
+    
+
 }
 int main(){
     boost;

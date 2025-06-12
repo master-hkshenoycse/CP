@@ -383,3 +383,10 @@ Minimum weight cycle in a undirected graph
  20250501
  https://leetcode.com/problems/maximum-number-of-tasks-you-can-assign , binary search+ greedily assign, for each worker keep the asisgnable 
  tasks in a deque and iterate over workers in an increasing order
+
+ 20250522
+ https://codeforces.com/contest/2093/problem/F , use the first opertaion for neural net with max correct blanks, then for each incorreect blank
+ do 2 operations per blank.
+
+ 20250608
+ https://leetcode.com/problems/lexicographical-numbers  , think of dfs order for lexicographical order.

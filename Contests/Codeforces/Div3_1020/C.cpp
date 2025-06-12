@@ -33,44 +33,46 @@ void solve(ll tc){
     ll n,k;
     cin>>n>>k;
 
-    vector<ll> a(n);
+    vector<ll> a(n),b(n);
     for(ll i=0;i<n;i++){
         cin>>a[i];
     }
 
-    ll lo=0,hi=n,ret=0;
-    while(hi>=lo){
-        ll mid=(hi+lo)/2ll;
-        
-        ll mex=0,subs=0;
-        vector<ll> cnt(mid+2,0);
+    set<ll> poss_values_x;
+    for(ll i=0;i<n;i++){
+        cin>>b[i];
 
-        for(ll i=0;i<n;i++){
-            if(a[i]<mid && cnt[a[i]]==subs){
-                cnt[a[i]]++;
-            }
-
-            while(mex<mid && cnt[mex]==subs+1){
-                mex++;
-            }
-
-            if(mex == mid){
-                subs++;
-                mex=0;
-            }
+        if(b[i] != -1){
+            poss_values_x.insert(a[i]+b[i]);
         }
 
+    }
 
 
-        if(subs>=k){
-            ret=max(ret,mid);
-            lo=mid+1;
-        }else{
-            hi=mid-1;
+    if (poss_values_x.size()>1) {
+        cout<<0<<endl;
+        return;
+    }
+
+    ll ret=1;
+    if(poss_values_x.size()==0){
+        
+        sort(a.begin(),a.end());
+        ret = (k+a[0])-(a[n-1])+1;
+
+    }else{
+        ll x=*poss_values_x.begin();
+        for(ll i=0;i<n;i++){
+            if(b[i]==-1 && (a[i]+k<x || a[i]>x)){
+                ret=0;
+            }
         }
     }
 
     cout<<ret<<endl;
+        
+
+
 }
 int main(){
     boost;
@@ -91,4 +93,6 @@ int main(){
 	}
 
     return 0;
+    
+     
 }

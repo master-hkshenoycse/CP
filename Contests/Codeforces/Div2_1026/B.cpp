@@ -30,47 +30,21 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    string s;
+    cin>>s;
+    ll n=s.size();
 
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    ll lo=0,hi=n,ret=0;
-    while(hi>=lo){
-        ll mid=(hi+lo)/2ll;
-        
-        ll mex=0,subs=0;
-        vector<ll> cnt(mid+2,0);
-
-        for(ll i=0;i<n;i++){
-            if(a[i]<mid && cnt[a[i]]==subs){
-                cnt[a[i]]++;
+    for(ll i=0;i+1<n;i++){
+        if(s[i]==')' && s[i+1]=='('){
+            if(i-1>0 && s[i-1]=='(' && i+2<n && s[i+2]==')'){
+                continue;
             }
-
-            while(mex<mid && cnt[mex]==subs+1){
-                mex++;
-            }
-
-            if(mex == mid){
-                subs++;
-                mex=0;
-            }
-        }
-
-
-
-        if(subs>=k){
-            ret=max(ret,mid);
-            lo=mid+1;
-        }else{
-            hi=mid-1;
+            cout<<"YES"<<endl;
+            return;
         }
     }
 
-    cout<<ret<<endl;
+    cout<<"NO"<<endl;
 }
 int main(){
     boost;

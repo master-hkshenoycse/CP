@@ -30,47 +30,46 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
 
-    vector<ll> a(n);
-    for(ll i=0;i<n;i++){
-        cin>>a[i];
-    }
+    ll x;
+    cin>>x;
 
-    ll lo=0,hi=n,ret=0;
-    while(hi>=lo){
-        ll mid=(hi+lo)/2ll;
+    multiset<ll> values;
+    values.insert(0);
+    values.insert(0);
+    values.insert(0);
+
+    ll ans=0;
+    while(1){
+
+        ll lo = *values.begin();
+        ll hi = *(--values.end());
+        ll mid = *(++values.begin());
         
-        ll mex=0,subs=0;
-        vector<ll> cnt(mid+2,0);
-
-        for(ll i=0;i<n;i++){
-            if(a[i]<mid && cnt[a[i]]==subs){
-                cnt[a[i]]++;
-            }
-
-            while(mex<mid && cnt[mex]==subs+1){
-                mex++;
-            }
-
-            if(mex == mid){
-                subs++;
-                mex=0;
-            }
+        if (lo == x) {
+            break;
         }
 
-
-
-        if(subs>=k){
-            ret=max(ret,mid);
-            lo=mid+1;
+        ans++;
+        ll poss = min(2*lo+1,x);
+        //cout<<poss<<endl;
+        if(hi < poss){
+            values.erase(values.find(hi));
+            values.insert(poss);
+        }else if(mid < poss){
+            values.erase(values.find(mid));
+            values.insert(poss);
         }else{
-            hi=mid-1;
+            poss = min(2*mid+1,x);
+            values.erase(values.find(lo));
+            values.insert(poss);
         }
+
     }
 
-    cout<<ret<<endl;
+    cout<<ans<<endl;
+
+
 }
 int main(){
     boost;
@@ -91,4 +90,6 @@ int main(){
 	}
 
     return 0;
+    
+     
 }

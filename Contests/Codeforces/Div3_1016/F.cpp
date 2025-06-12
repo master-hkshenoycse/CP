@@ -30,47 +30,40 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll n,m;
+    cin>>n>>m;
 
-    vector<ll> a(n);
+    vector<string> a(n);
     for(ll i=0;i<n;i++){
         cin>>a[i];
     }
 
-    ll lo=0,hi=n,ret=0;
-    while(hi>=lo){
-        ll mid=(hi+lo)/2ll;
-        
-        ll mex=0,subs=0;
-        vector<ll> cnt(mid+2,0);
+    ll max_correct=0;
+    set<string> potential[n];
 
+    string inp;
+    for(ll i=0;i<m;i++){
+        ll curr_correct = 0; 
         for(ll i=0;i<n;i++){
-            if(a[i]<mid && cnt[a[i]]==subs){
-                cnt[a[i]]++;
+            cin>>inp;
+            if(inp == a[i]){
+                curr_correct++;
             }
-
-            while(mex<mid && cnt[mex]==subs+1){
-                mex++;
-            }
-
-            if(mex == mid){
-                subs++;
-                mex=0;
-            }
+            potential[i].insert(inp);
         }
+        max_correct=max(max_correct,curr_correct);
+    }
 
-
-
-        if(subs>=k){
-            ret=max(ret,mid);
-            lo=mid+1;
-        }else{
-            hi=mid-1;
+    for(ll i=0;i<n;i++){
+        if(potential[i].find(a[i]) == potential[i].end()){
+            cout<<-1<<endl;
+            return;
         }
     }
 
-    cout<<ret<<endl;
+    cout<<n+2*(n-max_correct)<<endl;
+
+    
 }
 int main(){
     boost;

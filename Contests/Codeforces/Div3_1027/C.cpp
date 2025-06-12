@@ -30,47 +30,33 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
     vector<ll> a(n);
     for(ll i=0;i<n;i++){
         cin>>a[i];
     }
 
-    ll lo=0,hi=n,ret=0;
-    while(hi>=lo){
-        ll mid=(hi+lo)/2ll;
-        
-        ll mex=0,subs=0;
-        vector<ll> cnt(mid+2,0);
+    ll i=0,prev=-1,ans=0;
 
-        for(ll i=0;i<n;i++){
-            if(a[i]<mid && cnt[a[i]]==subs){
-                cnt[a[i]]++;
-            }
-
-            while(mex<mid && cnt[mex]==subs+1){
-                mex++;
-            }
-
-            if(mex == mid){
-                subs++;
-                mex=0;
-            }
+    while(i<n){
+        ll j=i;
+        while(j<n && a[i]==a[j]){
+            j++;
         }
 
-
-
-        if(subs>=k){
-            ret=max(ret,mid);
-            lo=mid+1;
-        }else{
-            hi=mid-1;
+        if(prev==-1 || a[i]>prev+1){
+            ans++;
+            prev=a[i];
         }
+
+        i=j;
     }
 
-    cout<<ret<<endl;
+    cout<<ans<<endl;
+
+
 }
 int main(){
     boost;
