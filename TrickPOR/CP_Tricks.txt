@@ -390,3 +390,15 @@ Minimum weight cycle in a undirected graph
 
  20250608
  https://leetcode.com/problems/lexicographical-numbers  , think of dfs order for lexicographical order.
+
+ 20250718
+ https://leetcode.com/problems/minimum-difference-in-sums-after-removal-of-elements , select top n elements in prefix and suffixand iterate
+ over which will be partition point.
+
+ 20250724
+ https://www.geeksforgeeks.org/problems/last-moment-before-all-ants-fall-out-of-a-plank/1  Google kickstart question., doesn't matter 
+ the exchanges of speed, the distance traversed remains same when direction reverses
+
+ 20250726
+ https://leetcode.com/problems/maximize-subarrays-after-removing-one-conflicting-pair/description: enumerate left end of the subarray
+ and see the limit till which right end can be selected 

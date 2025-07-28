@@ -32,41 +32,31 @@ using namespace std;
 void solve(ll tc){
     ll n;
     cin>>n;
-    ll e;
 
-    vector<ll> cnt(n+1,0);
-    for(ll i=0;i<n;i++){
-        cin>>e;
-        cnt[e]++;
+    vector<ll> sol(n+1);
+    for(ll i=1;i<=n;i++){
+        sol[i]=i;
     }
 
-    ll tot_before=0;
-    ll rem_ele=n;
-    vector<ll> poss_sol(n+5,0);
-    
-    for(ll i=0;i<=n+1;i++){
-        
-        ll lo = cnt[i];
-        ll hi = rem_ele + tot_before;
-        //cout<<i<<" "<<lo<<" "<<hi<<endl;
-
-        poss_sol[lo]++;
-        poss_sol[hi+1]--;
-        if(cnt[i]==0){
-            break;   
+    for(ll i=2;i<=n;i++){
+        ll prev = i;
+        for(ll  j=2*i;j<=n;j+=i){
+            sol[j]=prev;
+            prev=j;
         }
 
-        tot_before+=(cnt[i]-1);
-        rem_ele-= (cnt[i]);
-    }
+        sol[i]=prev;
 
-    for(ll i=0;i<=n;i++){
-        if(i>0){
-            poss_sol[i]+=poss_sol[i-1];
+        for(ll j=1;j<=n;j++){
+            cout<<sol[j]<<" ";
         }
-
-        cout<<poss_sol[i]<<" ";
+        cout<<endl;
     }
+
+    for(ll i=1;i<=n;i++){
+        cout<<sol[i]<<" ";
+    }
+
     cout<<endl;
 
 
