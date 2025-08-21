@@ -30,51 +30,28 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
+    ll n,k;
+    cin>>n>>k;
 
-    vector<ll> sol(n+1,0),isp(n+1,0);
+    vector<ll> a(n),b(n);
 
-    for(ll i=1;i<=n;i++){
-        sol[i]=i;
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        b[i]=a[i];
     }
 
-    vector<ll> primes;
 
-    for(ll i=2;i<=n;i++){
-        if(isp[i]==0){
-            primes.pb(i);
-            for(ll j=i;j<=n;j+=i){
-                isp[j]=1;
-            }
-        }
+    if(k==1){
+        cout<<"YES"<<endl;
+        return;
     }
-    reverse(all(primes));
 
-    for(auto p:primes){
-        vector<ll> cycles;
-        for(ll i=p;i<=n;i+=p){
-            if(sol[i]==i){
-                cycles.pb(i);
-            }
-        }
-
-        ll sz=cycles.size();
-
-        for(ll i=0;i<sz;i++){
-            sol[cycles[i]]=cycles[(i+1)%sz];
-        }
-        
-    }
+    sort(all(b));
+    ll k_1th_value = b[k-2];
 
     
 
-    for(ll i=1;i<=n;i++){
-        cout<<sol[i]<<" ";
-    }
-
-    cout<<endl;
-
+    
 
 }
 int main(){
@@ -84,7 +61,7 @@ int main(){
     //prec(10);
 	//fre;
 
-
+    cout<<__gcd(1407,903)<<endl;
     ll t=1;
     ll tc=1;
     cin>>t;

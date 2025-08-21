@@ -28,59 +28,75 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+vector<ll> cntApple,costApples;
+
+ll getPow(ll n){
+    ll ret=1;
+    for(ll i=1;i<=n;i++){
+        ret=ret*3;
+    }
+    return ret;
+}
+
+void pre_cum(){
+    ll curr=0;
+    while(getPow(curr)<1e10){
+        cntApple.pb(getPow(curr));
+        costApples.pb(getPow(curr+1)+curr*getPow(curr-1));
+        curr++;
+    }
+}
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
+    ll n,k;
+    cin>>n>>k;
 
-    vector<ll> sol(n+1,0),isp(n+1,0);
-
-    for(ll i=1;i<=n;i++){
-        sol[i]=i;
-    }
-
-    vector<ll> primes;
-
-    for(ll i=2;i<=n;i++){
-        if(isp[i]==0){
-            primes.pb(i);
-            for(ll j=i;j<=n;j+=i){
-                isp[j]=1;
+    ll sz=cntApple.size();
+    vector<ll> mult(sz,0);
+    ll ops=0;
+    while(n>0){
+        for(ll i=sz-1;i>=0;i--){
+            if(cntApple[i]<=n){
+                n-=cntApple[i];
+                mult[i]++;
+                ops++;
+                break;
             }
         }
     }
-    reverse(all(primes));
 
-    for(auto p:primes){
-        vector<ll> cycles;
-        for(ll i=p;i<=n;i+=p){
-            if(sol[i]==i){
-                cycles.pb(i);
-            }
-        }
-
-        ll sz=cycles.size();
-
-        for(ll i=0;i<sz;i++){
-            sol[cycles[i]]=cycles[(i+1)%sz];
-        }
-        
+    if(ops>k){
+        cout<<-1<<endl;
+        return;
     }
+
+    cout<<ops<<endl;
+
+    ll rem=k-ops;
+    for(ll i=sz-1;i>0;i--){
+        while(rem>=3 && mult[i]>0){
+            mult[i]--;
+            mult[i-1]++;
+            rem-=3;
+        }        
+    }
+
+    ll ans=0;
+    for(ll i=0;i<sz;i++){
+        ans=ans+mult[i]*costApples[i];
+    }
+
+    cout<<ans<<endl;
 
     
 
-    for(ll i=1;i<=n;i++){
-        cout<<sol[i]<<" ";
-    }
-
-    cout<<endl;
-
-
+    
+   
 }
 int main(){
     boost;
 
-    //pre_cum();
+    pre_cum();
     //prec(10);
 	//fre;
 

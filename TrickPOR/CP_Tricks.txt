@@ -402,3 +402,10 @@ Minimum weight cycle in a undirected graph
  20250726
  https://leetcode.com/problems/maximize-subarrays-after-removing-one-conflicting-pair/description: enumerate left end of the subarray
  and see the limit till which right end can be selected 
+
+ 20250807
+ https://codeforces.com/contest/2119/problem/B: Think in terms of vector and triangle inequality, largest side should be less than sum of all others
+
+ 20250814
+ https://codeforces.com/contest/2124/problem/C: assuume current number is multiplied by x, then find the factor it can have, and then take lcm
+ across all value

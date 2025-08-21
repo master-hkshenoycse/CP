@@ -30,51 +30,30 @@
 using namespace std;
 
 void solve(ll tc){
+
     ll n;
+    dd px,py,qx,qy;
     cin>>n;
+    cin>>px>>py>>qx>>qy;
 
-    vector<ll> sol(n+1,0),isp(n+1,0);
-
-    for(ll i=1;i<=n;i++){
-        sol[i]=i;
-    }
-
-    vector<ll> primes;
-
-    for(ll i=2;i<=n;i++){
-        if(isp[i]==0){
-            primes.pb(i);
-            for(ll j=i;j<=n;j+=i){
-                isp[j]=1;
-            }
-        }
-    }
-    reverse(all(primes));
-
-    for(auto p:primes){
-        vector<ll> cycles;
-        for(ll i=p;i<=n;i+=p){
-            if(sol[i]==i){
-                cycles.pb(i);
-            }
-        }
-
-        ll sz=cycles.size();
-
-        for(ll i=0;i<sz;i++){
-            sol[cycles[i]]=cycles[(i+1)%sz];
-        }
-        
-    }
-
+    dd sum=0;
+    dd dist=sqrt((qx-px)*(qx-px)+(qy-py)*(qy-py));
     
 
-    for(ll i=1;i<=n;i++){
-        cout<<sol[i]<<" ";
+    dd max_dist=dist;
+    sum+=dist; 
+    dd e;   
+    for(ll i=0;i<n;i++){
+        cin>>e;
+        sum+=e;
+        max_dist=max(max_dist,e);
     }
 
-    cout<<endl;
-
+    if(sum-max_dist < max_dist){
+        cout<<"No"<<endl;
+    }else{
+        cout<<"Yes"<<endl;
+    }
 
 }
 int main(){

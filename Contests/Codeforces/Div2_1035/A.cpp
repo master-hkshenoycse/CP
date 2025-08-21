@@ -30,50 +30,39 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
 
-    vector<ll> sol(n+1,0),isp(n+1,0);
+    ll a,b,x,y;
+    cin>>a>>b>>x>>y;
 
-    for(ll i=1;i<=n;i++){
-        sol[i]=i;
+    if(b<a-1){
+        cout<<-1<<endl;
+        return;
     }
 
-    vector<ll> primes;
+    if(b==a){
+        cout<<0<<endl;
+        return;
+    }
 
-    for(ll i=2;i<=n;i++){
-        if(isp[i]==0){
-            primes.pb(i);
-            for(ll j=i;j<=n;j+=i){
-                isp[j]=1;
-            }
+    if(b==a-1){
+        if(a%2){
+            cout<<y<<endl;
+        }else{
+            cout<<-1<<endl;
         }
-    }
-    reverse(all(primes));
-
-    for(auto p:primes){
-        vector<ll> cycles;
-        for(ll i=p;i<=n;i+=p){
-            if(sol[i]==i){
-                cycles.pb(i);
-            }
-        }
-
-        ll sz=cycles.size();
-
-        for(ll i=0;i<sz;i++){
-            sol[cycles[i]]=cycles[(i+1)%sz];
-        }
-        
+        return;
     }
 
-    
+    ll inc_needed = b-a;
+    ll cost=x*inc_needed;
+    ll halfs=inc_needed/2;
 
-    for(ll i=1;i<=n;i++){
-        cout<<sol[i]<<" ";
+    if(a%2==0 && b%2){
+        halfs++;
     }
 
-    cout<<endl;
+    cost=min(cost,halfs*y+(inc_needed-halfs)*x);
+    cout<<cost<<endl;
 
 
 }

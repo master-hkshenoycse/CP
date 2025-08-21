@@ -33,49 +33,18 @@ void solve(ll tc){
     ll n;
     cin>>n;
 
-    vector<ll> sol(n+1,0),isp(n+1,0);
-
-    for(ll i=1;i<=n;i++){
-        sol[i]=i;
+    vector<ll> a(n);
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
     }
 
-    vector<ll> primes;
-
-    for(ll i=2;i<=n;i++){
-        if(isp[i]==0){
-            primes.pb(i);
-            for(ll j=i;j<=n;j+=i){
-                isp[j]=1;
-            }
-        }
-    }
-    reverse(all(primes));
-
-    for(auto p:primes){
-        vector<ll> cycles;
-        for(ll i=p;i<=n;i+=p){
-            if(sol[i]==i){
-                cycles.pb(i);
-            }
-        }
-
-        ll sz=cycles.size();
-
-        for(ll i=0;i<sz;i++){
-            sol[cycles[i]]=cycles[(i+1)%sz];
-        }
-        
+    ll gc=0,lc=1;
+    for(ll i=0;i+1<n;i++){
+        ll value = a[i]/__gcd(a[i],a[i+1]);
+        lc=(lc*value)/__gcd(lc,value);
     }
 
-    
-
-    for(ll i=1;i<=n;i++){
-        cout<<sol[i]<<" ";
-    }
-
-    cout<<endl;
-
-
+    cout<<lc<<endl;
 }
 int main(){
     boost;

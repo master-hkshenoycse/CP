@@ -19,6 +19,7 @@ public:
         int who = -1;
 
         for(auto v:adj[u]){
+
             if(v == p){
                 continue;
             }

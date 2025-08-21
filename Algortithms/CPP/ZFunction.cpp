@@ -23,6 +23,7 @@ vector<int> z_function(string &s){
     return z;
 }
 //Source:https://www.youtube.com/watch?v=CpZh4eF8QBw
+//Z[i] tells us how many characters from position i onwards match with the beginning of the string.
 vector<int> get_z(string &s){
     int n=s.size();
     vector<int> z(n,0);

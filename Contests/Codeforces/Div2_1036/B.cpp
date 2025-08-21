@@ -33,48 +33,31 @@ void solve(ll tc){
     ll n;
     cin>>n;
 
-    vector<ll> sol(n+1,0),isp(n+1,0);
-
-    for(ll i=1;i<=n;i++){
-        sol[i]=i;
+    vector<ll> a(n),pref_min(n);
+    ll ret=0;
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+        pref_min[i]=a[i];
+        if(i-1>=0){
+            pref_min[i]=min(pref_min[i-1],a[i]);
+        }
+        ret=ret+pref_min[i];
     }
 
-    vector<ll> primes;
+    ll ans=ret;
+    ll tot=0;
 
-    for(ll i=2;i<=n;i++){
-        if(isp[i]==0){
-            primes.pb(i);
-            for(ll j=i;j<=n;j+=i){
-                isp[j]=1;
-            }
-        }
-    }
-    reverse(all(primes));
-
-    for(auto p:primes){
-        vector<ll> cycles;
-        for(ll i=p;i<=n;i+=p){
-            if(sol[i]==i){
-                cycles.pb(i);
-            }
-        }
-
-        ll sz=cycles.size();
-
-        for(ll i=0;i<sz;i++){
-            sol[cycles[i]]=cycles[(i+1)%sz];
-        }
+    for(ll i=1;i<n;i++){
         
+        ll val=a[i]+a[i-1];
+        if(i-2>=0){
+            val=min(val,pref_min[i-2]);
+        }
+        ans=min(ans,tot+val);
+        tot+=pref_min[i-1];
     }
 
-    
-
-    for(ll i=1;i<=n;i++){
-        cout<<sol[i]<<" ";
-    }
-
-    cout<<endl;
-
+    cout<<ans<<endl;
 
 }
 int main(){
