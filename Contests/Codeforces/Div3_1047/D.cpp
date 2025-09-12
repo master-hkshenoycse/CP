@@ -28,76 +28,46 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-vector<ll> cntApple,costApples;
-
-ll getPow(ll n){
-    ll ret=1;
-    for(ll i=1;i<=n;i++){
-        ret=ret*3;
-    }
-    return ret;
-}
-
-void pre_cum(){
-    ll curr=0;
-    while(getPow(curr)<1e10){
-        cntApple.pb(getPow(curr));
-        costApples.pb(getPow(curr+1)+curr*getPow(curr-1));
-        curr++;
-    }
-}
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    ll sz=cntApple.size();
-    vector<ll> mult(sz,0);
-    ll ops=0;
-    while(n>0){
-        for(ll i=sz-1;i>=0;i--){
-            if(cntApple[i]<=n){
-                n-=cntApple[i];
-                mult[i]++;
-                ops++;
-                break;
-            }
+    map<ll,vector<ll> > freq;
+    ll x;
+    for(ll i=0;i<n;i++){
+        cin>>x;
+        freq[x].pb(i);
+    }
+
+    vector<ll> sol(n);
+
+    ll val=1;
+    for(auto it:freq){
+        if(it.ss.size()%it.ff){
+            cout<<-1<<endl;
+            return;
         }
+
+        ll jump=it.first;
+        for(ll j=0;j<it.ss.size();j+=jump){
+            for(ll k=j;k<j+jump;k++){
+                sol[it.ss[k]]=val;
+            }
+            val++;
+        }
+
+    }
+    for(auto e:sol){
+        cout<<e<<" ";
     }
 
-    if(ops>k){
-        cout<<-1<<endl;
-        return;
-    }
-
-    ll rem=k-ops;
-    for(ll i=sz-1;i>0;i--){
-
-        ll reduce= min(mult[i],rem/2);
-        rem-=2*reduce;
-
-        mult[i]-=reduce;
-        mult[i-1]+=3*reduce;
-        
-    }
-
-    ll ans=0;
-    for(ll i=0;i<sz;i++){
-       // cout<<i<<" "<<mult[i]<<endl;
-        ans=ans+mult[i]*costApples[i];
-    }
-
-    cout<<ans<<endl;
-
-    
-
-    
-   
+    cout<<endl;
 }
 int main(){
     boost;
 
-    pre_cum();
+    //pre_cum();
     //prec(10);
 	//fre;
 

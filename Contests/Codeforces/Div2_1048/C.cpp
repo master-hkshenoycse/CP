@@ -28,76 +28,45 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-vector<ll> cntApple,costApples;
-
-ll getPow(ll n){
-    ll ret=1;
-    for(ll i=1;i<=n;i++){
-        ret=ret*3;
-    }
-    return ret;
-}
-
-void pre_cum(){
-    ll curr=0;
-    while(getPow(curr)<1e10){
-        cntApple.pb(getPow(curr));
-        costApples.pb(getPow(curr+1)+curr*getPow(curr-1));
-        curr++;
-    }
-}
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll k,x;
+    cin>>k>>x;
 
-    ll sz=cntApple.size();
-    vector<ll> mult(sz,0);
-    ll ops=0;
-    while(n>0){
-        for(ll i=sz-1;i>=0;i--){
-            if(cntApple[i]<=n){
-                n-=cntApple[i];
-                mult[i]++;
-                ops++;
-                break;
-            }
+    vector<ll> curr(2),req(2);
+    curr[0]=(1ll<<k);
+    curr[1]=(1ll<<k);
+    req[0]=x;
+    req[1]=(1ll<<(k+1))-x;
+    vector<ll> ops;
+
+    while(req[0] != curr[0]){
+
+        if(req[0]<req[1]){
+            req[1]-=req[0];
+            req[0]*=2;
+            ops.pb(1);
+        }else{
+            req[0]-=req[1];
+            req[1]*=2;
+            ops.pb(2);
         }
     }
 
-    if(ops>k){
-        cout<<-1<<endl;
-        return;
+    cout<<ops.size()<<endl;
+    reverse(all(ops));
+
+    for(auto o:ops){
+        cout<<o<<" ";
     }
 
-    ll rem=k-ops;
-    for(ll i=sz-1;i>0;i--){
+    cout<<endl;
 
-        ll reduce= min(mult[i],rem/2);
-        rem-=2*reduce;
-
-        mult[i]-=reduce;
-        mult[i-1]+=3*reduce;
-        
-    }
-
-    ll ans=0;
-    for(ll i=0;i<sz;i++){
-       // cout<<i<<" "<<mult[i]<<endl;
-        ans=ans+mult[i]*costApples[i];
-    }
-
-    cout<<ans<<endl;
-
-    
-
-    
-   
 }
 int main(){
     boost;
 
-    pre_cum();
+    //pre_cum();
     //prec(10);
 	//fre;
 

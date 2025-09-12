@@ -28,76 +28,87 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-vector<ll> cntApple,costApples;
+ll cnt_digits(ll n){
+    ll cnt=0,st=1,d=1;
 
-ll getPow(ll n){
-    ll ret=1;
-    for(ll i=1;i<=n;i++){
-        ret=ret*3;
-    }
-    return ret;
-}
-
-void pre_cum(){
-    ll curr=0;
-    while(getPow(curr)<1e10){
-        cntApple.pb(getPow(curr));
-        costApples.pb(getPow(curr+1)+curr*getPow(curr-1));
-        curr++;
-    }
-}
-
-void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
-
-    ll sz=cntApple.size();
-    vector<ll> mult(sz,0);
-    ll ops=0;
-    while(n>0){
-        for(ll i=sz-1;i>=0;i--){
-            if(cntApple[i]<=n){
-                n-=cntApple[i];
-                mult[i]++;
-                ops++;
-                break;
-            }
+    while(1){
+        if(st>n){
+            break;
         }
+
+        ll lo=st;
+        ll hi=min(n,st*10-1);
+        cnt=cnt+(hi-lo+1)*d;
+        d++;
+        st=st*10;
     }
 
-    if(ops>k){
-        cout<<-1<<endl;
-        return;
-    }
+    return cnt;
+}
 
-    ll rem=k-ops;
-    for(ll i=sz-1;i>0;i--){
+ll get_sum(ll n,ll d,ll p){
+    ll reps_complete = (n/(p*10));
+    ll ret=reps_complete*p;
 
-        ll reduce= min(mult[i],rem/2);
-        rem-=2*reduce;
-
-        mult[i]-=reduce;
-        mult[i-1]+=3*reduce;
-        
-    }
-
-    ll ans=0;
-    for(ll i=0;i<sz;i++){
-       // cout<<i<<" "<<mult[i]<<endl;
-        ans=ans+mult[i]*costApples[i];
-    }
-
-    cout<<ans<<endl;
+    ll last_valid=reps_complete*p*10+d*p;
+    ll possible = min(n,last_valid+p-1);
 
     
 
+    ret+=max(0ll,possible-last_valid+1);
+    //cout<<n<<" "<<d<<" "<<p<<" "<<last_valid<<" "<<reps_complete<<" "<<possible<<" "<<ret<<endl;
+
+    return ret;
+}
+void solve(ll tc){
+    
+    
+    ll k;
+    cin>>k;
+
+    ll lo=1,hi=1e15,ret=1;
+
+    while(hi>=lo){
+        ll mid=(hi+lo)/2ll;
+
+        if(cnt_digits(mid)<=k){
+            ret=max(ret,mid);
+            lo=mid+1;
+        }else{
+            hi=mid-1;
+        }
+    }
+
+
+
+    ll ans=0;
+    for(ll p=1;p<=ret;p*=10){
+        for(ll d=1;d<=9;d++){
+            ans=ans+get_sum(ret,d,p)*d;
+        }
+    }
+
+    ll rem_digits = k-cnt_digits(ret);
+
+
+    ret++;
+    string str_ret=to_string(ret);
+
+    for(ll i=0;i<rem_digits;i++){
+        ans=ans+str_ret[i]-'0';
+    }
+
+    cout<<ans<<endl;
+    
+
+    
     
    
 }
 int main(){
     boost;
 
-    pre_cum();
+    //pre_cum();
     //prec(10);
 	//fre;
 

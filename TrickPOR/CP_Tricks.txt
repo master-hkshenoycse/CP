@@ -409,3 +409,6 @@ Minimum weight cycle in a undirected graph
  20250814
  https://codeforces.com/contest/2124/problem/C: assuume current number is multiplied by x, then find the factor it can have, and then take lcm
  across all value
+
+ 20250906
+ https://leetcode.com/problems/minimum-time-to-transport-all-individuals/: Dijstra with State - mask of people transported,multiplert round,return trip, 

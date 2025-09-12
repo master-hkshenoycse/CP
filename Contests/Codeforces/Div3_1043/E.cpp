@@ -28,76 +28,71 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-vector<ll> cntApple,costApples;
+ll lowerBound(vector<ll> &a,ll value){
 
-ll getPow(ll n){
-    ll ret=1;
-    for(ll i=1;i<=n;i++){
-        ret=ret*3;
-    }
-    return ret;
 }
-
-void pre_cum(){
-    ll curr=0;
-    while(getPow(curr)<1e10){
-        cntApple.pb(getPow(curr));
-        costApples.pb(getPow(curr+1)+curr*getPow(curr-1));
-        curr++;
-    }
-}
-
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll e,n,m,q;
+    cin>>n>>m>>q;
 
-    ll sz=cntApple.size();
-    vector<ll> mult(sz,0);
-    ll ops=0;
-    while(n>0){
-        for(ll i=sz-1;i>=0;i--){
-            if(cntApple[i]<=n){
-                n-=cntApple[i];
-                mult[i]++;
-                ops++;
-                break;
-            }
+    vector<arr<ll,2> > coll;
+    vector<ll> ccnt_vadim(n+m+1,0),ccnt_kostya(n+m+1,0),csum_vadim(n+m+1,0),csum_kostya(n+m+1,0);
+
+    for(ll i=0;i<n;i++){
+        cin>>e;
+        coll.pb({e,1});
+    }
+
+    for(ll i=0;i<m;i++){
+        cin>>e;
+        coll.pb({e,0});
+    }
+
+    sort(all(coll));
+    reverse(all(coll));
+
+    for(ll i=0;i<n+m;i++){
+        if(coll[i][1]==1){
+            ccnt_vadim[i]=1;
+            csum_vadim[i]=coll[i][0];
+        }else{
+            ccnt_kostya[i]=1;
+            csum_kostya[i]=coll[i][0];
+        }
+
+        if(i>0){
+            ccnt_vadim[i]+=ccnt_vadim[i-1];
+            csum_vadim[i]+=csum_vadim[i-1];
+            ccnt_kostya[i]+=ccnt_kostya[i-1];
+            csum_kostya[i]+=csum_kostya[i-1];
         }
     }
 
-    if(ops>k){
-        cout<<-1<<endl;
-        return;
+    ll x,y,z;
+    while(q--){
+        cin>>x>>y>>z;
+        ll ret=csum_vadim[z-1]+csum_kostya[z-1];
+
+        if(csum_vadim[z-1]>x){
+
+        }
+
+        if(csum_kostya[z-1]>y){
+
+        }
+
+        cout<<ret<<endl;
+
     }
-
-    ll rem=k-ops;
-    for(ll i=sz-1;i>0;i--){
-
-        ll reduce= min(mult[i],rem/2);
-        rem-=2*reduce;
-
-        mult[i]-=reduce;
-        mult[i-1]+=3*reduce;
-        
-    }
-
-    ll ans=0;
-    for(ll i=0;i<sz;i++){
-       // cout<<i<<" "<<mult[i]<<endl;
-        ans=ans+mult[i]*costApples[i];
-    }
-
-    cout<<ans<<endl;
-
     
-
+    
     
    
 }
 int main(){
     boost;
 
-    pre_cum();
+    //pre_cum();
     //prec(10);
 	//fre;
 
