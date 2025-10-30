@@ -412,3 +412,11 @@ Minimum weight cycle in a undirected graph
 
  20250906
  https://leetcode.com/problems/minimum-time-to-transport-all-individuals/: Dijstra with State - mask of people transported,multiplert round,return trip, 
+
+ 20250928
+ https://www.geeksforgeeks.org/dsa/count-parallelograms-plane/ --> count midpoints pairs, use ||gm property
+ https://leetcode.com/problems/count-number-of-trapezoids-ii/
+
+ 20251030
+ https://leetcode.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/ 
+ Differnce array and additional ops on adjacent element if next element is greater. 
