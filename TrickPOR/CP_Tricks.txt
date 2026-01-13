@@ -427,3 +427,10 @@ Minimum weight cycle in a undirected graph
  20251110
  https://leetcode.com/problems/minimum-operations-to-convert-all-elements-to-zero  -- Monotonic stack, hint is , if a lesser
  element come in between two instances of same element , then differnt operations are needed.
+
+ 20260101
+ https://leetcode.com/problems/maximum-xor-of-subsequences/submissions/1870666267/  - Xor basis  to find max, xor subsequence.
+ 
+ 20260113
+ https://leetcode.com/problems/maximum-total-subarray-value-ii/ - binary lifting  and max heap, when a heap is used, then move to
+ smaller subarrays from it.
