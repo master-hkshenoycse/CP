@@ -436,5 +436,35 @@ Minimum weight cycle in a undirected graph
  smaller subarrays from it.
 
  20260215
- https://leetcode.com/problems/longest-balanced-subarray-ii/ - segment tree with laxy roprhation, update segment tree for cintribtion of 
+ https://leetcode.com/problems/longest-balanced-subarray-ii/ - segment tree with laxy propagation, update segment tree for contribution of 
  distcnt element.
+
+ 20260328
+ https://leetcode.com/problems/find-the-string-with-lcp : union find, understand DP transition.
+
+ 20260403
+ https://leetcode.com/problems/total-waviness-of-numbers-in-range-ii/: Digit DP with return values of total wave and total cnt,
+ total wave is the one which is required.
+
+20260405
+https://leetcode.com/problems/number-of-effective-subsequences/ : 
+freq[x]
+   ↓
+cnt[mask] = numbers ⊆ mask
+   ↓
+ways[mask] = 2^(cnt)
+   ↓
+inverse SOS
+   ↓
+ways[mask] = exact OR
+
+20260515
+https://www.codechef.com/problems/GOOD1 -> Iterate by subarray ending at i, and make them good if any subbary ending at i is bad,
+by replacing ith element with element not occuring in te array.
+
+20260426
+https://leetcode.com/problems/minimum-deletions-to-make-alternating-substring/submissions/1988587367/ -->Fenwicj tree, a[i]=a[i+1],consribute
+1 to answer, update accordingly
+
+20260105
+https://leetcode.com/problems/minimum-swaps-to-avoid-forbidden-values/ -> greedy with cnt of bad pair , see if any value of present+forbidden is>n.
