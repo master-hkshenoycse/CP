@@ -468,3 +468,6 @@ https://leetcode.com/problems/minimum-deletions-to-make-alternating-substring/su
 
 20260105
 https://leetcode.com/problems/minimum-swaps-to-avoid-forbidden-values/ -> greedy with cnt of bad pair , see if any value of present+forbidden is>n.
+
+20260512
+https://leetcode.com/problems/minimum-initial-energy-to-finish-tasks -> Greedy sort based on differences.
