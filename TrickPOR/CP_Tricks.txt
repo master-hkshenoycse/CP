@@ -471,3 +471,7 @@ https://leetcode.com/problems/minimum-swaps-to-avoid-forbidden-values/ -> greedy
 
 20260512
 https://leetcode.com/problems/minimum-initial-energy-to-finish-tasks -> Greedy sort based on differences.
+
+20260516
+https://www.codechef.com/problems/AVOIDINGM -> Key Learning: valid sequence with atleast 1 missing element in range (0,M),ways[i][j]=sequence of
+length i with j distinct elements., dp[i]= dp, ending at i with i=M, M is used to partition into subarrays, return dp[N+1]. 
