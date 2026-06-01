@@ -475,3 +475,6 @@ https://leetcode.com/problems/minimum-initial-energy-to-finish-tasks -> Greedy s
 20260516
 https://www.codechef.com/problems/AVOIDINGM -> Key Learning: valid sequence with atleast 1 missing element in range (0,M),ways[i][j]=sequence of
 length i with j distinct elements., dp[i]= dp, ending at i with i=M, M is used to partition into subarrays, return dp[N+1]. 
+
+20260531
+A number can be represented as a sum of consecutive positive integers iff it is not a power of 2
