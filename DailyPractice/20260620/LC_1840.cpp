@@ -1,9 +1,11 @@
+#include<bits/stdc++.h>
+using namespace std;
 class Solution {
 public:
     int maxBuilding(int n, vector<vector<int>>& restrictions) {
         auto&& r = restrictions;
         r.push_back({1, 0});
-        ranges::sort(r);
+        sort(r.begin(), r.end());
         if (r[r.size() - 1][0] != n) {
             r.push_back({n, n - 1});
         }
