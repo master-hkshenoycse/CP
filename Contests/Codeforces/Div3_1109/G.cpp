@@ -55,12 +55,23 @@ void solve(ll tc){
     for(ll i=1;i<=n;i++)
         cin>>a[i];
     
+    MaxFenwickTree fenwick(n+2);
+    vector<ll> dp(n+1,0);
+    ll ret=0;
+    
     for(ll i=1;i<=n;i++){
 
-        ll lo=max()
-
-
+        ll lo=max(i-a[i],1ll);
+        ll hi=min(i+a[i]+1,n+1);
+        
+        ll max_dp = fenwick.query(lo-1);
+        dp[i] = max_dp + a[i];
+        fenwick.update(hi, dp[i]);
+        
+        ret=max(ret,dp[i]);
     }
+
+    cout<<ret<<endl;
 }
 int main(){
     boost;
