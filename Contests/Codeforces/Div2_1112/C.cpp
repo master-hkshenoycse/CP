@@ -30,35 +30,18 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    if(k+1==n){
-        cout<<-1<<endl;
-        return;
-    }
+    vector<ll> l(n),r(n),u(n),v(n);
 
-
-    vector<ll> blocks(n-k);
-    for(ll i=0;i<n-k;i++){
-        blocks[i]=1;
-    }
-
-    blocks[0]+=k/2;
-    if(n-k>1)
-        blocks[1]+=(k+1)/2;
-     
-    for(ll i=0;i<n-k;i++){
-        ll rep=blocks[i];
-        char ch=char('0'+(i%2));
-        
-        while(rep--){
-            cout<<ch;
-        }   
-    }
-
-    cout<<endl;
+    for(ll i=0;i<n;i++)
+        cin>>l[i]>>r[i]>>u[i]>>v[i];
     
+
+    for(ll len=n;len>=1;len--){
+
+    }
 }
 int main(){
     boost;
