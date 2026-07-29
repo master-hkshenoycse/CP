@@ -33,15 +33,35 @@ void solve(ll tc){
     ll n;
     cin>>n;
 
-    vector<ll> l(n),r(n),u(n),v(n);
+    vector<ll> l(n+1),r(n+1),u(n+1),v(n+1);
 
-    for(ll i=0;i<n;i++)
+    for(ll i=1;i<=n;i++)
         cin>>l[i]>>r[i]>>u[i]>>v[i];
     
 
     for(ll len=n;len>=1;len--){
+        
+        ll left_pos=1;
 
+        for(ll i=1;i<=n;i++){
+            
+            ll right_pos=len-left_pos+1;
+            ll f=1;
+            if(left_pos>=l[i] && left_pos<=r[i])
+                f=0;
+            
+            if(right_pos>=u[i] && right_pos<=v[i])
+                f=0;
+
+            left_pos+=f;
+            if(left_pos ==len+1){
+                cout<<len<<endl;
+                return;
+            }
+        }
     }
+
+    cout<<0<<endl;
 }
 int main(){
     boost;
