@@ -30,44 +30,27 @@
 using namespace std;
 
 void solve(ll tc){
-    string s;
-    cin>>s;
+    ll n;
+    cin>>n;
+    
+    vector<ll> pos,neg;
+    ll cnt_ze=0;
 
-    ll n=s.size();
-    vector<ll> del_0(n,0),del_1(n,0);
-
-    for(ll i=0;i<n;i++){
-        if(s[i]=='0'){
-            if(i+1==n || s[i+1]=='1'){
-                string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
-            }
-        }
+    ll pos_sum=0,neg_sum=0;
+    ll e;
+    for(ll i=1;i<=n;i++){
+        cin>>e;
+        if(e>0)pos.push_back(e),pos_sum+=e;
+        else if(e<0)neg.push_back(e),neg_sum+=e;
+        else cnt_ze++;
     }
 
-    n=s.size();
-    for(ll i=0;i<n;i++){
-        if(s[i]=='1'){
-            if(i+1==n || s[i+1]=='0'){
-               string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
-            }
-        }
+    if(pos_sum<=neg_sum){
+        cout<<-1<<endl;
+        return;
     }
 
-    cout<<s<<endl;
+        
 
 }
 int main(){

@@ -28,46 +28,72 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
+bool possible(string &a,string &b){
+    ll n=a.size();
+    ll c00=0,c01=0,c10=0,c11=0;
 
+    for(ll i=0;i<n;i++){
+        if(i%2==0){
+            if(a[i]=='0'){
+                c00++;
+            }else{
+                c01++;
+            }
+        }else{
+            if(a[i]=='0'){
+                c10++;
+            }else{
+                c11++;
+            }
+        }
+    }
+
+
+    for(ll i=0;i<n;i++){
+        if(i%2==0){
+            if(b[i]=='0'){
+                c00--;
+            }else{
+                c01--;
+            }
+        }else{
+            if(b[i]=='0'){
+                c10--;
+            }else{
+                c11--;
+            }
+        }
+    }
+
+    
+    return (c00==0 && c01==0 && c10==0 && c11==0);
+}
 void solve(ll tc){
-    string s;
-    cin>>s;
+    ll n;
+    string a,b;
+    cin>>n>>a>>b;
 
-    ll n=s.size();
-    vector<ll> del_0(n,0),del_1(n,0);
+    if(!possible(a,b)){
+        cout<<-1<<endl;
+        return;
+    } 
 
+    vector<ll> pos_a[2],pos_b[2];
     for(ll i=0;i<n;i++){
-        if(s[i]=='0'){
-            if(i+1==n || s[i+1]=='1'){
-                string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
-            }
+        if(a[i]=='1')pos_a[i%2].push_back(i);
+        if(b[i]=='1')pos_b[i%2].push_back(i);
+    }
+
+    ll ops=0;
+
+    for(ll i=0;i<2;i++){
+        ll sz=pos_a[i].size();
+        for(ll j=0;j<sz;j++){
+            ops+=abs(pos_a[i][j]-pos_b[i][j]);
         }
     }
 
-    n=s.size();
-    for(ll i=0;i<n;i++){
-        if(s[i]=='1'){
-            if(i+1==n || s[i+1]=='0'){
-               string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
-            }
-        }
-    }
-
-    cout<<s<<endl;
+    cout<<ops/2<<endl;
 
 }
 int main(){

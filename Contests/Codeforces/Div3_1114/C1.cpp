@@ -30,44 +30,49 @@
 using namespace std;
 
 void solve(ll tc){
-    string s;
-    cin>>s;
+    ll n;
+    string a,b;
+    cin>>n>>a>>b;
 
-    ll n=s.size();
-    vector<ll> del_0(n,0),del_1(n,0);
+    ll c00=0,c01=0,c10=0,c11=0;
 
     for(ll i=0;i<n;i++){
-        if(s[i]=='0'){
-            if(i+1==n || s[i+1]=='1'){
-                string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
+        if(i%2==0){
+            if(a[i]=='0'){
+                c00++;
+            }else{
+                c01++;
+            }
+        }else{
+            if(a[i]=='0'){
+                c10++;
+            }else{
+                c11++;
             }
         }
     }
 
-    n=s.size();
     for(ll i=0;i<n;i++){
-        if(s[i]=='1'){
-            if(i+1==n || s[i+1]=='0'){
-               string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
+        if(i%2==0){
+            if(b[i]=='0'){
+                c00--;
+            }else{
+                c01--;
+            }
+        }else{
+            if(b[i]=='0'){
+                c10--;
+            }else{
+                c11--;
             }
         }
     }
 
-    cout<<s<<endl;
+    if(c00==0 && c01==0 && c10==0 && c11==0)
+        cout<<"YES"<<endl;
+    else    
+        cout<<"NO"<<endl;
+    
 
 }
 int main(){

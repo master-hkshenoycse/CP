@@ -30,44 +30,35 @@
 using namespace std;
 
 void solve(ll tc){
+    ll n;
+    cin>>n;
+
     string s;
     cin>>s;
 
-    ll n=s.size();
-    vector<ll> del_0(n,0),del_1(n,0);
+    ll i=0,val=0;
+    
+    while(i<n){
+        ll j=i;
+        val++;
+        while(j<n && s[j]==s[i]){
+            j++;
+        }
+        i=j;
+    }
 
-    for(ll i=0;i<n;i++){
-        if(s[i]=='0'){
-            if(i+1==n || s[i+1]=='1'){
-                string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
+    ll red=0;
+    for(ll i=1;i<n-1;i++){
+        if(s[i]!=s[i-1] && s[i]!=s[i+1]){
+            red=max(red,1ll);
+            if(s[i-1]==s[i+1]){
+                red=max(red,2ll);
             }
         }
     }
 
-    n=s.size();
-    for(ll i=0;i<n;i++){
-        if(s[i]=='1'){
-            if(i+1==n || s[i+1]=='0'){
-               string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
-            }
-        }
-    }
-
-    cout<<s<<endl;
+    cout<<val-red<<endl;
+    
 
 }
 int main(){

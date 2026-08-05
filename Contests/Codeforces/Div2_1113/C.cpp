@@ -30,45 +30,40 @@
 using namespace std;
 
 void solve(ll tc){
-    string s;
-    cin>>s;
+    ll n;
+    cin>>n;
 
-    ll n=s.size();
-    vector<ll> del_0(n,0),del_1(n,0);
-
+    vector<ll> a(n);
+    map<ll,ll> l,r;
     for(ll i=0;i<n;i++){
-        if(s[i]=='0'){
-            if(i+1==n || s[i+1]=='1'){
-                string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
+        cin>>a[i];
+        if(l.find(a[i])==l.end()){
+            l[a[i]]=i;
+        }else{
+            r[a[i]]=i;
+        }
+    }
+    
+    ll ans=0;
+    while(l.size()>0 || r.size()>0){
+        ll max_gain=0,req_l=-1,req_r=-1;
+        for(ll i=1;i<=n;i++){
+            if(l.find(i)!=l.end() && r.find(i)!=r.end()){
+                ll gain=r[i]-l[i]+1;
+                if(gain>max_gain){
+                    max_gain=gain;
+                    req_l=l[i];
+                    req_r=r[i];
                 }
-                s=tmp;
-                break;
+            }else if(l.find(i)!=l.end()){
+
+            }else if(r.find(i) !=r.end()){
+
             }
         }
     }
 
-    n=s.size();
-    for(ll i=0;i<n;i++){
-        if(s[i]=='1'){
-            if(i+1==n || s[i+1]=='0'){
-               string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
-            }
-        }
-    }
-
-    cout<<s<<endl;
-
+    cout<<ans<<endl;
 }
 int main(){
     boost;

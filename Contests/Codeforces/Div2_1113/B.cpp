@@ -30,45 +30,39 @@
 using namespace std;
 
 void solve(ll tc){
-    string s;
-    cin>>s;
+    ll n,m;
+    cin>>n>>m;
 
-    ll n=s.size();
-    vector<ll> del_0(n,0),del_1(n,0);
-
+    vector<ll> a(n),b(m);
     for(ll i=0;i<n;i++){
-        if(s[i]=='0'){
-            if(i+1==n || s[i+1]=='1'){
-                string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
-            }
+        cin>>a[i];
+    }
+    for(ll i=0;i<m;i++){
+        cin>>b[i];
+    }
+
+    if(n<2*m){
+        cout<<"NO"<<endl;
+        return;
+    }
+
+    sort(a.begin(),a.end());
+    sort(b.begin(),b.end());
+
+    for(ll i=0;i<m;i++){
+        if(a[i]>b[i]){
+            cout<<"NO"<<endl;
+            return;
         }
     }
 
-    n=s.size();
-    for(ll i=0;i<n;i++){
-        if(s[i]=='1'){
-            if(i+1==n || s[i+1]=='0'){
-               string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
-            }
+    for(ll i=0;i<m;i++){
+        if(a[n-1-i]<b[m-1-i]){
+            cout<<"NO"<<endl;
+            return;
         }
     }
-
-    cout<<s<<endl;
-
+    cout<<"YES"<<endl;
 }
 int main(){
     boost;

@@ -30,44 +30,24 @@
 using namespace std;
 
 void solve(ll tc){
-    string s;
-    cin>>s;
+    
+    vector<ll> a(3);
+    cin>>a[0]>>a[1]>>a[2];
 
-    ll n=s.size();
-    vector<ll> del_0(n,0),del_1(n,0);
-
-    for(ll i=0;i<n;i++){
-        if(s[i]=='0'){
-            if(i+1==n || s[i+1]=='1'){
-                string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
-            }
+    ll ans=0;
+    while(1){
+        if(a[0]==a[1] || a[1]==a[2] || a[0]==a[2]){
+            cout<<ans<<endl;
+            return;
         }
+
+        ans++;
+        sort(all(a));
+        a[2]--;
+        a[0]++;
     }
 
-    n=s.size();
-    for(ll i=0;i<n;i++){
-        if(s[i]=='1'){
-            if(i+1==n || s[i+1]=='0'){
-               string tmp;
-                for(ll j=0;j<n;j++){
-                    if(j!=i){
-                        tmp+=s[j];
-                    }
-                }
-                s=tmp;
-                break;
-            }
-        }
-    }
-
-    cout<<s<<endl;
+    
 
 }
 int main(){
