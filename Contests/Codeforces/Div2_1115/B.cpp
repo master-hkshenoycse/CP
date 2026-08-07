@@ -32,33 +32,67 @@ using namespace std;
 void solve(ll tc){
     ll n;
     cin>>n;
-    
-    multiset<ll> v;
-    for(ll i=1;i<=n;i++){
-        ll x;
-        cin>>x;
-        v.insert(x);
+
+    string s;
+    cin>>s;
+
+    ll i=0;
+
+    string req;
+    ll del_0=0,del_1=0;
+    while(i<n){
+        ll cnt=0,j=i;
+        while(j<n && s[j]==s[i]){
+            j++;
+            cnt++;
+        }
+
+        if(s[i]=='0'){
+            del_0+=(cnt-1);
+        }else{
+            del_1+=(cnt-1);
+        }
+
+        req+=s[i];
+        i=j;
     }
 
-    vector<ll> sol;
-    ll prev=0;
-    for(ll i=1;i<=n;i++){
-        auto it=v.upper_bound(-prev);
-        if(it != v.end()){
-            prev+=(*it);
-            sol.push_back(prev);
-            v.erase(it);    
-        }else{
-            cout<<-1<<endl;
+    if(abs(del_0-del_1)<=1){
+        cout<<del_0+del_1<<endl;
+        return;
+    }
+
+    if(del_0-del_1==2){
+        if(req[0]=='1' || req.back()=='1'){
+            cout<<del_0+del_1+1<<endl;
             return;
         }
     }
 
-    for(auto s:sol){
-        cout<<s<<" ";
+    if(del_0-del_1==3){
+        if(req.size()>1 && req[0]=='1' && req.back()=='1'){
+            cout<<del_0+del_1+2<<endl;
+            return;
+        }
     }
-    cout<<endl;
-        
+
+    if(del_1-del_0==2){
+        if(req[0]=='0' || req.back()=='0'){
+            cout<<del_0+del_1+1<<endl;
+            return;
+        }
+    }
+
+    if(del_1-del_0==3){
+        if(req.size()>1 && req[0]=='0' && req.back()=='0'){
+            cout<<del_0+del_1+2<<endl;
+            return;
+        }
+    }
+
+    cout<<-1<<endl;
+
+
 
 }
 int main(){

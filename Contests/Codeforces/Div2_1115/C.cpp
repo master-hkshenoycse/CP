@@ -30,35 +30,61 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
-    cin>>n;
-    
-    multiset<ll> v;
-    for(ll i=1;i<=n;i++){
-        ll x;
-        cin>>x;
-        v.insert(x);
-    }
+    ll n,m;
+    cin>>n>>m;
 
-    vector<ll> sol;
-    ll prev=0;
+    vector<ll> v(n+1);
+    vector<vector<ll> >a(n+1,vector<ll> (m+1));
+
+    for(ll i=1;i<=n;i++)
+        cin>>v[i];
+    
     for(ll i=1;i<=n;i++){
-        auto it=v.upper_bound(-prev);
-        if(it != v.end()){
-            prev+=(*it);
-            sol.push_back(prev);
-            v.erase(it);    
-        }else{
-            cout<<-1<<endl;
-            return;
+        for(ll j=1;j<=m;j++){
+            cin>>a[i][j];
         }
     }
 
-    for(auto s:sol){
-        cout<<s<<" ";
+    ll ret=m;
+    ll lo=1,hi=m-1;
+
+
+    while(hi>=lo){
+
+        ll mid=(hi+lo)/2ll;
+        ll sum=0;
+        ll f=0;
+        priority_queue<ll,vector<ll> ,greater<ll> > pq;
+        for(ll i=n;i>=1;i--){
+
+            for(ll j=1;j<=m;j++){
+                sum+=a[i][j];
+                pq.push(a[i][j]);
+
+                if(pq.size()>mid){
+                    sum-=pq.top();
+                    pq.pop();
+                }
+
+            }
+
+            if(sum>=v[i]){
+                f=1;
+                break;
+            }
+
+        }
+
+        if(f){
+            ret=min(ret,mid);
+            hi=mid-1;
+        }else{
+            lo=mid+1;
+        }
     }
-    cout<<endl;
-        
+
+    cout<<ret<<endl;
+
 
 }
 int main(){

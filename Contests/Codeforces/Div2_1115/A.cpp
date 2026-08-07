@@ -30,35 +30,38 @@
 using namespace std;
 
 void solve(ll tc){
-    ll n;
+    ll n,x;
     cin>>n;
-    
-    multiset<ll> v;
-    for(ll i=1;i<=n;i++){
-        ll x;
-        cin>>x;
-        v.insert(x);
+    ll sum=0,max_freq=0;
+    map<ll,ll> freq;
+    vector<ll> val(n);
+    for(ll i=0;i<n;i++){
+        cin>>val[i];
+        ll x=val[i];
+        freq[x]++;
+        max_freq=max(max_freq,freq[x]);
+        sum+=x;
     }
 
-    vector<ll> sol;
-    ll prev=0;
-    for(ll i=1;i<=n;i++){
-        auto it=v.upper_bound(-prev);
-        if(it != v.end()){
-            prev+=(*it);
-            sol.push_back(prev);
-            v.erase(it);    
-        }else{
-            cout<<-1<<endl;
-            return;
+    if(max_freq>(n+1)/2){
+        ll other_freq=n-max_freq;
+        ll max_val=-1;
+        for(auto it:freq){
+            if(it.ss==max_freq){
+                max_val=it.ff;
+                sum-=max_val*(max_freq);
+                break;
+            }
         }
-    }
 
-    for(auto s:sol){
-        cout<<s<<" ";
+        sum+=max_val*min(max_freq,other_freq+2);
+        cout<<sum<<endl;
+
+
+
+    }else{
+        cout<<sum<<endl;
     }
-    cout<<endl;
-        
 
 }
 int main(){
