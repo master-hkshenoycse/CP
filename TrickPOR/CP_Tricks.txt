@@ -481,3 +481,6 @@ A number can be represented as a sum of consecutive positive integers iff it is 
 
 20260713
 Left shift based sorting, ensire the consectaive elements are there in a subtree, i.e min-max+1== number of leaves.
+
+20260815
+https://leetcode.com/problems/incremental-even-weighted-cycle-queries/  :: DSU and maintaing XOr.
