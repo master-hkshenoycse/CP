@@ -490,3 +490,7 @@ https://leetcode.com/problems/lexicographically-maximum-mex-array/  --> select i
 https://leetcode.com/problems/maximum-number-of-items-from-sale-ii/description/ --> focus on min price, easier version knapsack dp.
 https://leetcode.com/problems/count-non-adjacent-subsets-in-a-rooted-tree/description/ --> Focus on mergeing the subtrees.two states are there, include the root, not include the root.
 https://leetcode.com/problems/maximum-path-intersection-sum-in-a-grid/description/ -->  Intersection path can be subarray of lnegth 2 either on row or column, single cell intersection not possible at edges 
+
+20260905
+https://leetcode.com/problems/maximum-sum-of-m-non-overlapping-subarrays-ii/  --> DP with a monotonic deque to choose disjoint subarrays of length [l, r].
+WQS / Alien trick: subtract a penalty p for every chosen subarray, then binary-search the penalty until the optimal solution uses at most m subarrays.
