@@ -30,22 +30,33 @@
 using namespace std;
 
 void solve(ll tc){
-    int n,k;
-    cin>>n>>k;
-    
-    string s;
-    cin>>s;
-    int ans=0;
-    for(ll i=0;i<n;i+=k){
-        int cnt=0;
-        for(int j=i;j<i+k;j++){
-            cnt+=(s[j]=='1');
-        }
-        ans=ans+(cnt==k);
-    }
-    cout<<ans<<endl;
-    
+    ll n;
+    cin>>n;
 
+    ll e;
+    map<pair<ll,ll>,ll> help;
+    for(ll i=0;i<n;i++){
+        cin>>e;
+
+        if(e%2==0){
+            ll ops_to_zero=e/2;
+            if(ops_to_zero%2==0){
+                help[{0,0}]++;
+                help[{1,2}]++;
+            }else{
+                help[{1,0}]++;
+                help[{0,2}]++;
+            }
+        }else{
+            help[{1,1}]++;
+            help[{0,1}]++;
+        }
+    }
+
+    ll ans=0;
+    for(auto it:help)
+        ans=max(ans,it.ss);
+    cout<<ans<<endl;
     
 
 }

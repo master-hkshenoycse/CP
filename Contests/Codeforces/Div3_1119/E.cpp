@@ -30,23 +30,68 @@
 using namespace std;
 
 void solve(ll tc){
-    int n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
+
+    vector<ll> b(n);
+    for(ll i=0;i<n;i++)
+        cin>>b[i];
     
-    string s;
-    cin>>s;
-    int ans=0;
-    for(ll i=0;i<n;i+=k){
-        int cnt=0;
-        for(int j=i;j<i+k;j++){
-            cnt+=(s[j]=='1');
+    set<ll> poss;
+    for(ll i=0;i<n;i++){
+        if(b[i] != -1){
+            if(i-b[i]>=0)
+                poss.insert(i-b[i]);
+            
+            if(i+b[i]<n)
+                poss.insert(i+b[i]);
         }
-        ans=ans+(cnt==k);
     }
-    cout<<ans<<endl;
+
+    set<ll> to_rem;
+    for(ll i=0;i<n;i++){
+        if(b[i] != -1){
+            auto it=poss.lower_bound(i);
+            if(it!=poss.end() && abs(*it-i) < b[i])
+                to_rem.insert(*it);
+
+            if(it!=poss.begin()){
+                it--;
+                if(abs(*it-i) < b[i])
+                    to_rem.insert(*it);
+            }
+        }
+    }
+
+    for(auto it:to_rem)
+        poss.erase(it);
     
+    for(int i=0;i<n;i++){
+        if(b[i]!=-1){
+            if(poss.find(i-b[i])==poss.end() && poss.find(i+b[i])==poss.end()){
+                cout<<-1<<endl;
+                return;
+            }
+        }
+    }
+
+    if(poss.size()==0)
+        poss.insert(0);
 
     
+    for(ll i=0;i<n;i++){
+        if(poss.find(i)==poss.end()){
+            cout<<0;
+        }else{
+            cout<<1;
+        }
+    }
+
+    cout<<endl;
+
+
+
+
 
 }
 int main(){

@@ -30,23 +30,38 @@
 using namespace std;
 
 void solve(ll tc){
-    int n,k;
-    cin>>n>>k;
-    
-    string s;
-    cin>>s;
-    int ans=0;
-    for(ll i=0;i<n;i+=k){
-        int cnt=0;
-        for(int j=i;j<i+k;j++){
-            cnt+=(s[j]=='1');
-        }
-        ans=ans+(cnt==k);
-    }
-    cout<<ans<<endl;
-    
+    ll n;
+    cin>>n;
 
-    
+    map<ll,vector<ll> > num_ind;
+    ll e;
+
+    for(ll i=0;i<n;i++){
+        cin>>e;
+        num_ind[e].pb(i);
+    }
+
+    string ret;
+    for(ll i=0;i<n;i++)
+        ret+='C';
+
+    if(num_ind.find(0) ==num_ind.end()){
+        cout<<"YES"<<endl;
+        for(ll i=0;i<n;i++)
+            cout<<"A";
+        cout<<endl;
+        return;
+    }else if(num_ind[0].size()==1){
+        cout<<"NO"<<endl;
+        return;
+    }else{
+        cout<<"YES"<<endl;
+        ret[num_ind[0][0]]='A';
+        for(ll i=1;i<num_ind[0].size();i++)
+            ret[num_ind[0][i]]='B';
+        cout<<ret<<endl;
+    }   
+
 
 }
 int main(){
