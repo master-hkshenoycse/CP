@@ -494,3 +494,7 @@ https://leetcode.com/problems/maximum-path-intersection-sum-in-a-grid/descriptio
 20260905
 https://leetcode.com/problems/maximum-sum-of-m-non-overlapping-subarrays-ii/  --> DP with a monotonic deque to choose disjoint subarrays of length [l, r].
 WQS / Alien trick: subtract a penalty p for every chosen subarray, then binary-search the penalty until the optimal solution uses at most m subarrays.
+
+202060909
+https://leetcode.com/problems/maximum-subarray-sum-after-at-most-k-swaps/ --> Keep track of top len+k elements in multiset(sum of these),we can select len of these elements
+where len is length of current subarray, Time complexity O(n^2 logn),  
