@@ -498,3 +498,6 @@ WQS / Alien trick: subtract a penalty p for every chosen subarray, then binary-s
 202060909
 https://leetcode.com/problems/maximum-subarray-sum-after-at-most-k-swaps/ --> Keep track of top len+k elements in multiset(sum of these),we can select len of these elements
 where len is length of current subarray, Time complexity O(n^2 logn),  
+
+20260910
+https://leetcode.com/problems/maximum-subarray-sum-after-multiplier/  --> kadane algo with modofoed state maintain
