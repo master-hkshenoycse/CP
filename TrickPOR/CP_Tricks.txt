@@ -501,3 +501,6 @@ where len is length of current subarray, Time complexity O(n^2 logn),
 
 20260910
 https://leetcode.com/problems/maximum-subarray-sum-after-multiplier/  --> kadane algo with modofoed state maintain
+
+20260922
+https://leetcode.com/problems/peaks-in-array-ii/ - Segment tree keep track of first b-peak, last peak and bad subarrys i.e subarray between peaks
