@@ -511,3 +511,10 @@ https://leetcode.com/problems/elevator-requests-ii/ --> Interval DP.
 20261002
 https://leetcode.com/problems/number-of-intersecting-interval-pairs-i/ --> Sort by start points and keep track of endpoints ending in priority queue, pop the end points 
 ending before starting ponut
+
+https://www.geeksforgeeks.org/problems/lexicographically-smallest-string--151951  --> Booths algo, compare (i,j)  i<j, 
+ignore the equal characters then if s[i+k]>s[i+j],then all the starts like (i+1,i+2,i+k-1) can't beat j start 
+so next candidate starts at i+k+1.
+
+https://leetcode.com/problems/lexicographically-largest-power-array --> Greedy recursive, for every bit dvide into
+into set  Unset
