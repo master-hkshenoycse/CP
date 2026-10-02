@@ -507,3 +507,7 @@ https://leetcode.com/problems/peaks-in-array-ii/ - Segment tree keep track of fi
 
 20260924
 https://leetcode.com/problems/elevator-requests-ii/ --> Interval DP.
+
+20261002
+https://leetcode.com/problems/number-of-intersecting-interval-pairs-i/ --> Sort by start points and keep track of endpoints ending in priority queue, pop the end points 
+ending before starting ponut
