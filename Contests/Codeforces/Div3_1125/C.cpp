@@ -28,19 +28,7 @@
 #define fre freopen("rental.in","r",stdin),freopen("rental.out","w",stdout)
 #define arr array 
 using namespace std;
-ll get_cnt(vector<ll> &v){
-    set<ll> c;
-    ll ret=0;
-    for(ll i=0;i<v.size();i++){
-        ret=ret+i;
-        if(c.find(v[i]-2) != c.end())
-            ret--;
-        if(c.find(v[i]-4) != c.end())
-            ret--;
-        c.insert(v[i]);
-    }
-    return ret;
-}
+
 void solve(ll tc){
     ll n;
     cin>>n;
@@ -49,28 +37,19 @@ void solve(ll tc){
     for(ll i=0;i<n;i++)
         cin>>a[i];
     
-    map<ll,vector<ll> > help;
-    for(ll i=0;i<n;i++){
-        if(i+2<n && i+4<n)
-            help[a[i]+a[i+2]-a[i+4]].pb(i);
-    }
-
+    vector<ll> f(n);
+    map<ll,ll> cnt;
     ll ans=0;
-
-    for(auto it:help){
-        vector<ll> od_ind,ev_ind;
-        for(auto ind:it.ss){
-            if(ind%2==0){
-                ev_ind.pb(ind);
-            }else{  
-                od_ind.pb(ind);
-            }
+    for(ll i=0;i<n;i++){
+        if(i+2<n && i+4<n){
+            f[i]=a[i]+a[i+2]-a[i+4];
+            ans=ans+cnt[f[i]];
+            if(i-2>=0 && f[i-2]==f[i])
+                ans--;
+            if(i-4>=0 && f[i-4]==f[i])
+                ans--;
+            cnt[f[i]]++;
         }
-
-        ans=ans+(od_ind.size())*(ev_ind.size());
-
-        ans=ans+get_cnt(od_ind);
-        ans=ans+get_cnt(ev_ind);
     }
 
     cout<<ans<<endl;
