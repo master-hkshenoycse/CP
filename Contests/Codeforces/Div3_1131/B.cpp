@@ -38,16 +38,12 @@ void solve(ll tc){
     if(mx==x){
         for(int i=0;i<x+y+z;i++)
             cout<<"P";
-    }
-
-    if(mx==y){
+    }else if(mx==y){
         for(int i=0;i<x+y+z;i++)
             cout<<"R";
-    }
-
-    if(mx==z){
+    }else if(mx==z){
         for(int i=0;i<x+y+z;i++)
-            cout<<"S";
+            cout<<"S";\
     }
 
     cout<<endl;
