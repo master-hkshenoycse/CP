@@ -46,18 +46,22 @@ void solve(ll tc){
 
     if(cnt_1==n){
         cout<<-1<<endl;
-    }else if(cnt_1==n-1){
-        if(v[0]>1 || v[n-1]>1){
-            cout<<sum-2<<endl;
+    }else if(cnt_1 == n-1){
+        if(v[0]>1 ||  v[n-1]>1){
+            cout<<sum-(n-1)<<endl;
         }else{
             cout<<sum-1<<endl;
         }
-    }else if(cnt_1==n-2){
-        if(v[0]>1 && v[n-1])
+    }else if(cnt_1 == n-2){
+        if(v[0]>1 && v[n-1]>1){
+            cout<<v[0]+v[n-1]-1<<endl;
+        }else{
+            cout<<sum-1<<endl;
+        }
     }else{
         cout<<sum-1<<endl;
     }
-        
+  
 }
 int main(){
     boost;
