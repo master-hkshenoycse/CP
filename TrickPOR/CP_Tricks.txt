@@ -518,3 +518,9 @@ so next candidate starts at i+k+1.
 
 https://leetcode.com/problems/lexicographically-largest-power-array --> Greedy recursive, for every bit dvide into
 into set  Unset
+
+20261109
+https://leetcode.com/problems/find-servers-that-handled-most-number-of-requests/description : Keep track of busy servers using heap and 
+round robin index using set
+
+https://leetcode.com/problems/process-tasks-using-servers/description: Keep track of free and busy servers using min heap.
